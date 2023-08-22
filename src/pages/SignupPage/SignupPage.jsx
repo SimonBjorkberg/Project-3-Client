@@ -6,19 +6,19 @@ import authService from "../../services/auth.service";
 function SignupPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
   const [errorMessage, setErrorMessage] = useState(undefined);
 
   const navigate = useNavigate();
 
   const handleEmail = (e) => setEmail(e.target.value);
   const handlePassword = (e) => setPassword(e.target.value);
-  const handleName = (e) => setName(e.target.value);
+  const handleUsername = (e) => setUsername(e.target.value);
 
   const handleSignupSubmit = (e) => {
     e.preventDefault();
     // Create an object representing the request body
-    const requestBody = { email, password, username: name };
+    const requestBody = { email, password, username };
 
     // Send a request to the server using axios
     /* 
@@ -72,7 +72,7 @@ function SignupPage() {
         />
 
         <label>Name</label>
-        <input className="p-2 rounded-md border border-neutral-400" type="text" name="name" value={name} onChange={handleName} />
+        <input className="p-2 rounded-md border border-neutral-400" type="text" name="name" value={username} onChange={handleUsername} />
 
         <button className="w-1/2 bg-teal-600 mx-auto py-2 rounded-sm hover:bg-teal-500 mt-4" type="submit">Sign Up</button>
       </form>
