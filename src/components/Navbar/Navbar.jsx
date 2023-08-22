@@ -9,36 +9,46 @@ function Navbar() {
   const { isLoggedIn, user, logOutUser } = useContext(AuthContext);
 
   return (
-    <nav>
-      <Link to="/">
-        <button>Home</button>
-      </Link>
+    <nav className="flex justify-between bg-teal-600 p-5">
+      <div>
+        <Link to="/">
+          <button className="bg-white px-4 py-2">Home</button>
+        </Link>
+      </div>
 
-      {isLoggedIn && (
-        <>
-          <button onClick={logOutUser}>Logout</button>
+      <div>
+        {isLoggedIn && (
+          <div className="flex">
+            <button
+              className="mr-5 bg-red-900 text-white px-4 py-2"
+              onClick={logOutUser}
+            >
+              Logout
+            </button>
 
-          <Link to="/profile">
-            <button>Profile</button>
-            {/* <img src="https://picsum.photos/id/402/200/300" style={{ width: 50, height: 50, borderRadius: 25}} alt="profile" /> */}
-          </Link>
+            <Link to="/profile">
+              <img
+                src="https://picsum.photos/id/402/200/300"
+                style={{ width: 40, height: 40, borderRadius: 25 }}
+                alt="profile"
+              />
+            </Link>
+          </div>
+        )}
 
-          <span>{user && user.name}</span>
-        </>
-      )}
-
-      {!isLoggedIn && (
-        <>
-          <Link to="/signup">
-            {" "}
-            <button>Sign Up</button>{" "}
-          </Link>
-          <Link to="/login">
-            {" "}
-            <button>Login</button>{" "}
-          </Link>
-        </>
-      )}
+        {!isLoggedIn && (
+          <>
+            <Link to="/signup">
+              {" "}
+              <button className="bg-white px-4 py-2">Sign Up</button>{" "}
+            </Link>
+            <Link to="/login">
+              {" "}
+              <button className="bg-white px-4 py-2">Login</button>{" "}
+            </Link>
+          </>
+        )}
+      </div>
     </nav>
   );
 }
