@@ -18,7 +18,7 @@ function SignupPage() {
   const handleSignupSubmit = (e) => {
     e.preventDefault();
     // Create an object representing the request body
-    const requestBody = { email, password, name };
+    const requestBody = { email, password, username: name };
 
     // Send a request to the server using axios
     /* 
