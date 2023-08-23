@@ -2,6 +2,7 @@ import "./Navbar.css";
 import { Link } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/auth.context";
+import { ReactComponent as Logo } from "../../logo.svg";
 
 function Navbar() {
   // Subscribe to the AuthContext to gain access to
@@ -9,11 +10,12 @@ function Navbar() {
   const { isLoggedIn, user, logOutUser } = useContext(AuthContext);
   const [menuOpen, setMenuOpen] = useState(false);
   const toggleMenu = () => setMenuOpen(!menuOpen);
+  const [searchValue, setSearchValue] = useState("");
 
   const subMenuProducts = () => {
     return (
       <li>
-        <Link to="#" className="text-white hover:text-gray-300">
+        <Link to="/products" className="text-white hover:text-gray-300">
           products
         </Link>
       </li>
@@ -38,11 +40,18 @@ function Navbar() {
 
   const subMenuLogOut = () => {
     return (
-      <li>
-        <Link to="#" className="text-white hover:text-gray-300">
-          logout
-        </Link>
-      </li>
+      <>
+        <li>
+          <Link to="#" className="text-white hover:text-gray-300">
+            logout
+          </Link>
+        </li>
+        <li>
+          <Logo className="all-width-burger-menu max-height-image">
+            <Link to="/user" />
+          </Logo>
+        </li>
+      </>
     );
   };
 
@@ -52,6 +61,18 @@ function Navbar() {
         <div className="text-white font-semibold text-lg">
           <Link to="/">Logo</Link>
         </div>
+        <form className="flex row gap-px">
+          <input
+            type="text"
+            placeholder="What do you need?"
+            className="input w-full max-w-xs search-bar-height"
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+          />
+          <button type="submit" className="text-white font-semibold text-lg">
+            <Link to={`/products?search=${searchValue}`}>Search</Link>
+          </button>
+        </form>
         <ul className="hidden md:flex space-x-4 md:space-x-8">
           {subMenuProducts()}
           {!isLoggedIn ? subMenuLogAndSign() : subMenuLogOut()}
@@ -59,7 +80,7 @@ function Navbar() {
         <div className="flex flex-col items-center space-x-4 md:hidden">
           <button
             id="menu-toggle"
-            className="text-white flex justify-end button-center"
+            className="text-white flex justify-end all-width-burger-menu"
             onClick={toggleMenu}
           >
             {menuOpen ? (
