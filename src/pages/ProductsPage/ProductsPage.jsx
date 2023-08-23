@@ -2,6 +2,7 @@ import "./ProductsPage.css";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../context/auth.context";
+import ProductCard from "../../components/ProductCard/ProductCard";
 
 function ProductsPage() {
 
@@ -10,6 +11,16 @@ function ProductsPage() {
   return (
     <div>
       <h1>Products page</h1>
+      <div className="flex gap-3 flex-wrap">
+      <ProductCard ></ProductCard>
+      <ProductCard></ProductCard>
+      <ProductCard></ProductCard>
+      <ProductCard></ProductCard>
+      <ProductCard></ProductCard>
+      <ProductCard></ProductCard>
+      <ProductCard></ProductCard>
+      </div>
+      
 
       {isLoggedIn && (
         <div>
