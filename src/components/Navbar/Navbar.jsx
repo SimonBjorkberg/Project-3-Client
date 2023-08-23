@@ -14,6 +14,9 @@ function Navbar() {
         <Link to="/">
           <button className="bg-white px-4 py-2">Home</button>
         </Link>
+        <Link to="/products">
+          <button className="bg-white px-4 py-2">Products</button>
+        </Link>
       </div>
 
       <div>
