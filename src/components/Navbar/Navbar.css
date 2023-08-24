@@ -1,7 +1,19 @@
-.button-center {
+.all-width-burger-menu {
   min-width: 64.177px;
 }
 
 .menu-open {
   margin-left: 0 !important;
+}
+
+.max-height-image {
+  max-height: 28px;
+}
+
+.search-bar-height {
+  height: 28px;
+}
+
+.min-w {
+  min-width: 4rem;
 }

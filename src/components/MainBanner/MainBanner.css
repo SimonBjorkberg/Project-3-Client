@@ -1,0 +1,43 @@
+.banner-container {
+  width: 100%;
+  max-height: 70vh;
+  overflow: hidden;
+}
+
+.banner-image {
+  width: 100%; /* Remplit la largeur du conteneur */
+  height: auto; /* Ajuste automatiquement la hauteur en fonction de la largeur */
+  object-fit: cover; /* Redimensionne tout en conservant le ratio d'aspect */
+}
+
+.hero-block__overlay {
+  position: absolute;
+  left: 0;
+  bottom: -11px;
+  right: -100px;
+  height: 20%;
+  background-image: url(https://static.vinted.com/assets/hero-block/tear-d431548c90905ad757632e4c3075d9473e38c7c6642721efeae9413afb9387a2.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+@media screen and (min-width: 768px) {
+  .width-tablette {
+    width: 50%;
+  }
+  .align-items-center-tablette {
+    align-items: center;
+  }
+  .left-desktop {
+    flex-direction: row;
+    width: 50%;
+  }
+  .absolute-desktop {
+    position: absolute;
+  }
+  .top-desktop {
+    top: 15vh;
+    left: 10vw;
+  }
+}
