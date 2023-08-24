@@ -58,10 +58,10 @@ function Navbar() {
   return (
     <nav className="bg-gray-800 p-4">
       <div className="container mx-auto flex justify-between">
-        <div className="text-white font-semibold text-lg">
+        <div className="text-white font-semibold text-lg min-w">
           <Link to="/">Logo</Link>
         </div>
-        <form className="flex row gap-px">
+        <form className="flex row gap-4">
           <input
             type="text"
             placeholder="What do you need?"

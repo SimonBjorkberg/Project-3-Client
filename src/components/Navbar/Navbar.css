@@ -13,3 +13,7 @@
 .search-bar-height {
   height: 28px;
 }
+
+.min-w {
+  min-width: 4rem;
+}
