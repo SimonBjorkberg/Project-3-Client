@@ -1,19 +1,32 @@
 import "./ProductCard.css";
+import b4 from "../../b4.webp";
+import { Link } from "react-router-dom";
 
-const ProductCard = () => {
+function ProductCard() {
   return (
-    <div className="flex flex-col items-center border-4 px-5 border-teal-600 rounded max-w-xs ">
-        <h5 className="my-3">Title</h5>
-        <img src="https://images.unsplash.com/photo-1622290319146-7b63df48a635?ixlib=rb-4.0.3&ixid
-        =M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=772&q=80" className="w-1/5 rounded-md"></img>
-        <p className="my-3">19,99 $</p>
-        <div className="flex gap-2"> 
-            <button className="border-4 px-5 border-teal-600 rounded">See More</button>
-            <button className="border-4 px-5 border-teal-600 rounded">Add to Cart</button>
+    <div className="card w-96 bg-base-100 shadow-xl mb-8 min-w-200">
+      <figure>
+        <Link to="/products?productId">
+          <img src={b4} alt="Shoes" />
+        </Link>
+      </figure>
+      <div className="card-body">
+        <div className="flex flex-col items-start">
+          <h3 className="card-title">
+            120$<div className="badge badge-secondary">NEW</div>
+          </h3>
+          <p>Brand: Nike</p>
+          <p>18 months</p>
         </div>
-        <p className="mt-3 justify-end ">Sold by: Diogo</p>
+        <div className="card-actions justify-center">
+          <div className="badge badge-outline">Category 1</div>
+          <div className="badge badge-outline">Category 2</div>
+          <p>Sold by: Name</p>
+          <button className="btn btn-primary">Add to Cart</button>
         </div>
+      </div>
+    </div>
   );
-};
+}
 
 export default ProductCard;
