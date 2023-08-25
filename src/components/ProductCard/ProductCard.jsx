@@ -1,13 +1,13 @@
 import "./ProductCard.css";
-import b4 from "../../b4.webp";
 import { Link } from "react-router-dom";
+import example from "../../baby-clothes.jpg"
 
 function ProductCard() {
   return (
-    <div className="card w-96 bg-base-100 shadow-xl mb-8 min-w-200">
+    <div className="card w-96 bg-base-100 shadow-xl my-8 min-w-200">
       <figure>
         <Link to="/products?productId">
-          <img src={b4} alt="Shoes" />
+          <img src={example} alt="Shoes" />
         </Link>
       </figure>
       <div className="card-body">
