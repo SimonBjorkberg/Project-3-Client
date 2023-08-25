@@ -42,14 +42,14 @@ function Navbar() {
     return (
       <>
         <li>
-          <Link to="#" className="text-white hover:text-gray-300">
+          <Link onClick={logOutUser} className="text-white hover:text-gray-300">
             logout
           </Link>
         </li>
         <li>
-          <Logo className="all-width-burger-menu max-height-image">
-            <Link to="/user" />
-          </Logo>
+          <Link to="/profile">
+            <Logo className="all-width-burger-menu max-height-image" />
+          </Link>
         </li>
       </>
     );
