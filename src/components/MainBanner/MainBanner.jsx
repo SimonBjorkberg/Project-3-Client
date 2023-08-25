@@ -11,7 +11,7 @@ function MainBanner() {
             alt="banner"
             className="banner-image"
           />
-          <div class="hero-block__overlay"></div>
+          <div className="hero-block__overlay"></div>
         </div>
         <div className="card bg-base-100 shadow-xl  width-tablette align-items-center-tablette top-desktop">
           <div className="card-body">
