@@ -2,6 +2,7 @@ import "./SignupPage.css";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import authService from "../../services/auth.service";
+import axios from "axios";
 
 function SignupPage() {
   const [email, setEmail] = useState("");
@@ -21,15 +22,20 @@ function SignupPage() {
     const requestBody = { email, password, username };
 
     // Send a request to the server using axios
-    /* 
+
     const authToken = localStorage.getItem("authToken");
-    axios.post(
-      `${process.env.REACT_APP_SERVER_URL}/auth/signup`, 
-      requestBody, 
-      { headers: { Authorization: `Bearer ${authToken}` },
-    })
-    .then((response) => {})
-    */
+    // axios
+    //   .post(`${process.env.REACT_APP_SERVER_URL}/auth/signup`, requestBody, {
+    //     headers: { Authorization: `Bearer ${authToken}` },
+    //   })
+    //   .then((response) => {
+    //     console.log(response);
+    //   })
+    //   .catch((error) => {
+    //     // If the request resolves with an error, set the error message in the state
+    //     const errorDescription = error.response.data.message;
+    //     setErrorMessage(errorDescription);
+    //   });
 
     // Or using a service
     authService
@@ -72,15 +78,25 @@ function SignupPage() {
         />
 
         <label>Name</label>
-        <input className="p-2 rounded-md border border-neutral-400" type="text" name="name" value={username} onChange={handleUsername} />
+        <input
+          className="p-2 rounded-md border border-neutral-400"
+          type="text"
+          name="name"
+          value={username}
+          onChange={handleUsername}
+        />
 
-        <button className="w-1/2 bg-teal-600 mx-auto py-2 rounded-sm hover:bg-teal-500 mt-4" type="submit">Sign Up</button>
+        <button className="btn btn-primary mt-6" type="submit">
+          Sign Up
+        </button>
       </form>
 
       {errorMessage && <p className="error-message">{errorMessage}</p>}
 
       <p className="my-4">Already have account?</p>
-      <Link className="bg-teal-600 py-2 px-4 hover:bg-teal-500" to={"/login"}>Login</Link>
+      <Link className="btn btn-primary" to={"/login"}>
+        Login
+      </Link>
     </div>
   );
 }

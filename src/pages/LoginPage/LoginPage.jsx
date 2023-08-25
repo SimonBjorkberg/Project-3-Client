@@ -70,12 +70,17 @@ function LoginPage() {
           onChange={handlePassword}
         />
 
-        <button className="w-1/2 bg-teal-600 mx-auto py-2 rounded-sm hover:bg-teal-500 mt-4"  type="submit">Login</button>
+        <button className="btn btn-primary mt-6" type="submit">
+          Login
+        </button>
       </form>
       {errorMessage && <p className="error-message">{errorMessage}</p>}
 
       <p className="my-4">Don't have an account yet?</p>
-      <Link className="bg-teal-600 py-2 px-4 hover:bg-teal-500" to={"/signup"}> Sign Up</Link>
+      <Link className="btn btn-primary" to={"/signup"}>
+        {" "}
+        Sign Up
+      </Link>
     </div>
   );
 }
