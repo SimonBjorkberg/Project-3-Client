@@ -48,7 +48,7 @@ function ProfilePage() {
                     <p>
                       categories:{" "}
                       {product.categories.map((category) => {
-                        <span>{category.type}</span>;
+                       return <span>{category.type}</span>;
                       })}
                     </p>
                   </div>
