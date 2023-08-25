@@ -1,21 +1,22 @@
 import "./ProfilePage.css";
 import profileService from "../../services/profile.service";
 import { useState, useEffect } from "react";
-import { useContext } from "react";
-import { AuthContext } from "../../context/auth.context.jsx";
+import { useParams } from "react-router-dom";
+import { v4 as uuidv4 } from 'uuid'
+import EditProfile from "../../components/EditProfile/EditProfile";
 
 function ProfilePage() {
-  const [userData, setUserData] = useState(null);
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const { user } = useContext(AuthContext);
+  const { userId } = useParams()
 
   useEffect(() => {
-    profileService.getOne(user._id)
+    profileService.getOne(userId)
     .then((response) => {
-      setUserData(response.data.user)
+      setUser(response.data.user)
       setLoading(false)
     });
-  }, [user._id]);
+  }, [userId]);
 
   return (
     <>
@@ -24,11 +25,11 @@ function ProfilePage() {
       ) : (
         <>
           <h1>Profile page</h1>
-          <h2>Username: {`${userData.username}`}</h2>
-          <p>Email registred: {`${userData.email}`}</p>
+          <h2>Username: {`${user.username}`}</h2>
+          <p>Email registred: {`${user.email}`}</p>
           <h3>Reviews:</h3>
-          {userData.reviews
-            ? userData.reviews.map((review) => {
+          {user.reviews
+            ? user.reviews.map((review) => {
                 return (
                   <div key={review._id}>
                     <p>review: {review.review}</p>
@@ -38,8 +39,8 @@ function ProfilePage() {
               })
             : "no reviews so far"}
           <h3>Products:</h3>
-          {userData.products
-            ? userData.products.map((product) => {
+          {user.products
+            ? user.products.map((product) => {
                 return (
                   <div key={product._id}>
                     <p>product: {product.description}</p>
@@ -48,7 +49,7 @@ function ProfilePage() {
                     <p>
                       categories:{" "}
                       {product.categories.map((category) => {
-                       return <span>{category.type}</span>;
+                       return <span key={uuidv4()}>{category.type}</span>;
                       })}
                     </p>
                   </div>
@@ -57,6 +58,9 @@ function ProfilePage() {
             : "no products added"}
         </>
       )}
+
+      {!loading && <EditProfile user={user} setUser={setUser} />}
+
     </>
   );
 }
