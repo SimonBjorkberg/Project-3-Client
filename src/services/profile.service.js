@@ -18,6 +18,9 @@ class ProfileService {
   getOne = async (userId) => {
     return this.api.get(`/profile/${userId}`)
   }
+  edit = async (userId, requestBody) => {
+    return this.api.put(`/profile/edit/${userId}`, requestBody)
+  }
 }
 
 const profileService = new ProfileService();
