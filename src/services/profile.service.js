@@ -1,14 +1,11 @@
 import axios from "axios";
 
-class ProjectService {
+class ProfileService {
   constructor() {
     this.api = axios.create({
       baseURL: "http://localhost:5005",
     });
-
-    // Automatically set JWT token on the request headers for every request
     this.api.interceptors.request.use((config) => {
-      // Retrieve the JWT token from the local storage
       const storedToken = localStorage.getItem("authToken");
 
       if (storedToken) {
@@ -18,15 +15,14 @@ class ProjectService {
       return config;
     });
   }
-
-  create = (requestBody) => {
-    return this.api.post("/product/create", requestBody);
-    
-  };
-
+  getOne = async (userId) => {
+    return this.api.get(`/profile/${userId}`)
+  }
+  edit = async (userId, requestBody) => {
+    return this.api.put(`/profile/edit/${userId}`, requestBody)
+  }
 }
 
-// Create one instance (object) of the service
-const projectService = new ProjectService();
+const profileService = new ProfileService();
 
-export default projectService;
+export default profileService;
