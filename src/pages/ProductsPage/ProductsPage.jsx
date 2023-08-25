@@ -4,7 +4,6 @@ import { useContext } from "react";
 import { AuthContext } from "../../context/auth.context";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import PreferredCategories from "../../components/PreferredCategories/PreferredCategories";
-import Footer from "../../components/Footer/Footer";
 
 function ProductsPage() {
 
@@ -30,7 +29,6 @@ function ProductsPage() {
         </div>
       )}
 
-      <Footer></Footer>
     </div>
   );
 }
