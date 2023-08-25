@@ -7,15 +7,13 @@ import SignupPage from "./pages/SignupPage/SignupPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import ProductsPage from "./pages/ProductsPage/ProductsPage";
 import SellPage from "./pages/SellPage/SellPage";
-
 import Navbar from "./components/Navbar/Navbar";
 import IsPrivate from "./components/IsPrivate/IsPrivate";
 import IsAnon from "./components/IsAnon/IsAnon";
 
-
 function App() {
   return (
-    <div className="App">
+    <div className="App bg-white">
       <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
@@ -46,8 +44,8 @@ function App() {
               <LoginPage />
             </IsAnon>
           }
-          />
-          <Route
+        />
+        <Route
           path="/sell"
           element={
             <IsPrivate>
