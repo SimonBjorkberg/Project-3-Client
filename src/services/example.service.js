@@ -42,7 +42,7 @@ class ExampleService {
   // DELETE /api/examples/:id
   deleteProject = async (id) => {
     return this.api.delete(`/api/examples/${id}`);
-  } 
+  }
 
 
 }

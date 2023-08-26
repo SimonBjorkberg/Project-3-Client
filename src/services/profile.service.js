@@ -21,6 +21,9 @@ class ProfileService {
   edit = async (userId, requestBody) => {
     return this.api.put(`/profile/edit/${userId}`, requestBody)
   }
+  uploadImage = async (image) => {
+    return this.api.post(`/api/upload`, image)
+  }
 }
 
 const profileService = new ProfileService();

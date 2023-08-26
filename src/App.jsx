@@ -25,7 +25,7 @@ function App() {
         <Route path="/product-details" element={<ProductDetailsPage />} />
 
         <Route
-          path="/profile"
+          path="/profile/:userId"
           element={
             <IsPrivate>
               <ProfilePage />
