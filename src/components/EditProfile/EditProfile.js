@@ -1,4 +1,3 @@
-import { useState } from "react";
 import EditAvatar from "../EditAvatar/EditAvatar";
 
 const EditProfile = ({ user, setUser, setMessage }) => {

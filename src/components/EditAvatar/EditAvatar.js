@@ -1,6 +1,6 @@
 import { useState } from "react";
 import profileService from "../../services/profile.service";
-import scrollToTop from "../../ScrollToTop";
+import scrollToTop from "../../utils/ScrollToTop";
 
 const EditAvatar = ({ user, setUser, setMessage }) => {
   const [image, setImage] = useState();
