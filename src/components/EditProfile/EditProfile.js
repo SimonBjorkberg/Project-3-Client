@@ -29,6 +29,9 @@ const EditProfile = ({ user, setUser }) => {
   const changeEdit = () => {
     setEdit(true)
   }
+
+  console.log(user)
+
   return (
     <div className="edit-profile mt-20 bg-neutral p-40">
       <div className="mx-auto w-full">
@@ -39,23 +42,6 @@ const EditProfile = ({ user, setUser }) => {
           alt="PP"
         />
       </div>
-
-      {!edit && <button onClick={changeEdit}>Edit Profile</button>}
-      {edit && (
-        <form
-          className="flex flex-col w-[400px] mx-auto"
-        >
-          <input
-            value={username}
-            name="username"
-            className="p-2 rounded-md"
-            type="text"
-            onChange={appendImage}
-          />
-          <input type="file" name="image" />
-          <button>Edit Profile</button>
-        </form>
-      )}
     </div>
   );
 };
