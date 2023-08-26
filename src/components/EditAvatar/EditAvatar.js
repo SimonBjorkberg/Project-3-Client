@@ -11,6 +11,17 @@ const EditAvatar = ({ user, setUser, setMessage }) => {
     setImage(formData);
   };
 
+  const handleModalOpen = () => {
+    const modal = document.getElementById("my_modal_3");
+    modal.showModal(); // Use showModal() method to open the modal
+  };
+
+  const handleModalClose = () => {
+    const modal = document.getElementById("my_modal_3");
+    modal.close(); // Use close() method to close the modal
+    scrollToTop();
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await profileService.uploadImage(image);
@@ -25,7 +36,7 @@ const EditAvatar = ({ user, setUser, setMessage }) => {
 
   return (
     <div>
-      <button className="btn" onClick={() => window.my_modal_3.showModal()}>
+      <button className="btn" onClick={handleModalOpen}>
         Edit Avatar
       </button>
       <dialog id="my_modal_3" className="modal">
@@ -47,10 +58,7 @@ const EditAvatar = ({ user, setUser, setMessage }) => {
               onChange={appendImage}
             />
             <button
-              onClick={() => {
-                window.my_modal_3.close();
-                scrollToTop();
-              }}
+              onClick={handleModalClose}
               className="bg-neutral w-1/2 mx-auto p-2 text-white mt-2 mb-10"
             >
               Change Picture
