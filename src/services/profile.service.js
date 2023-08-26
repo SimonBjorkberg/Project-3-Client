@@ -19,7 +19,10 @@ class ProfileService {
     return this.api.get(`/profile/${userId}`)
   }
   edit = async (userId, requestBody) => {
-    return this.api.put(`/profile/edit/${userId}`, requestBody)
+    return this.api.put(`/profile/edit/${userId}`, { requestBody })
+  }
+  editImage = async(userId, image) => {
+    return this.api.put(`/profile/edit/${userId}/image`,  { image })
   }
   uploadImage = async (image) => {
     return this.api.post(`/api/upload`, image)
