@@ -77,7 +77,7 @@ function LoginPage() {
       {errorMessage && <p className="error-message">{errorMessage}</p>}
 
       <p className="my-4">Don't have an account yet?</p>
-      <Link className="btn btn-primary" to={"/signup"}>
+      <Link className="btn btn-primary mb-8" to={"/signup"}>
         {" "}
         Sign Up
       </Link>
