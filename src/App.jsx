@@ -15,7 +15,7 @@ import IsAnon from "./components/IsAnon/IsAnon";
 
 function App() {
   return (
-    <div className="App bg-white">
+    <div className="App" data-theme="light">
       <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
