@@ -2,7 +2,6 @@ import "./SignupPage.css";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import authService from "../../services/auth.service";
-import axios from "axios";
 
 function SignupPage() {
   const [email, setEmail] = useState("");
@@ -21,23 +20,7 @@ function SignupPage() {
     // Create an object representing the request body
     const requestBody = { email, password, username };
 
-    // Send a request to the server using axios
-
-    const authToken = localStorage.getItem("authToken");
-    // axios
-    //   .post(`${process.env.REACT_APP_SERVER_URL}/auth/signup`, requestBody, {
-    //     headers: { Authorization: `Bearer ${authToken}` },
-    //   })
-    //   .then((response) => {
-    //     console.log(response);
-    //   })
-    //   .catch((error) => {
-    //     // If the request resolves with an error, set the error message in the state
-    //     const errorDescription = error.response.data.message;
-    //     setErrorMessage(errorDescription);
-    //   });
-
-    // Or using a service
+    // using a service
     authService
       .signup(requestBody)
       .then((response) => {
