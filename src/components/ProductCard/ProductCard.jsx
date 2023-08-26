@@ -1,6 +1,8 @@
 import "./ProductCard.css";
 import { Link } from "react-router-dom";
 import example from "../../baby-clothes.jpg"
+import LikeButton from "../LikeButton/LikeButton";
+
 
 function ProductCard() {
   return (
@@ -24,7 +26,10 @@ function ProductCard() {
           <p>Sold by: Name</p>
           <div class="flex ">
           <button className="btn btn-primary">Add to Cart</button>
-        </div>
+          </div>
+          <div className="absolute top-3 right-3">
+            <LikeButton/>
+          </div>
         </div>
       </div>
     </div>
