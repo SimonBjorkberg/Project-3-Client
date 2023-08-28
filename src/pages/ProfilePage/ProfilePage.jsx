@@ -51,14 +51,14 @@ function ProfilePage() {
   useEffect(() => {
     if (message) {
       const timeout = setTimeout(() => {
-        setMessage(false)
+        setMessage(false);
       }, 3000);
 
       return () => {
-        clearTimeout(timeout)
-      }
+        clearTimeout(timeout);
+      };
     }
-  }, [message])
+  }, [message]);
 
   return (
     <>
@@ -96,7 +96,11 @@ function ProfilePage() {
               <p>Email registred: {`${user.email}`}</p>
               <div className="gap-4">
                 {modalModule("edit Profil", 1)}
-                <EditAvatar user={user} setUser={setUser} setMessage={setMessage} />
+                <EditAvatar
+                  user={user}
+                  setUser={setUser}
+                  setMessage={setMessage}
+                />
               </div>
             </div>
           </main>
