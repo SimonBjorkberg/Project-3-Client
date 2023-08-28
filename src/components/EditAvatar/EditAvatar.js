@@ -12,12 +12,12 @@ const EditAvatar = ({ user, setUser, setMessage }) => {
   };
 
   const handleModalOpen = () => {
-    const modal = document.getElementById("my_modal_3");
+    const modal = document.getElementById("edit-avatar");
     modal.showModal(); // Use showModal() method to open the modal
   };
 
   const handleModalClose = () => {
-    const modal = document.getElementById("my_modal_3");
+    const modal = document.getElementById("edit-avatar");
     modal.close(); // Use close() method to close the modal
     scrollToTop();
   };
@@ -39,7 +39,7 @@ const EditAvatar = ({ user, setUser, setMessage }) => {
       <button className="btn" onClick={handleModalOpen}>
         Edit Avatar
       </button>
-      <dialog id="my_modal_3" className="modal">
+      <dialog id="edit-avatar" className="modal">
         <div className="modal-box">
           <form method="dialog">
             <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">

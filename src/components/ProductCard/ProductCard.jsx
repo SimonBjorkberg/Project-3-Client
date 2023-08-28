@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import example from "../../baby-clothes.jpg"
 import LikeButton from "../LikeButton/LikeButton";
 
-
 function ProductCard() {
   return (
     <div className="card w-96 bg-base-100 shadow-xl my-8 min-w-200">
