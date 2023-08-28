@@ -42,6 +42,6 @@ class ProductService {
 }
 
 // Create one instance (object) of the service
-const projectService = new ProductService();
+const productService = new ProductService();
 
-export default projectService;
+export default productService;
