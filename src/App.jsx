@@ -12,6 +12,7 @@ import Footer from "./components/Footer/Footer";
 import Navbar from "./components/Navbar/Navbar";
 import IsPrivate from "./components/IsPrivate/IsPrivate";
 import IsAnon from "./components/IsAnon/IsAnon";
+import ChatPage from "./pages/ChatPage";
 
 function App() {
   return (
@@ -31,6 +32,11 @@ function App() {
               <ProfilePage />
             </IsPrivate>
           }
+        />
+
+        <Route 
+          path="/chat"
+          element={<ChatPage />}
         />
 
         <Route
