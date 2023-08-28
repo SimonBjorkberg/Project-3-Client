@@ -1,6 +1,7 @@
 import "./ProductCard.css";
 import { Link } from "react-router-dom";
-import example from "../../baby-clothes.jpg";
+import example from "../../baby-clothes.jpg"
+import LikeButton from "../LikeButton/LikeButton";
 
 function ProductCard() {
   return (
@@ -22,8 +23,11 @@ function ProductCard() {
           <div className="badge badge-outline">Category 1</div>
           <div className="badge badge-outline">Category 2</div>
           <p>Sold by: Name</p>
-          <div className="flex ">
-            <button className="btn btn-primary">Add to Cart</button>
+          <div class="flex ">
+          <button className="btn btn-primary">Add to Cart</button>
+          </div>
+          <div className="absolute top-3 right-3">
+            <LikeButton/>
           </div>
         </div>
       </div>
