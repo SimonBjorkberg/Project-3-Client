@@ -1,12 +1,26 @@
 import "./ProductDetailsPage.css";
 import example from "../../baby-clothes.jpg"
+import axios from "axios"
 import PreferredCategories from "../../components/PreferredCategories/PreferredCategories";
 import Rating from "../../components/Rating/Rating";
 import LikeButton from "../../components/LikeButton/LikeButton";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+
 
 
 
 function ProductDetailsPage() {
+
+  const { userId } = useParams
+
+  const [product, setProduct] = useState("")
+
+  useEffect(() => {
+
+    axios.get(`http://localhost:5005/product/single/${userId}`)
+    .then(response => console.log(response.data))
+  }, [])
 
   return (
     <div className="flex sm:flex-col  lg:flex-row">
@@ -49,7 +63,7 @@ function ProductDetailsPage() {
           
           </div>
           
-          <div className="lg:flex">
+          <div className="flex flex-row lg:flex">
           <PreferredCategories></PreferredCategories>
           </div>
           
