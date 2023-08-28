@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import "./MainBanner.css";
+import PreferredCategories from "../PreferredCategories/PreferredCategories";
 
 function MainBanner() {
   return (
@@ -25,9 +26,13 @@ function MainBanner() {
                 <Link to="/products">Our products</Link>
               </button>
             </div>
+            
           </div>
+          
         </div>
+        
       </div>
+      
     </div>
   );
 }

@@ -9,7 +9,7 @@ function HomePage() {
   return (
     <div>
       <MainBanner />
-      <PreferredCategories />
+      <PreferredCategories/>
       <LastProducts />
     </div>
   );
