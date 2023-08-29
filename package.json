@@ -3,12 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "axios": "^1.4.0",
+    "dotenv": "^16.3.1",
+    "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-input-emoji": "^5.3.1",
     "react-router-dom": "^6.15.0",
     "react-scripts": "^5.0.1",
-    "tailwindcss": "^3.3.3"
+    "socket.io-client": "^4.7.2",
+    "uuid": "^9.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -37,6 +42,8 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^6.0.1",
     "@testing-library/react": "^14.0.0",
-    "@testing-library/user-event": "^14.4.3"
+    "@testing-library/user-event": "^14.4.3",
+    "daisyui": "^3.6.1",
+    "tailwindcss": "^3.3.3"
   }
 }
