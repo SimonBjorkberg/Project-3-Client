@@ -25,20 +25,20 @@ class ProductService {
   };
 
   getOne = (productId) => {
-    return this.api.get(`/product/single/${productId}`)
-  }
+    return this.api.get(`/product/single/${productId}`);
+  };
 
   getAll = () => {
-    return this.api.get(`/product/all`)
-  }
+    return this.api.get(`/product/all`);
+  };
 
-  editOne = (productId) => {
-    return this.api.put(`/product/edit/${productId}`)
-  }
+  editOne = (productId, requestBody) => {
+    return this.api.put(`/product/edit/${productId}`, requestBody);
+  };
 
   deleteOne = (productId) => {
-    return this.api.post(`/product/delete/${productId}`)
-  }
+    return this.api.post(`/product/delete/${productId}`);
+  };
 }
 
 // Create one instance (object) of the service
