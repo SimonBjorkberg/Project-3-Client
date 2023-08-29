@@ -1,54 +1,53 @@
 import "./ProductDetailsPage.css";
 import example from "../../baby-clothes.jpg"
-import axios from "axios"
 import PreferredCategories from "../../components/PreferredCategories/PreferredCategories";
 import Rating from "../../components/Rating/Rating";
 import LikeButton from "../../components/LikeButton/LikeButton";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import productService from "../../services/product.service";
 
 
 
 
 function ProductDetailsPage() {
 
-  const { userId } = useParams
-
-  const [product, setProduct] = useState("")
+  const { userId } = useParams()
 
   useEffect(() => {
 
-    axios.get(`http://localhost:5005/product/single/${userId}`)
-    .then(response => console.log(response.data))
-  }, [])
+    productService.getOne(userId)
+      .then((response) => console.log(response.data))
+
+  }, [userId])
 
   return (
     <div className="flex sm:flex-col  lg:flex-row">
         <div className=" lg:w-2/4 m-8 shrink-0 sm: w-fit">
           <div className="carousel">
   <div id="slide1" className="carousel-item relative w-full">
-    <img src={example} className="w-full  min-w-200 " />
+    <img src={example} className="w-full  min-w-200 " alt="pic" />
     <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
       <a href="#slide4" className="btn btn-circle">❮</a> 
       <a href="#slide2" className="btn btn-circle">❯</a>
     </div>
   </div> 
   <div id="slide2" className="carousel-item relative w-full">
-    <img src={example} className="w-full min-w-200" />
+    <img src={example} className="w-full min-w-200" alt="pic" />
     <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
       <a href="#slide1" className="btn btn-circle">❮</a> 
       <a href="#slide3" className="btn btn-circle">❯</a>
     </div>
   </div> 
   <div id="slide3" className="carousel-item relative w-full">
-    <img src={example} className="w-full min-w-200" />
+    <img src={example} className="w-full min-w-200" alt="pic" />
     <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
       <a href="#slide2" className="btn btn-circle">❮</a> 
       <a href="#slide4" className="btn btn-circle">❯</a>
     </div>
   </div> 
   <div id="slide4" className="carousel-item relative w-full">
-    <img src={example} className="w-full min-w-200" />
+    <img src={example} className="w-full min-w-200" alt="pic" />
     <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
       <a href="#slide3" className="btn btn-circle">❮</a> 
       <a href="#slide1" className="btn btn-circle">❯</a>

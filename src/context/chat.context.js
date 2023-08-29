@@ -23,7 +23,7 @@ function ChatProviderWrapper({ children }) {
   const [onlineUsers, setOnlineUsers] = useState([]);
 
   useEffect(() => {
-    const newSocket = io("http://localhost:5500");
+    const newSocket = io("https://nutty-pike-bedclothes.cyclic.app:5500");
     setSocket(newSocket);
 
     return () => {
@@ -41,12 +41,18 @@ function ChatProviderWrapper({ children }) {
     return () => {
       socket.off("getOnlineUsers");
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [socket]);
 
   useEffect(() => {
     if (socket === null) return;
     const recipientId = currentChat?.members?.find((id) => id !== user?._id);
-    socket.emit("sendMessage", {newMessage, recipientId, chatId: currentChat._id });
+    socket.emit("sendMessage", {
+      newMessage,
+      recipientId,
+      chatId: currentChat._id,
+    });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newMessage]);
 
   useEffect(() => {
@@ -178,6 +184,7 @@ function ChatProviderWrapper({ children }) {
         messagesError,
         sendTextMessage,
         onlineUsers,
+        sendTextMessageError,
       }}
     >
       {children}
