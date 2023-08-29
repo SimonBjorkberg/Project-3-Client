@@ -1,7 +1,7 @@
 import "./ProfilePage.css";
 import profileService from "../../services/profile.service";
 import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import EditProfile from "../../components/EditProfile/EditProfile";
 import EditAvatar from "../../components/EditAvatar/EditAvatar";
@@ -11,9 +11,7 @@ function ProfilePage() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [productHovered, setProductHovered] = useState(null);
-  const [userProduct, setUserProduct] = useState(null);
   const { userId } = useParams();
-  const [productModalsVisible, setProductModalsVisible] = useState({});
   const [message, setMessage] = useState(false);
 
   useEffect(() => {
@@ -125,7 +123,6 @@ function ProfilePage() {
                           key={product._id}
                           onMouseEnter={() => {
                             setProductHovered(product._id);
-                            setUserProduct(product);
                           }}
                           onMouseLeave={() => setProductHovered(null)}
                         >
@@ -147,6 +144,7 @@ function ProfilePage() {
                           </td>
                           <td>
                             <EditProduct
+                              userId={userId}
                               isHovered={productHovered === product._id}
                               productDetails={product}
                               productIndex={index}
