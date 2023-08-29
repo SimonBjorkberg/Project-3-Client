@@ -34,7 +34,9 @@ class ChatService {
   findChat = async (chatId) => {
     return this.api.get(`/messages/find/${chatId}`)
   }
- 
+  createMessage = async (requestBody) => {
+    return this.api.post(`/messages/create`, requestBody)
+  }
 }
 
 // Create one instance of the service

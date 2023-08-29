@@ -2,6 +2,7 @@ import { createContext, useState, useEffect, useCallback } from "react";
 import chatService from "../services/chat.service";
 import { useContext } from "react";
 import { AuthContext } from "./auth.context";
+import { io } from "socket.io-client";
 
 const ChatContext = createContext();
 
@@ -16,6 +17,55 @@ function ChatProviderWrapper({ children }) {
   const [messages, setMessages] = useState(null);
   const [isMessagesLoading, setIsMessagesLoading] = useState(false);
   const [messagesError, setMessagesError] = useState(null);
+  const [sendTextMessageError, setSendTextMessageError] = useState(null);
+  const [newMessage, setNewMessage] = useState(null);
+  const [socket, setSocket] = useState(null);
+  const [onlineUsers, setOnlineUsers] = useState([]);
+
+  console.log(onlineUsers);
+
+  useEffect(() => {
+    const newSocket = io("http://localhost:5500");
+    setSocket(newSocket);
+
+    return () => {
+      newSocket.disconnect();
+    };
+  }, [user]);
+
+  useEffect(() => {
+    if (socket === null) return;
+    socket.emit("addNewUser", user?._id);
+    socket.on("getOnlineUsers", (res) => {
+      setOnlineUsers(res);
+    });
+
+    return () => {
+      socket.off("getOnlineUsers");
+    };
+  }, [socket]);
+
+  useEffect(() => {
+    if (socket === null) return;
+    const recipientId = currentChat?.members?.find((id) => id !== user?._id);
+    socket.emit("sendMessage", {newMessage, recipientId, chatId: currentChat._id });
+  }, [newMessage]);
+
+  useEffect(() => {
+    if (socket === null) return;
+
+    socket.on("getMessage", (res) => {
+      console.log(res)
+      if (currentChat?._id !== res.chatId) return;
+      setMessages((prev) => [...prev, res]);
+    });
+
+    return () => {
+      socket.off("getMessage");
+    };
+  }, [socket, currentChat]);
+
+  console.log("messages", messages)
 
   useEffect(() => {
     if (user) {
@@ -75,7 +125,7 @@ function ChatProviderWrapper({ children }) {
 
       setIsMessagesLoading(false);
 
-      if (response.error) {
+      if (response.err) {
         return setUserChatsError(response);
       }
 
@@ -83,6 +133,29 @@ function ChatProviderWrapper({ children }) {
     };
     getMessages();
   }, [currentChat?._id]);
+
+  const sendTextMessage = useCallback(
+    async (textMessage, senderId, currentChatId, setTextMessage) => {
+      console.log(textMessage, senderId, currentChatId);
+      if (!textMessage) return console.log("type somethin");
+
+      const requestBody = {
+        chatId: currentChatId,
+        senderId: senderId,
+        message: textMessage,
+      };
+
+      const response = await chatService.createMessage(requestBody);
+      if (response.err) {
+        return setSendTextMessageError(response);
+      }
+
+      setNewMessage(response.data.message);
+      setMessages((prev) => [...prev, response.data]);
+      setTextMessage("");
+    },
+    []
+  );
 
   const updateCurrentChat = useCallback((chat) => {
     setCurrentChat(chat);
@@ -109,6 +182,8 @@ function ChatProviderWrapper({ children }) {
         messages,
         isMessagesLoading,
         messagesError,
+        sendTextMessage,
+        onlineUsers,
       }}
     >
       {children}
