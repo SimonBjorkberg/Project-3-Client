@@ -22,8 +22,6 @@ function ChatProviderWrapper({ children }) {
   const [socket, setSocket] = useState(null);
   const [onlineUsers, setOnlineUsers] = useState([]);
 
-  console.log(onlineUsers);
-
   useEffect(() => {
     const newSocket = io("http://localhost:5500");
     setSocket(newSocket);
@@ -55,7 +53,6 @@ function ChatProviderWrapper({ children }) {
     if (socket === null) return;
 
     socket.on("getMessage", (res) => {
-      console.log(res)
       if (currentChat?._id !== res.chatId) return;
       setMessages((prev) => [...prev, res]);
     });
@@ -64,8 +61,6 @@ function ChatProviderWrapper({ children }) {
       socket.off("getMessage");
     };
   }, [socket, currentChat]);
-
-  console.log("messages", messages)
 
   useEffect(() => {
     if (user) {
@@ -136,7 +131,6 @@ function ChatProviderWrapper({ children }) {
 
   const sendTextMessage = useCallback(
     async (textMessage, senderId, currentChatId, setTextMessage) => {
-      console.log(textMessage, senderId, currentChatId);
       if (!textMessage) return console.log("type somethin");
 
       const requestBody = {

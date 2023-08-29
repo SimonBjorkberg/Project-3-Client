@@ -2,9 +2,17 @@ import { useFetchRecipientUser } from "../../hooks/useFetchRecipient";
 
 const UserChat = ({ chat, user }) => {
   const { recipientUser } = useFetchRecipientUser(chat, user);
+  console.log(recipientUser);
   return (
-    <div className="mt-2 border-2 w-60 py-3 bg-neutral rounded-md text-white border-gray-400">
-    {!recipientUser ? <p>Loading</p> : <p>{recipientUser.username}</p>}
+    <div className="py-3 bg-white text-neutral border-gray-400 hover:bg-neutral hover:text-white">
+      {!recipientUser ? (
+        <p>Loading</p>
+      ) : (
+        <div className="flex">
+          <img src={recipientUser.image} alt="pic" className="w-10 ml-2" />
+          <p className="my-auto ml-2 text-lg">{recipientUser.username}</p>
+        </div>
+      )}
     </div>
   );
 };

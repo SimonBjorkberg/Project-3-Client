@@ -15,10 +15,10 @@ const ChatPage = (props) => {
       {isUserChatsLoading && <p>Loading Chats...</p>}
       <PotentialChats />
       {!isUserChatsLoading && 
-      <ul>
+      <ul className="w-64">
       {userChats.map((chat, index) => {
           return (
-            <div key={index} onClick={() => updateCurrentChat(chat)} className="hover:cursor-pointer">
+            <div key={index} onClick={() => updateCurrentChat(chat)} className="w-64 hover:cursor-pointer">
               <UserChat user={user} chat={chat} />
             </div>
           );
