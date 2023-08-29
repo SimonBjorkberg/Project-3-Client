@@ -1,6 +1,3 @@
-// import { useState } from "react";
-// import profileService from "../../services/profile.service";
-
 const EditProfile = ({ user, setUser, setMessage }) => {
   const showModal = () => {
     const modal = document.getElementById("edit-profile");
