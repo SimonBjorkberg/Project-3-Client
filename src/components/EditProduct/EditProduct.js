@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import projectService from "../../services/project.service";
+import productService from "../../services/product.service";
 
 const EditProduct = ({ productDetails, productIndex, isHovered, userId }) => {
   const [title, setTitle] = useState(productDetails.title);
@@ -33,7 +33,7 @@ const EditProduct = ({ productDetails, productIndex, isHovered, userId }) => {
     e.preventDefault();
     setCategories([...categoryInputs]);
     const requestBody = { title, description, price, quantity, categories };
-    projectService.editOne(productDetails._id, requestBody).then((response) => {
+    productService.editOne(productDetails._id, requestBody).then((response) => {
       window.location.reload();
     });
   };
