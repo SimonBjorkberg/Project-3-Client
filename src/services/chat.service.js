@@ -20,13 +20,19 @@ class ChatService {
   }
 
   create = async (requestBody) => {
-    return this.api.post('/chat/create')
+    return this.api.post('/chat/create', requestBody)
   }
   findAll = async (userId) => {
     return this.api.get(`/chat/${userId}`)
   }
   findUser = async (userId) => {
     return this.api.get(`/chat/user/${userId}`)
+  }
+  findAllUsers = async () => {
+    return this.api.get("/api/allUsers")
+  }
+  findChat = async (chatId) => {
+    return this.api.get(`/messages/find/${chatId}`)
   }
  
 }
