@@ -1,5 +1,4 @@
 import "./ProductsPage.css";
-
 import ProductCard from "../../components/ProductCard/ProductCard";
 import PreferredCategories from "../../components/PreferredCategories/PreferredCategories";
 
