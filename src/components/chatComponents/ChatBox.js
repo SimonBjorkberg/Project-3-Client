@@ -41,7 +41,7 @@ const ChatBox = () => {
           })
         )}
       </div>
-      <div className="chat-box border w-96 border-neutral">
+      <div className="chat-box border w-96 border-neutral" ref={messagesContainerRef}>
         <p className="text-xl border-b pb-2 text-white bg-neutral">
           {recipientUser ? recipientUser.username : "<--- Select a contact!"}
         </p>
