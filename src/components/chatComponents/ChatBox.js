@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect, useRef } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../context/auth.context";
 import { ChatContext } from "../../context/chat.context";
 import { useFetchRecipientUser } from "../../hooks/useFetchRecipient";
@@ -18,14 +18,6 @@ const ChatBox = () => {
   const { recipientUser } = useFetchRecipientUser(currentChat, user);
   const [textMessage, setTextMessage] = useState("");
 
-  const messagesContainerRef = useRef(null)
-
-  useEffect(() => {
-    if (messagesContainerRef.current) {
-      messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
-    }
-  }, [messages])
-
   return (
     <div className="my-10 flex flex-row">
       <div className="w-72 border-t border-b border-l border-neutral">
@@ -41,7 +33,7 @@ const ChatBox = () => {
           })
         )}
       </div>
-      <div className="chat-box border w-96 border-neutral" ref={messagesContainerRef}>
+      <div className="chat-box border w-96 border-neutral">
         <p className="text-xl border-b pb-2 text-white bg-neutral">
           {recipientUser ? recipientUser.username : "<--- Select a contact!"}
         </p>
