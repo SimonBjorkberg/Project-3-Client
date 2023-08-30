@@ -23,7 +23,7 @@ function ChatProviderWrapper({ children }) {
   const [onlineUsers, setOnlineUsers] = useState([]);
 
   useEffect(() => {
-    const newSocket = io("https://project-3-server.onrender.com:5500");
+    const newSocket = io(process.env.REACT_APP_API_URL);
     setSocket(newSocket);
 
     return () => {
