@@ -1,8 +1,8 @@
 import "./ProductCard.css";
 import { Link } from "react-router-dom";
-import axios from "axios"
 import LikeButton from "../LikeButton/LikeButton";
 import { useEffect, useState } from "react";
+import productService from "../../services/product.service";
 
 function ProductCard() {
 
@@ -11,7 +11,7 @@ function ProductCard() {
 
   useEffect(() => {
 
-    axios.get("http://localhost:5005/product/all")
+    productService.getAll()
     .then(response => setProducts(response.data))
   }, [])
 
