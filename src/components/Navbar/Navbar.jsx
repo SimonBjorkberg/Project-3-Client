@@ -42,6 +42,11 @@ function Navbar() {
   const subMenuLogOut = () => {
     return (
       <>
+      <li>
+          <Link to="/sell" className="text-white hover:text-gray-300">
+            sell
+          </Link>
+        </li>
         <li>
           <Link onClick={logOutUser} className="text-white hover:text-gray-300">
             logout
