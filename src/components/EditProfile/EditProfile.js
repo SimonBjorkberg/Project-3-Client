@@ -23,10 +23,10 @@ const EditProfile = ({ user }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("user id", user._id);
-    const requestBody = username;
+    const requestBody = { username };
     console.log("request body", requestBody);
     profileService
-      .edit(user._id, requestBody)
+      .edit(user._id, { username, image: user.image })
       .then((response) => {
         console.log("response:", response.data);
         console.log("Updated Username:", response.data.username);
