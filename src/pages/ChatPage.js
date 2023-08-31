@@ -15,7 +15,7 @@ const ChatPage = () => {
   }, [currentChat]);
 
   return (
-    <div className="flex">
+    <div className="flex h-full">
       {isUserChatsLoading && <p>Loading Chats...</p>}
       {!isUserChatsLoading && <ChatBox />}
     </div>
