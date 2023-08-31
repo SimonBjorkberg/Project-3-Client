@@ -85,7 +85,7 @@ const ChatBox = () => {
             ))}
           </ul>
         </div>
-        <form onSubmit={handleSubmit} className="flex">
+        <form onSubmit={handleSubmit} className="flex fixed w-full">
           <input
             type="text"
             value={textMessage}
