@@ -3,7 +3,7 @@ import { ChatContext } from "../context/chat.context";
 import ChatBox from "../components/chatComponents/ChatBox";
 
 const ChatPage = () => {
-  const { isUserChatsLoading } = useContext(ChatContext);
+  const { isUserChatsLoading, currentChat } = useContext(ChatContext);
 
   useEffect(() => {
     const scrollToBot = () => {
@@ -12,7 +12,7 @@ const ChatPage = () => {
       }, 100);
     };
     scrollToBot();
-  }, []);
+  }, [currentChat]);
 
   return (
     <div className="flex">
