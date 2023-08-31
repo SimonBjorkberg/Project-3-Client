@@ -42,7 +42,7 @@ function Navbar() {
   const subMenuLogOut = () => {
     return (
       <>
-      <li>
+        <li>
           <Link to="/sell" className="text-white hover:text-gray-300">
             sell
           </Link>
@@ -50,6 +50,11 @@ function Navbar() {
         <li>
           <Link onClick={logOutUser} className="text-white hover:text-gray-300">
             logout
+          </Link>
+        </li>
+        <li className="lg:hidden">
+          <Link to="/chat" className="text-white hover:text-gray-300">
+            Chats
           </Link>
         </li>
         <li>

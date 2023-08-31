@@ -1,10 +1,9 @@
 import ChatDrawerItem from "./ChatDrawerItem";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { ChatContext } from "../../context/chat.context";
 import { AuthContext } from "../../context/auth.context";
 
 const ChatDrawer = () => {
-  const [isChecked, setIsChecked] = useState(false);
 
   const { user } = useContext(AuthContext);
   const { userChats, isUserChatsLoading, updateCurrentChat } =
@@ -16,7 +15,7 @@ const ChatDrawer = () => {
         <div className="drawer-content absolute">
           <label
             htmlFor="my-drawer-4"
-            className="drawer-button hover:cursor-pointer"
+            className="drawer-button hover:cursor-pointer lg:flex hidden"
           >
             <p className="py-2 px-11 bg-red-500 text-white">Contacts</p>
           </label>
@@ -25,7 +24,7 @@ const ChatDrawer = () => {
 
       <div className="drawer-side z-20">
         <label htmlFor="my-drawer-4" className="drawer-overlay"></label>
-        <ul className="menu p-4 w-72 min-h-full bg-base-200 text-base-content">
+        <ul className="menu p-4 w-72 min-h-full bg-base-200 text-base-content hidden lg:flex">
           <h1 className="text-xl">My Contacts</h1>
           {isUserChatsLoading ? (
             <p>Loading</p>
