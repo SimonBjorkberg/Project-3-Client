@@ -1,9 +1,6 @@
 import "./ProductDetailsPage.css";
-import example from "../../baby-clothes.jpg"
-import PreferredCategories from "../../components/PreferredCategories/PreferredCategories";
-import Rating from "../../components/Rating/Rating";
 import LikeButton from "../../components/LikeButton/LikeButton";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import productService from "../../services/product.service";
 
