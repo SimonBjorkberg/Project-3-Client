@@ -9,6 +9,24 @@ import EditProduct from "../../components/EditProduct/EditProduct";
 import Footer from "../../components/Footer/Footer";
 
 function ProfilePage() {
+
+  const [username, setUsername] = useState('')
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    profileService.edit(user._id, {username, image: user.image})
+      .then((response) => {
+        console.log(response)
+      })
+  }
+
+
+
+
+
+
+
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [productHovered, setProductHovered] = useState(null);
@@ -164,6 +182,11 @@ function ProfilePage() {
         </>
       )}
       <Footer/>
+
+      <form onSubmit={handleSubmit}>
+        <input type="text" value={username} onChange={(e) => (setUsername(e.target.value))} />
+        <button>Submit</button>
+      </form>
     </>
   );
 }

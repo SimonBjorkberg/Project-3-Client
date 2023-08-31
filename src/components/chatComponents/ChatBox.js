@@ -61,14 +61,14 @@ const ChatBox = () => {
             </div>
           )}
         </div>
-        <div className="overflow-y-scroll max-h-screen h-[70vh]" id="chatbox">
+        <div className="overflow-y-scroll max-h-screen" id="chatbox">
           <ul className="list-none p-0">
             {messages && messages.length === 0 && (
               <p className="mt-20">
                 {recipientUser ? "Start the conversation!" : null}
               </p>
             )}
-            {messages.map((message, index) => (
+            {messages?.map((message, index) => (
               <div
                 key={index}
                 className={`flex flex-col chat ${
@@ -85,7 +85,7 @@ const ChatBox = () => {
             ))}
           </ul>
         </div>
-        <form onSubmit={handleSubmit} className="flex fixed w-full mb-5">
+        <form onSubmit={handleSubmit} className="flex w-full">
           <input
             type="text"
             value={textMessage}
