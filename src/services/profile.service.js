@@ -19,7 +19,7 @@ class ProfileService {
     return this.api.get(`/profile/${userId}`)
   }
   edit = async (userId, requestBody) => {
-    return this.api.put(`/profile/edit/${userId}`, { requestBody })
+    return this.api.put(`/profile/edit/${userId}`, requestBody)
   }
   editImage = async(userId, image) => {
     return this.api.put(`/profile/edit/${userId}/image`,  { image })
@@ -30,5 +30,4 @@ class ProfileService {
 }
 
 const profileService = new ProfileService();
-
 export default profileService;
