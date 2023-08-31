@@ -1,15 +1,18 @@
 import ChatDrawerItem from "./ChatDrawerItem";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { ChatContext } from "../../context/chat.context";
 import { AuthContext } from "../../context/auth.context";
 
 const ChatDrawer = () => {
-    const { user } = useContext(AuthContext)
-    const {userChats, isUserChatsLoading, updateCurrentChat} = useContext(ChatContext)
+  const [isChecked, setIsChecked] = useState(false);
+
+  const { user } = useContext(AuthContext);
+  const { userChats, isUserChatsLoading, updateCurrentChat } =
+    useContext(ChatContext);
   return (
     <div className="drawer drawer-end">
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
-      <div class="fixed bottom-10 right-36 z-10">
+      <div className="fixed bottom-10 right-36 z-10">
         <div className="drawer-content absolute">
           <label
             htmlFor="my-drawer-4"
@@ -24,16 +27,19 @@ const ChatDrawer = () => {
         <label htmlFor="my-drawer-4" className="drawer-overlay"></label>
         <ul className="menu p-4 w-72 min-h-full bg-base-200 text-base-content">
           <h1 className="text-xl">My Contacts</h1>
-          {isUserChatsLoading ? <p>Loading</p> : userChats.map((chat, index) => {
-            return (
-              <div
-                key={index}
-                onClick={() => updateCurrentChat(chat)}
-              >
-                <ChatDrawerItem user={user} chat={chat} />
-              </div>
-            );
-          })}
+          {isUserChatsLoading ? (
+            <p>Loading</p>
+          ) : (
+            userChats.map((chat, index) => {
+              return (
+                <label key={index} htmlFor="my-drawer-4" className="drawer-overlay">
+                  <div onClick={() => updateCurrentChat(chat)}>
+                    <ChatDrawerItem user={user} chat={chat} />
+                  </div>
+                </label>
+              );
+            })
+          )}
         </ul>
       </div>
     </div>

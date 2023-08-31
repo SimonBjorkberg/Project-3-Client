@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/auth.context";
 import { ChatContext } from "../../context/chat.context";
 import { useFetchRecipientUser } from "../../hooks/useFetchRecipient";
@@ -18,26 +18,22 @@ const ChatBox = () => {
   const { recipientUser } = useFetchRecipientUser(currentChat, user);
   const [textMessage, setTextMessage] = useState("");
 
+  useEffect(() => {
+    const chatbox = document.getElementById('chatbox');
+    function scrollToBottom() {
+      chatbox.scrollTop = chatbox.scrollHeight
+    }
+  
+    scrollToBottom()
+  }, [messages])
+
   return (
     <div className="my-10 flex flex-row">
-      <div className="w-72 border-t border-b border-l border-neutral">
-        {isUserChatsLoading ? (
-          <p>Loading</p>
-        ) : (
-          userChats.map((chat, index) => {
-            return (
-              <div key={index} onClick={() => updateCurrentChat(chat)}>
-                <UserList user={user} chat={chat} />
-              </div>
-            );
-          })
-        )}
-      </div>
       <div className="chat-box border w-96 border-neutral">
         <p className="text-xl border-b pb-2 text-white bg-neutral">
           {recipientUser ? recipientUser.username : "<--- Select a contact!"}
         </p>
-        <div className="h-96 overflow-y-scroll">
+        <div className="h-96 overflow-y-scroll" id="chatbox">
           <ul className="list-none p-0">
             {messages && messages.length === 0 && (
               <p className="mt-20">
@@ -90,7 +86,6 @@ const ChatBox = () => {
           </button>
         </div>
       </div>
-      <div className="spacer-div w-72"></div>
     </div>
   );
 };
