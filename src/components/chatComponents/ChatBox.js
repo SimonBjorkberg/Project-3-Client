@@ -61,7 +61,7 @@ const ChatBox = () => {
             </div>
           )}
         </div>
-        <div className="h-96 overflow-y-scroll" id="chatbox">
+        <div className="max-h-[75vh] overflow-y-scroll" id="chatbox">
           <ul className="list-none p-0">
             {messages && messages.length === 0 && (
               <p className="mt-20">
