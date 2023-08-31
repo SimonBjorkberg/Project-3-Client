@@ -29,7 +29,6 @@ const ChatDrawer = () => {
               <div
                 key={index}
                 onClick={() => updateCurrentChat(chat)}
-                className="w-64"
               >
                 <ChatDrawerItem user={user} chat={chat} />
               </div>

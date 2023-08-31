@@ -10,9 +10,8 @@ function ProductCard() {
 
 
   useEffect(() => {
-
     productService.getAll()
-    .then(response => setProducts(response.data))
+      .then(response => setProducts(response.data))
   }, [])
 
   return (

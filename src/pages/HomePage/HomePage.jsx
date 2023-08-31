@@ -6,6 +6,7 @@ import PreferredCategories from "../../components/PreferredCategories/PreferredC
 // components: nav bar / search bar/ main banner / module CTA / module last added products / filters / footer
 
 function HomePage() {
+
   return (
     <div>
       <MainBanner />
