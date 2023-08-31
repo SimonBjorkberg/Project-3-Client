@@ -18,9 +18,9 @@ function ProductCard() {
     <>
     
       
-      {products && products.map(product => {
+      {products && products.map((product, index) => {
         return (
-        <div className="card w-96 bg-base-100 shadow-xl my-8 min-w-200">
+        <div key={index} className="card w-96 bg-base-100 shadow-xl my-8 min-w-200">
         <figure>
            <Link to={`/product/single/${product._id}`}>
              <img src={product.images[0]} alt={product.title} />
@@ -35,9 +35,9 @@ function ProductCard() {
                <p>{product.age}</p>
              </div>
              <div className="card-actions justify-center">
-              {product.categories.map(categorie => <div className="badge badge-outline">{categorie}</div>)}
+              {product.categories.map((categorie, index) => <div key={index} className="badge badge-outline">{categorie}</div>)}
                <p>Sold by: {product.author.username}</p>
-               <div class="flex ">
+               <div className="flex ">
                  <button className="btn btn-primary">Add to Cart</button>
                </div>
                <div className="absolute top-3 right-3">

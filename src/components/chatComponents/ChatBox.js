@@ -1,9 +1,9 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/auth.context";
 import { ChatContext } from "../../context/chat.context";
 import { useFetchRecipientUser } from "../../hooks/useFetchRecipient";
 import moment from "moment";
-import UserList from "./UserList";
+import ChatDrawerItem from "./ChatDrawerItem";
 
 const ChatBox = () => {
   const { user } = useContext(AuthContext);
@@ -18,26 +18,50 @@ const ChatBox = () => {
   const { recipientUser } = useFetchRecipientUser(currentChat, user);
   const [textMessage, setTextMessage] = useState("");
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+
+  useEffect(() => {
+    const chatbox = document.getElementById("chatbox");
+    function scrollToBottom() {
+      chatbox.scrollTop = chatbox.scrollHeight;
+    }
+
+    scrollToBottom();
+  }, [messages]);
+
   return (
-    <div className="my-10 flex flex-row">
-      <div className="w-72 border-t border-b border-l border-neutral">
-        {isUserChatsLoading ? (
-          <p>Loading</p>
-        ) : (
-          userChats.map((chat, index) => {
-            return (
-              <div key={index} onClick={() => updateCurrentChat(chat)}>
-                <UserList user={user} chat={chat} />
-              </div>
-            );
-          })
-        )}
-      </div>
-      <div className="chat-box border w-96 border-neutral">
-        <p className="text-xl border-b pb-2 text-white bg-neutral">
-          {recipientUser ? recipientUser.username : "<--- Select a contact!"}
-        </p>
-        <div className="h-96 overflow-y-scroll">
+    <div className="flex w-full">
+      <div className="w-full">
+        <div className="text-xl p-4 text-white bg-neutral">
+          {recipientUser ? (
+            <div className="flex flex-row items-center justify-between">
+              <label
+                htmlFor="my-drawer-5"
+                className="drawer-button hover:cursor-pointer lg:hidden"
+              >
+                <p className="text-white rounded-md">{"< "}Contacts</p>
+              </label>
+              <p className="flex-grow text-center lg:pr-0 pr-[96px]">
+                {recipientUser.username}
+              </p>
+            </div>
+          ) : (
+            <div className="flex flex-row items-center justify-between">
+              <label
+                htmlFor="my-drawer-5"
+                className="drawer-button hover:cursor-pointer lg:hidden"
+              >
+                <p className="text-white rounded-md">{"< "}Contacts</p>
+              </label>
+              <p className="flex-grow text-center lg:pr-0 pr-[96px]">
+                Select a contact!
+              </p>
+            </div>
+          )}
+        </div>
+        <div className="h-96 overflow-y-scroll" id="chatbox">
           <ul className="list-none p-0">
             {messages && messages.length === 0 && (
               <p className="mt-20">
@@ -45,38 +69,32 @@ const ChatBox = () => {
               </p>
             )}
             {messages.map((message, index) => (
-              <li
+              <div
                 key={index}
-                className={`my-1 w-full ${
-                  message?.senderId === user?._id
-                    ? "flex justify-end"
-                    : "flex justify-start"
+                className={`flex flex-col chat ${
+                  message?.senderId === user?._id ? "chat-end" : "chat-start"
                 }`}
               >
-                <div
-                  className={`max-w-md mx-5 p-2 shadow-md ${
-                    message?.senderId === user?._id ? "text-right" : "text-left"
-                  }`}
-                >
-                  <p className="text-sm">{message.message}</p>
-                  <span className="text-xs text-gray-500">
-                    {moment(message.createdAt).calendar()}
-                  </span>
+                <div className="chat-bubble max-w-[355px] mx-4">
+                  {message.message}
                 </div>
-              </li>
+                <span className="text-xs mb-1 text-gray-500">
+                  {moment(message.createdAt).calendar()}
+                </span>
+              </div>
             ))}
           </ul>
         </div>
-        <div>
-          <input
+        <form onSubmit={handleSubmit} className="flex mt-2">
+          <textarea
             type="text"
             value={textMessage}
             onChange={(e) => setTextMessage(e.target.value)}
             placeholder="Message..."
-            className="bg-white w-full text-neutral border-t border-neutral p-2 mt-3"
+            className="bg-white text-neutral border-t border-neutral w-4/5 overflow-y-auto p-2 focus:outline-none"
           />
           <button
-            className="bg-neutral text-white hover:bg-neutral-700 p-2 border-t border-white"
+            className="bg-neutral text-white w-1/5 border-white"
             onClick={() =>
               sendTextMessage(
                 textMessage,
@@ -88,9 +106,35 @@ const ChatBox = () => {
           >
             Send
           </button>
+        </form>
+      </div>
+
+      <div className="drawer absolute">
+        <input id="my-drawer-5" type="checkbox" className="drawer-toggle" />
+        <div className="drawer-side z-20">
+          <label htmlFor="my-drawer-5" className="drawer-overlay"></label>
+          <ul className="menu p-4 w-72 min-h-full bg-base-200 text-base-content">
+            <h1 className="text-xl">My Contacts</h1>
+            {isUserChatsLoading ? (
+              <p>Loading</p>
+            ) : (
+              userChats.map((chat, index) => {
+                return (
+                  <label
+                    key={index}
+                    htmlFor="my-drawer-5"
+                    className="drawer-overlay"
+                  >
+                    <div onClick={() => updateCurrentChat(chat)}>
+                      <ChatDrawerItem user={user} chat={chat} />
+                    </div>
+                  </label>
+                );
+              })
+            )}
+          </ul>
         </div>
       </div>
-      <div className="spacer-div w-72"></div>
     </div>
   );
 };

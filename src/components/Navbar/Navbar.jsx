@@ -43,8 +43,18 @@ function Navbar() {
     return (
       <>
         <li>
+          <Link to="/sell" className="text-white hover:text-gray-300">
+            sell
+          </Link>
+        </li>
+        <li>
           <Link onClick={logOutUser} className="text-white hover:text-gray-300">
             logout
+          </Link>
+        </li>
+        <li className="lg:hidden">
+          <Link to="/chat" className="text-white hover:text-gray-300">
+            Chats
           </Link>
         </li>
         <li>
