@@ -23,7 +23,7 @@ function ChatProviderWrapper({ children }) {
   const [onlineUsers, setOnlineUsers] = useState([]);
 
   useEffect(() => {
-    const newSocket = io(process.env.REACT_APP_SOCKET_API_URL);
+    const newSocket = io(process.env.REACT_APP_SOCKET_API_URL || "http://localhost:443");
     setSocket(newSocket);
 
     return () => {
