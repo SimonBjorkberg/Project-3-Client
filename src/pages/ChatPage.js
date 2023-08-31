@@ -1,9 +1,18 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { ChatContext } from "../context/chat.context";
 import ChatBox from "../components/chatComponents/ChatBox";
 
 const ChatPage = () => {
   const { isUserChatsLoading } = useContext(ChatContext);
+
+  useEffect(() => {
+    const scrollToBot = () => {
+      setTimeout(() => {
+        window.scrollTo({ top: document.body.scrollHeight });
+      }, 100);
+    };
+    scrollToBot();
+  }, []);
 
   return (
     <div className="flex">
