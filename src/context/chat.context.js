@@ -31,8 +31,6 @@ function ChatProviderWrapper({ children }) {
     };
   }, [user]);
 
-  console.log(socket)
-
   useEffect(() => {
     if (socket === null) return;
     socket.emit("addNewUser", user?._id);
