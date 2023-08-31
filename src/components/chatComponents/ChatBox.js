@@ -86,7 +86,7 @@ const ChatBox = () => {
           </ul>
         </div>
         <form onSubmit={handleSubmit} className="flex">
-          <textarea
+          <input
             type="text"
             value={textMessage}
             onChange={(e) => setTextMessage(e.target.value)}
