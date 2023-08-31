@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 import EditProfile from "../../components/EditProfile/EditProfile";
 import EditAvatar from "../../components/EditAvatar/EditAvatar";
 import EditProduct from "../../components/EditProduct/EditProduct";
+import Footer from "../../components/Footer/Footer";
 
 function ProfilePage() {
   const [user, setUser] = useState(null);
@@ -162,6 +163,7 @@ function ProfilePage() {
           </div>
         </>
       )}
+      <Footer/>
     </>
   );
 }

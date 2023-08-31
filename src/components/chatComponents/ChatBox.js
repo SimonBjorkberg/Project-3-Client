@@ -33,7 +33,7 @@ const ChatBox = () => {
 
   return (
     <div className="flex w-full">
-      <div className="w-full">
+      <div className="w-full max-h-[80vh]">
         <div className="text-xl p-4 text-white bg-neutral">
           {recipientUser ? (
             <div className="flex flex-row items-center justify-between">
@@ -61,7 +61,7 @@ const ChatBox = () => {
             </div>
           )}
         </div>
-        <div className="max-h-[75vh] overflow-y-scroll" id="chatbox">
+        <div className="max-h-full overflow-y-scroll" id="chatbox">
           <ul className="list-none p-0">
             {messages && messages.length === 0 && (
               <p className="mt-20">
@@ -71,7 +71,7 @@ const ChatBox = () => {
             {messages.map((message, index) => (
               <div
                 key={index}
-                className={`flex flex-col chat ${
+                className={`flex flex-col chat bg-white ${
                   message?.senderId === user?._id ? "chat-end" : "chat-start"
                 }`}
               >
@@ -85,7 +85,7 @@ const ChatBox = () => {
             ))}
           </ul>
         </div>
-        <form onSubmit={handleSubmit} className="flex mt-2">
+        <form onSubmit={handleSubmit} className="flex">
           <textarea
             type="text"
             value={textMessage}

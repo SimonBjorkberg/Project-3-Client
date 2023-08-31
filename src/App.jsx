@@ -7,7 +7,6 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import ProductsPage from "./pages/ProductsPage/ProductsPage";
 import SellPage from "./pages/SellPage/SellPage";
 import ProductDetailsPage from "./pages/ProductDetailsPage/ProductDetailsPage";
-import Footer from "./components/Footer/Footer";
 import Navbar from "./components/Navbar/Navbar";
 import IsPrivate from "./components/IsPrivate/IsPrivate";
 import IsAnon from "./components/IsAnon/IsAnon";
@@ -70,8 +69,6 @@ function App() {
           }
         />
       </Routes>
-
-      <Footer />
     </div>
   );
 }

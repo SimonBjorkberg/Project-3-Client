@@ -3,6 +3,7 @@ import LikeButton from "../../components/LikeButton/LikeButton";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import productService from "../../services/product.service";
+import Footer from "../../components/Footer/Footer";
 
 
 
@@ -80,6 +81,7 @@ function ProductDetailsPage() {
             <button className="btn btn-outline bg-gray-800 text-white w-4/5">Add To Cart</button>
           </div>
         </div>
+        <Footer/>
     </div>
   );
 }
