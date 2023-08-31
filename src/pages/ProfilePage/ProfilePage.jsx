@@ -85,7 +85,7 @@ function ProfilePage() {
               </div>
             </div>
           </main>
-          <div className="flex flex-col place-content-evenly">
+          <div className="flex flex-col place-content-evenly mt-4">
             <div>
               <h3>Reviews:</h3>
               {user.reviews.length > 0 ? (
@@ -101,10 +101,10 @@ function ProfilePage() {
                 <p>no reviews so far</p>
               )}
             </div>
-            <div className="w-full max-w-[100%]">
+            <div className="w-full max-w-[100%] mt-4">
               <h3>Products:</h3>
               {user.products.length > 0 ? (
-                <table>
+                <table className="mt-4 mb-4">
                   <thead>
                     <tr>
                       <th>Name</th>
@@ -129,7 +129,7 @@ function ProfilePage() {
                           <td>{product.title}</td>
                           <td>
                             <img
-                              className="max-w-[100%]"
+                              className="max-w-[100px]"
                               src={product.images[0]}
                               alt={product.title}
                               key={`image product ${product.title}`}
