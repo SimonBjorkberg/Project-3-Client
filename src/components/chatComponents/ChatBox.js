@@ -37,7 +37,7 @@ const ChatBox = () => {
     <div className="flex w-full">
       <div className="w-full max-h-[80vh]">
         {recipientUser ? (
-          <p className="absolute w-full top-0 z-10 bg-neutral text-white text-xl p-4">
+          <p className="w-full top-0 z-10 bg-neutral text-white text-xl p-4 fixed">
             <span
               className="float-left hover:cursor-pointer"
               onClick={handleNavigate}
@@ -76,7 +76,7 @@ const ChatBox = () => {
             </div>
           ))}
         </div>
-        <form onSubmit={handleSubmit} className="flex w-full">
+        <form onSubmit={handleSubmit} className="flex w-full fixed">
           <input
             type="text"
             value={textMessage}
