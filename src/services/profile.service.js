@@ -3,7 +3,7 @@ import axios from "axios";
 class ProfileService {
   constructor() {
     this.api = axios.create({
-      baseURL: process.env.REACT_APP_API_URL || "http://localhost:5005"
+      baseURL: process.env.REACT_APP_API_URL || "http://localhost:5005",
     });
     this.api.interceptors.request.use((config) => {
       const storedToken = localStorage.getItem("authToken");
@@ -19,11 +19,11 @@ class ProfileService {
     return this.api.get(`/profile/${userId}`);
   };
   edit = async (userId, requestBody) => {
-    return this.api.put(`/profile/edit/${userId}`, requestBody)
-  }
-  editImage = async(userId, image) => {
-    return this.api.put(`/profile/edit/${userId}/image`,  { image })
-  }
+    return this.api.put(`/profile/edit/${userId}`, requestBody);
+  };
+  editImage = async (userId, image) => {
+    return this.api.put(`/profile/edit/${userId}/image`, { image });
+  };
   uploadImage = async (image) => {
     return this.api.post(`/api/upload`, image);
   };
