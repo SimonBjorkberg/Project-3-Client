@@ -51,7 +51,7 @@ function Navbar() {
             logout
           </Link>
         </li>
-        <li className="lg:hidden">
+        <li className="2xl:hidden">
           <Link to="/chat" className="text-white hover:text-gray-300">
             Chats
           </Link>

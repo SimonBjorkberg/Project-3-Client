@@ -1,30 +1,47 @@
 import ChatDrawerItem from "./ChatDrawerItem";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { ChatContext } from "../../context/chat.context";
 import { AuthContext } from "../../context/auth.context";
-import { useNavigate } from "react-router-dom";
+import ChatPopup from "./ChatPopup";
 
 const ChatDrawer = () => {
-  const navigate = useNavigate();
-
   const { user } = useContext(AuthContext);
-  const { userChats, isUserChatsLoading, updateCurrentChat } =
+  const { userChats, isUserChatsLoading, updateCurrentChat, currentChat } =
     useContext(ChatContext);
-  const onClickNavigate = (chatId) => {
-    navigate(`/chat/${chatId}`);
+  const [active, setActive] = useState(true);
+
+  const handleClick = (show) => {
+    if (show === "show") {
+      return setActive(true);
+    }
+    setActive(!active);
   };
+
   return (
     <div className="drawer drawer-end">
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
-      <div className="fixed bottom-10 right-36 z-10">
-        <div className="drawer-content absolute">
-          <label
-            htmlFor="my-drawer-4"
-            className="drawer-button hover:cursor-pointer lg:flex hidden"
-          >
-            <p className="py-2 px-11 bg-red-500 text-white">Contacts</p>
-          </label>
+      <div
+        id="test"
+        className="fixed bottom-0 right-0 flex-row-reverse z-20 2xl:flex hidden"
+      >
+        <div className="drawer-container">
+          <div className="drawer-content">
+            <label
+              htmlFor="my-drawer-4"
+              className="drawer-button hover:cursor-pointer"
+            >
+              <p className="py-2 px-11 bg-teal-600 text-white">Contacts</p>
+            </label>
+          </div>
         </div>
+        {currentChat && (
+          <ChatPopup
+            handleClick={handleClick}
+            active={active}
+            user={user}
+            chat={currentChat}
+          />
+        )}
       </div>
 
       <div className="drawer-side z-20">
@@ -44,7 +61,7 @@ const ChatDrawer = () => {
                   <div
                     onClick={() => {
                       updateCurrentChat(chat);
-                      onClickNavigate(chat._id);
+                      handleClick("show");
                     }}
                   >
                     <ChatDrawerItem user={user} chat={chat} />

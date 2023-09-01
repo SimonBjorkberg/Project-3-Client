@@ -44,6 +44,14 @@ function App() {
             </IsPrivate>
           }
         />
+        <Route
+          path="/chat/:chatId"
+          element={
+            <IsPrivate>
+              <ChatPage />
+            </IsPrivate>
+          }
+        />
 
         <Route
           path="/signup"
@@ -66,16 +74,6 @@ function App() {
           element={
             <IsPrivate>
               <SellPage />
-            </IsPrivate>
-          }
-        />
-      </Routes>
-      <Routes>
-        <Route
-          path="/chat/:chatId"
-          element={
-            <IsPrivate>
-              <ChatPage />
             </IsPrivate>
           }
         />
