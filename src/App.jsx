@@ -1,5 +1,5 @@
 import "./App.css";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import HomePage from "./pages/HomePage/HomePage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import SignupPage from "./pages/SignupPage/SignupPage";
@@ -15,6 +15,10 @@ import UserList from "./components/chatComponents/UserList";
 import Footer from "./components/Footer/Footer";
 
 function App() {
+  const location = useLocation();
+
+  console.log(location.pathname)
+
   return (
     <div className="App" data-theme="light">
       <Navbar />
@@ -78,8 +82,8 @@ function App() {
             </IsPrivate>
           }
         />
-        {window.location.pathname !== "/chat" && <Footer />}
       </Routes>
+      {location.pathname.includes('/chat') ? null : <Footer />}
     </div>
   );
 }
