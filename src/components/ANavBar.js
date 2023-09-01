@@ -91,10 +91,10 @@ const ANavBar = (props) => {
       {!user && (
         <div className="w-[350px] h-full flex items-center justify-center ml-auto">
           <div className="md:flex hidden">
-            <Link to="/login" className="bg-white py-2 px-4 rounded-sm mr-2">
+            <Link to="/login" className="bg-white py-2 px-4 rounded-sm mr-2 hover:opacity-80">
               Login
             </Link>
-            <Link to="/signup" className="bg-white py-2 px-4 rounded-sm ml-2">
+            <Link to="/signup" className="bg-white py-2 px-4 rounded-sm ml-2 hover:opacity-80">
               Signup
             </Link>
           </div>
