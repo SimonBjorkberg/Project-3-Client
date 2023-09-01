@@ -1,4 +1,3 @@
-import Footer from "../../components/Footer/Footer";
 import "./SellPage.css";
 import { useState } from "react";
 
@@ -68,12 +67,8 @@ function SellPage() {
               value={quantity}
               onChange={handleQuantity}
             />
-
-      
-
       <button className="w-1/2 bg-teal-600 mx-auto py-2 rounded-sm hover:bg-teal-500 mt-4"  type="submit">Sell</button>
     </form>
-    <Footer/>
     </div>
   );
 }

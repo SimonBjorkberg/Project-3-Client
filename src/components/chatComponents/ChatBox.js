@@ -3,7 +3,6 @@ import { AuthContext } from "../../context/auth.context";
 import { ChatContext } from "../../context/chat.context";
 import { useFetchRecipientUser } from "../../hooks/useFetchRecipient";
 import moment from "moment";
-import ChatDrawerItem from "./ChatDrawerItem";
 import { useNavigate } from "react-router-dom";
 
 const ChatBox = () => {
@@ -11,10 +10,7 @@ const ChatBox = () => {
   const {
     currentChat,
     messages,
-    userChats,
     sendTextMessage,
-    isUserChatsLoading,
-    updateCurrentChat,
   } = useContext(ChatContext);
   const { recipientUser } = useFetchRecipientUser(currentChat, user);
   const [textMessage, setTextMessage] = useState("");
