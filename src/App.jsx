@@ -11,6 +11,7 @@ import Navbar from "./components/Navbar/Navbar";
 import IsPrivate from "./components/IsPrivate/IsPrivate";
 import IsAnon from "./components/IsAnon/IsAnon";
 import ChatPage from "./pages/ChatPage";
+import UserList from "./components/chatComponents/UserList";
 
 function App() {
   return (
@@ -39,7 +40,7 @@ function App() {
           path="/chat"
           element={
             <IsPrivate>
-              <ChatPage />
+              <UserList />
             </IsPrivate>
           }
         />
@@ -65,6 +66,16 @@ function App() {
           element={
             <IsPrivate>
               <SellPage />
+            </IsPrivate>
+          }
+        />
+      </Routes>
+      <Routes>
+        <Route
+          path="/chat/:chatId"
+          element={
+            <IsPrivate>
+              <ChatPage />
             </IsPrivate>
           }
         />

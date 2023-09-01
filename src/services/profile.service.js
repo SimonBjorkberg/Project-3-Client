@@ -16,8 +16,8 @@ class ProfileService {
     });
   }
   getOne = async (userId) => {
-    return this.api.get(`/profile/${userId}`)
-  }
+    return this.api.get(`/profile/${userId}`);
+  };
   edit = async (userId, requestBody) => {
     return this.api.put(`/profile/edit/${userId}`, requestBody)
   }
@@ -25,8 +25,8 @@ class ProfileService {
     return this.api.put(`/profile/edit/${userId}/image`,  { image })
   }
   uploadImage = async (image) => {
-    return this.api.post(`/api/upload`, image)
-  }
+    return this.api.post(`/api/upload`, image);
+  };
 }
 
 const profileService = new ProfileService();

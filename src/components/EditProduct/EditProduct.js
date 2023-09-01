@@ -4,13 +4,15 @@ import productService from "../../services/product.service";
 const EditProduct = ({ productDetails, productIndex, isHovered, userId }) => {
   const [title, setTitle] = useState(productDetails.title);
   const [description, setDescription] = useState(productDetails.description);
-  // const [image, setImage] = useState(productDetails.image);
+  const [image, setImage] = useState(productDetails.image);
   const [price, setPrice] = useState(productDetails.price);
   const [quantity, setQuantity] = useState(productDetails.quantity);
   const [categories, setCategories] = useState(productDetails.categories);
   const [categoryInputs, setCategoryInputs] = useState([
     ...productDetails.categories,
   ]);
+  const [newImages, setNewImages] = useState([]);
+
   const handleModalOpen = () => {
     const modal = document.getElementById(`edit-product-${productIndex}`);
     if (modal) {
@@ -33,7 +35,7 @@ const EditProduct = ({ productDetails, productIndex, isHovered, userId }) => {
     e.preventDefault();
     setCategories([...categoryInputs]);
     const requestBody = { title, description, price, quantity, categories };
-    productService.editOne(productDetails._id, requestBody).then((response) => {
+    productService.editOne(productDetails._id, requestBody).then(() => {
       window.location.reload();
     });
   };
@@ -41,6 +43,12 @@ const EditProduct = ({ productDetails, productIndex, isHovered, userId }) => {
   useEffect(() => {
     setCategoryInputs([...categories]);
   }, [categories]);
+
+  // const appendImage = (e) => {
+  //   const formData = new FormData();
+  //   formData.append("imageUrl", e.target.files[0]);
+  //   setImage(formData);
+  // };
 
   return (
     <>
@@ -84,17 +92,6 @@ const EditProduct = ({ productDetails, productIndex, isHovered, userId }) => {
                   onChange={(e) => setDescription(e.target.value)}
                 />
                 <br />
-                <strong>Images</strong>
-                <br />
-                {productDetails.images.map((image, index) => {
-                  return (
-                    <img
-                      src={image}
-                      key={`${productDetails.title}-image-${index}`}
-                      alt={`${productDetails.title} ${index}`}
-                    />
-                  );
-                })}
                 <strong>Price:</strong>
                 <br />
                 <input
@@ -128,12 +125,44 @@ const EditProduct = ({ productDetails, productIndex, isHovered, userId }) => {
                     />
                   );
                 })}
+                <strong>Images</strong>
+                <br />
+                {productDetails.images.map((image, index) => {
+                  const appendImage = (e) => {
+                    const newImage = e.target.files[0];
+                    const updatedImages = [...newImages];
+                    updatedImages[index] = newImage;
+                    setNewImages(updatedImages);
+                  };
+                  return (
+                    <>
+                      <img
+                        src={image}
+                        key={`${productDetails.title}-image-${index}`}
+                        alt={`${productDetails.title} ${index}`}
+                        className="mt-6"
+                      />
+                      <input
+                        type="file"
+                        className="file-input file-input-bordered max-w-xs w-2/3 mx-auto"
+                        onChange={appendImage}
+                      />
+                      <button
+                        onClick={handleModalClose}
+                        className="bg-neutral w-1/2 mx-auto p-2 text-white mt-2 mb-10"
+                      >
+                        edit picture
+                      </button>
+                    </>
+                  );
+                })}
                 <br />
               </p>
               <div className="modal-action">
                 <button type="submit" className="btn" onClick={handleSubmit}>
                   Submit
                 </button>
+                {/* add a delete button */}
               </div>
             </form>
           </div>

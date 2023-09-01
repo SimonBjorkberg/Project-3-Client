@@ -2,12 +2,17 @@ import ChatDrawerItem from "./ChatDrawerItem";
 import { useContext } from "react";
 import { ChatContext } from "../../context/chat.context";
 import { AuthContext } from "../../context/auth.context";
+import { useNavigate } from "react-router-dom";
 
 const ChatDrawer = () => {
+  const navigate = useNavigate();
 
   const { user } = useContext(AuthContext);
   const { userChats, isUserChatsLoading, updateCurrentChat } =
     useContext(ChatContext);
+  const onClickNavigate = (chatId) => {
+    navigate(`/chat/${chatId}`);
+  };
   return (
     <div className="drawer drawer-end">
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
@@ -31,8 +36,17 @@ const ChatDrawer = () => {
           ) : (
             userChats.map((chat, index) => {
               return (
-                <label key={index} htmlFor="my-drawer-4" className="drawer-overlay">
-                  <div onClick={() => updateCurrentChat(chat)}>
+                <label
+                  key={index}
+                  htmlFor="my-drawer-4"
+                  className="drawer-overlay"
+                >
+                  <div
+                    onClick={() => {
+                      updateCurrentChat(chat);
+                      onClickNavigate(chat._id);
+                    }}
+                  >
                     <ChatDrawerItem user={user} chat={chat} />
                   </div>
                 </label>

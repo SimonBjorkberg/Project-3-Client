@@ -2,7 +2,6 @@ import "./Navbar.css";
 import { Link } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/auth.context";
-import { ReactComponent as Logo } from "../../logo.svg";
 import ChatDrawer from "../chatComponents/ChatDrawer";
 
 function Navbar() {
@@ -59,7 +58,14 @@ function Navbar() {
         </li>
         <li>
           <Link to={`/profile/${user._id}`}>
-            <Logo className="all-width-burger-menu max-height-image" />
+            <div className="text-white">
+              {user.username}
+              <img
+                src={user.image}
+                alt="profile pic"
+                className="all-width-burger-menu max-height-image"
+              />
+            </div>
           </Link>
         </li>
       </>
