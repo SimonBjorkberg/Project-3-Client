@@ -15,11 +15,11 @@ const UserList = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto py-10">
+    <div className="max-w-md mx-auto py-10 min-h-[70vh]">
       {isUserChatsLoading ? (
         <p>Loading your contacts...</p>
       ) : (
-        userChats.map((chat, index) => {
+        userChats?.map((chat, index) => {
           return (
             <div
               key={index}
@@ -32,6 +32,12 @@ const UserList = () => {
             </div>
           );
         })
+      )}
+      {userChats.length === 0 && (
+        <p className="text-neutral mt-20 text-xl">
+          No Contacts added yet! <br />
+          Go to a profile and press the Send Message button!
+        </p>
       )}
     </div>
   );

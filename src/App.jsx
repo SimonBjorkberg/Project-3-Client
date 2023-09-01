@@ -12,6 +12,7 @@ import IsPrivate from "./components/IsPrivate/IsPrivate";
 import IsAnon from "./components/IsAnon/IsAnon";
 import ChatPage from "./pages/ChatPage";
 import UserList from "./components/chatComponents/UserList";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   return (
@@ -77,6 +78,7 @@ function App() {
             </IsPrivate>
           }
         />
+        {window.location.pathname !== "/chat" && <Footer />}
       </Routes>
     </div>
   );
