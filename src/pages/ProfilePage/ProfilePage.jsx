@@ -33,6 +33,10 @@ function ProfilePage() {
     }
   }, [message]);
 
+  const updateUser = (newUser) => {
+    setUser(newUser);
+  };
+
   return (
     <>
       {loading ? (
@@ -74,7 +78,7 @@ function ProfilePage() {
               <div className="gap-4">
                 <EditProfile
                   user={user}
-                  setUser={setUser}
+                  updateUser={updateUser}
                   setMessage={setMessage}
                 />
                 <EditAvatar

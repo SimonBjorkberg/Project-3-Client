@@ -135,10 +135,9 @@ const EditProduct = ({ productDetails, productIndex, isHovered, userId }) => {
                     setNewImages(updatedImages);
                   };
                   return (
-                    <>
+                    <div key={`${productDetails.title}-image-${index}`}>
                       <img
                         src={image}
-                        key={`${productDetails.title}-image-${index}`}
                         alt={`${productDetails.title} ${index}`}
                         className="mt-6"
                       />
@@ -153,7 +152,7 @@ const EditProduct = ({ productDetails, productIndex, isHovered, userId }) => {
                       >
                         edit picture
                       </button>
-                    </>
+                    </div>
                   );
                 })}
                 <br />
