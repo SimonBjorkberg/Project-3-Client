@@ -18,7 +18,7 @@ const ChatDrawer = () => {
   };
 
   return (
-    <div className="drawer drawer-end">
+    <div className="drawer drawer-end absolute">
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
       <div
         id="test"
