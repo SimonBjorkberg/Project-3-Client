@@ -74,10 +74,10 @@ const ANavBar = (props) => {
                 </Link>
                 <Link to="/chat" className="2xl:hidden">
                   <p className="bg-neutral-300 text-neutral py-2 px-4 rounded-md mb-1 text-xl hover:opacity-80">
-                    Chats
+                    Contacts
                   </p>
                 </Link>
-                <Link onClick={logOutUser}>
+                <Link onClick={logOutUser} className="mt-12">
                   <p className="bg-red-400 text-white py-2 px-4 rounded-md text-xl hover:bg-red-500">
                     Logout
                   </p>
