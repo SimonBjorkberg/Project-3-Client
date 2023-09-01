@@ -39,6 +39,10 @@ class ProductService {
   deleteOne = (productId) => {
     return this.api.post(`/product/delete/${productId}`);
   };
+
+  like = (productId) => {
+    return this.api.post(`/product/${productId}/like`);
+  };
 }
 
 // Create one instance (object) of the service

@@ -14,11 +14,16 @@ function ProductCard() {
       .then(response => setProducts(response.data))
   }, [])
 
+  
+
   return (
     <>
     
       
       {products && products.map((product, index) => {
+
+      const likedStatus = localStorage.getItem(`liked_${product._id}`) === "true";
+
         return (
         <div key={index} className="card w-96 bg-base-100 shadow-xl my-8 min-w-200">
         <figure>
@@ -41,7 +46,9 @@ function ProductCard() {
                  <button className="btn btn-primary">Add to Cart</button>
                </div>
                <div className="absolute top-3 right-3">
-                 <LikeButton />
+
+               
+                 <LikeButton productId={product._id} initialLiked={likedStatus}/>
                </div>
              </div>
            </div>

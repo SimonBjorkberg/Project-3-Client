@@ -53,7 +53,7 @@ function ProductDetailsPage() {
         <div className="my-8  text-black lg:text-left ">
           <div className=" flex gap-24 sm: justify-center lg:justify-start ">
             <h5 className="text-3xl font-semibold">{product.title}</h5>
-            <LikeButton/>
+            <LikeButton productId={productId}/>
           </div>
 
           <div className="flex flex-row lg:flex">
