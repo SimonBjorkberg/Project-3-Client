@@ -35,7 +35,7 @@ const EditProduct = ({ productDetails, productIndex, isHovered, userId }) => {
     e.preventDefault();
     setCategories([...categoryInputs]);
     const requestBody = { title, description, price, quantity, categories };
-    projectService.editOne(productDetails._id, requestBody).then(() => {
+    productService.editOne(productDetails._id, requestBody).then(() => {
       window.location.reload();
     });
   };
