@@ -39,9 +39,9 @@ const ChatBox = () => {
 
   return (
     <div className="flex w-full">
-      <div className="w-full max-h-[80vh]">
+      <div className="w-full max-h-[70vh]">
      {recipientUser ? <p className="absolute w-full top-0 z-10 bg-neutral text-white text-xl p-4"><span className="float-left hover:cursor-pointer" onClick={handleNavigate}>{"<"}</span>{recipientUser.username}</p> : <p className="absolute w-full top-0 z-10 bg-neutral text-white text-xl p-4 text-left hover:cursor-pointer" onClick={handleNavigate}>{"< "}Select a contact</p>}
-        <div className="overflow-y-scroll h-[80vh]" id="chatbox">
+        <div className="overflow-y-scroll h-[70vh]" id="chatbox">
         {messages && messages.length === 0 && (
               <p className="mt-[35vh]">
                 {recipientUser ? "Start the conversation!" : null}
