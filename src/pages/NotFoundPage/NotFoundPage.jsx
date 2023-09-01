@@ -1,3 +1,4 @@
+import Footer from "../../components/Footer/Footer";
 import "./NotFoundPage.css";
 
 function NotFoundPage() {
@@ -5,6 +6,7 @@ function NotFoundPage() {
     <div>
       <h1>Page Not Found</h1>
       <p>This page doesn't seem to exist</p>
+      <Footer />
     </div>
   );
 }

@@ -1,24 +1,23 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { ChatContext } from "../context/chat.context";
-import { AuthContext } from "../context/auth.context";
-import UserChat from "../components/chatComponents/UserChat";
+import ChatBox from "../components/chatComponents/ChatBox";
 
-const ChatPage = (props) => {
-  const { user } = useContext(AuthContext);
-  const { userChats, isUserChatsLoading, userChatsError } =
-    useContext(ChatContext);
+const ChatPage = () => {
+  const { isUserChatsLoading, currentChat } = useContext(ChatContext);
+
+  useEffect(() => {
+    const scrollToBot = () => {
+      setTimeout(() => {
+        window.scrollTo({ top: document.body.scrollHeight });
+      }, 100);
+    };
+    scrollToBot();
+  }, [currentChat]);
 
   return (
-    <div className="chat">
+    <div className="flex h-full">
       {isUserChatsLoading && <p>Loading Chats...</p>}
-      {!isUserChatsLoading &&
-        userChats.map((chat, index) => {
-          return (
-            <div key={index}>
-              <UserChat user={user} chat={chat} />
-            </div>
-          );
-        })}
+      {!isUserChatsLoading && <ChatBox />}
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import projectService from "../../services/project.service";
+import productService from "../../services/product.service";
 
 const EditProduct = ({ productDetails, productIndex, isHovered, userId }) => {
   const [title, setTitle] = useState(productDetails.title);

@@ -3,7 +3,7 @@ import axios from 'axios';
 class ChatService {
   constructor() {
     this.api = axios.create({
-      baseURL: "http://localhost:5005"
+      baseURL: process.env.REACT_APP_API_URL || "http://localhost:5005"
     });
 
     // Automatically set JWT token in the headers for every request
@@ -20,7 +20,7 @@ class ChatService {
   }
 
   create = async (requestBody) => {
-    return this.api.post('/chat/create')
+    return this.api.post('/chat/create', requestBody)
   }
   findAll = async (userId) => {
     return this.api.get(`/chat/${userId}`)
@@ -28,7 +28,15 @@ class ChatService {
   findUser = async (userId) => {
     return this.api.get(`/chat/user/${userId}`)
   }
- 
+  findAllUsers = async () => {
+    return this.api.get("/api/allUsers")
+  }
+  findChat = async (chatId) => {
+    return this.api.get(`/messages/find/${chatId}`)
+  }
+  createMessage = async (requestBody) => {
+    return this.api.post(`/messages/create`, requestBody)
+  }
 }
 
 // Create one instance of the service

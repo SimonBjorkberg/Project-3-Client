@@ -2,6 +2,8 @@ import "./Navbar.css";
 import { Link } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/auth.context";
+import { ReactComponent as Logo } from "../../logo.svg";
+import ChatDrawer from "../chatComponents/ChatDrawer";
 
 function Navbar() {
   // Subscribe to the AuthContext to gain access to
@@ -41,8 +43,18 @@ function Navbar() {
     return (
       <>
         <li>
+          <Link to="/sell" className="text-white hover:text-gray-300">
+            sell
+          </Link>
+        </li>
+        <li>
           <Link onClick={logOutUser} className="text-white hover:text-gray-300">
             logout
+          </Link>
+        </li>
+        <li className="lg:hidden">
+          <Link to="/chat" className="text-white hover:text-gray-300">
+            Chats
           </Link>
         </li>
         <li>
@@ -133,6 +145,7 @@ function Navbar() {
           </ul>
         </div>
       </div>
+      {isLoggedIn && <ChatDrawer />}
     </nav>
   );
 }

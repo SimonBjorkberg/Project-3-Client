@@ -6,8 +6,27 @@ import { v4 as uuidv4 } from "uuid";
 import EditProfile from "../../components/EditProfile/EditProfile";
 import EditAvatar from "../../components/EditAvatar/EditAvatar";
 import EditProduct from "../../components/EditProduct/EditProduct";
+import Footer from "../../components/Footer/Footer";
 
 function ProfilePage() {
+
+  const [username, setUsername] = useState('')
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    profileService.edit(user._id, {username, image: user.image})
+      .then((response) => {
+        console.log(response)
+      })
+  }
+
+
+
+
+
+
+
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [productHovered, setProductHovered] = useState(null);
@@ -162,6 +181,12 @@ function ProfilePage() {
           </div>
         </>
       )}
+      <Footer/>
+
+      <form onSubmit={handleSubmit}>
+        <input type="text" value={username} onChange={(e) => (setUsername(e.target.value))} />
+        <button>Submit</button>
+      </form>
     </>
   );
 }

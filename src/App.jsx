@@ -1,6 +1,5 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
-
 import HomePage from "./pages/HomePage/HomePage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import SignupPage from "./pages/SignupPage/SignupPage";
@@ -8,7 +7,6 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import ProductsPage from "./pages/ProductsPage/ProductsPage";
 import SellPage from "./pages/SellPage/SellPage";
 import ProductDetailsPage from "./pages/ProductDetailsPage/ProductDetailsPage";
-import Footer from "./components/Footer/Footer";
 import Navbar from "./components/Navbar/Navbar";
 import IsPrivate from "./components/IsPrivate/IsPrivate";
 import IsAnon from "./components/IsAnon/IsAnon";
@@ -23,7 +21,10 @@ function App() {
 
         <Route path="/products" element={<ProductsPage />} />
 
-        <Route path="/product-details" element={<ProductDetailsPage />} />
+        <Route
+          path="/product/single/:productId"
+          element={<ProductDetailsPage />}
+        />
 
         <Route
           path="/profile/:userId"
@@ -34,9 +35,13 @@ function App() {
           }
         />
 
-        <Route 
+        <Route
           path="/chat"
-          element={<ChatPage />}
+          element={
+            <IsPrivate>
+              <ChatPage />
+            </IsPrivate>
+          }
         />
 
         <Route
@@ -64,8 +69,6 @@ function App() {
           }
         />
       </Routes>
-
-      <Footer />
     </div>
   );
 }

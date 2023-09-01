@@ -3,7 +3,7 @@ import axios from "axios";
 class ProductService {
   constructor() {
     this.api = axios.create({
-      baseURL: "http://localhost:5005",
+      baseURL: process.env.REACT_APP_API_URL || "http://localhost:5005"
     });
 
     // Automatically set JWT token on the request headers for every request
@@ -42,6 +42,6 @@ class ProductService {
 }
 
 // Create one instance (object) of the service
-const projectService = new ProductService();
+const productService = new ProductService();
 
-export default projectService;
+export default productService;
