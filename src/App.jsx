@@ -13,15 +13,14 @@ import IsAnon from "./components/IsAnon/IsAnon";
 import ChatPage from "./pages/ChatPage";
 import UserList from "./components/chatComponents/UserList";
 import Footer from "./components/Footer/Footer";
+import ANavBar from "./components/ANavBar";
 
 function App() {
   const location = useLocation();
 
-  console.log(location.pathname)
-
   return (
     <div className="App" data-theme="light">
-      <Navbar />
+      {location.pathname.includes('/chat/') ? null : <ANavBar />}
       <Routes>
         <Route path="/" element={<HomePage />} />
 

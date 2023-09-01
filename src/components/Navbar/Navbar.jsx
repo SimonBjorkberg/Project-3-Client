@@ -2,11 +2,8 @@ import "./Navbar.css";
 import { Link } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/auth.context";
-import ChatDrawer from "../chatComponents/ChatDrawer";
 
 function Navbar() {
-  // Subscribe to the AuthContext to gain access to
-  // the values from AuthContext.Provider's `value` prop
   const { isLoggedIn, user, logOutUser } = useContext(AuthContext);
   const [menuOpen, setMenuOpen] = useState(false);
   const toggleMenu = () => setMenuOpen(!menuOpen);
@@ -144,7 +141,6 @@ function Navbar() {
           </ul>
         </div>
       </div>
-      {isLoggedIn && <ChatDrawer />}
     </nav>
   );
 }

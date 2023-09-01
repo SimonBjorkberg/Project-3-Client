@@ -33,7 +33,7 @@ const UserList = () => {
           );
         })
       )}
-      {userChats.length === 0 && (
+      {userChats?.length === 0 && (
         <p className="text-neutral mt-20 text-xl">
           No Contacts added yet! <br />
           Go to a profile and press the Send Message button!
