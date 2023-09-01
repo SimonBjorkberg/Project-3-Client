@@ -18,11 +18,11 @@ const ChatBox = () => {
   } = useContext(ChatContext);
   const { recipientUser } = useFetchRecipientUser(currentChat, user);
   const [textMessage, setTextMessage] = useState("");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleNavigate = () => {
-    navigate('/chat');
-  }
+    navigate("/chat");
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -40,28 +40,45 @@ const ChatBox = () => {
   return (
     <div className="flex w-full">
       <div className="w-full max-h-[70vh]">
-     {recipientUser ? <p className="absolute w-full top-0 z-10 bg-neutral text-white text-xl p-4"><span className="float-left hover:cursor-pointer" onClick={handleNavigate}>{"<"}</span>{recipientUser.username}</p> : <p className="absolute w-full top-0 z-10 bg-neutral text-white text-xl p-4 text-left hover:cursor-pointer" onClick={handleNavigate}>{"< "}Select a contact</p>}
+        {recipientUser ? (
+          <p className="absolute w-full top-0 z-10 bg-neutral text-white text-xl p-4">
+            <span
+              className="float-left hover:cursor-pointer"
+              onClick={handleNavigate}
+            >
+              {"<"}
+            </span>
+            {recipientUser.username}
+          </p>
+        ) : (
+          <p
+            className="absolute w-full top-0 z-10 bg-neutral text-white text-xl p-4 text-left hover:cursor-pointer"
+            onClick={handleNavigate}
+          >
+            {"< "}Select a contact
+          </p>
+        )}
         <div className="overflow-y-scroll h-[70vh]" id="chatbox">
-        {messages && messages.length === 0 && (
-              <p className="mt-[35vh]">
-                {recipientUser ? "Start the conversation!" : null}
-              </p>
-            )}
-            {messages?.map((message, index) => (
-              <div
-                key={index}
-                className={`flex flex-col chat ${
-                  message?.senderId === user?._id ? "chat-end" : "chat-start"
-                }`}
-              >
-                <div className="chat-bubble max-w-[355px] mx-4">
-                  {message.message}
-                </div>
-                <span className="text-xs mb-1 text-gray-500">
-                  {moment(message.createdAt).calendar()}
-                </span>
+          {messages && messages.length === 0 && (
+            <p className="mt-[35vh]">
+              {recipientUser ? "Start the conversation!" : null}
+            </p>
+          )}
+          {messages?.map((message, index) => (
+            <div
+              key={index}
+              className={`flex flex-col chat ${
+                message?.senderId === user?._id ? "chat-end" : "chat-start"
+              }`}
+            >
+              <div className="chat-bubble max-w-[355px] mx-4">
+                {message.message}
               </div>
-            ))}
+              <span className="text-xs mb-1 text-gray-500">
+                {moment(message.createdAt).calendar()}
+              </span>
+            </div>
+          ))}
         </div>
         <form onSubmit={handleSubmit} className="flex w-full">
           <input
