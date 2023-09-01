@@ -35,7 +35,7 @@ const EditAvatar = ({ user, setUser, setMessage }) => {
   };
 
   return (
-    <div>
+    <div className="mt-4">
       <button className="btn" onClick={handleModalOpen}>
         Edit Avatar
       </button>

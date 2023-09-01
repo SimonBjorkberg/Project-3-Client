@@ -59,7 +59,14 @@ function Navbar() {
         </li>
         <li>
           <Link to={`/profile/${user._id}`}>
-            <Logo className="all-width-burger-menu max-height-image" />
+            <div className="text-white">
+              {user.username}
+              <img
+                src={user.image}
+                alt="profile pic"
+                className="all-width-burger-menu max-height-image"
+              />
+            </div>
           </Link>
         </li>
       </>
