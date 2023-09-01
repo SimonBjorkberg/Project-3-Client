@@ -68,12 +68,12 @@ const ANavBar = (props) => {
                   </p>
                 </Link>
                 <Link to="/sell">
-                  <p className="bg-green-600 py-2 mb-1 px-4 rounded-md text-xl hover:opacity-80">
+                  <p className="bg-neutral-300 text-neutral py-2 mb-1 px-4 rounded-md text-xl hover:opacity-80">
                     Sell
                   </p>
                 </Link>
                 <Link to="/chat" className="2xl:hidden">
-                  <p className="bg-teal-600 text-white py-2 px-4 rounded-md mb-1 text-xl hover:opacity-80">
+                  <p className="bg-neutral-300 text-neutral py-2 px-4 rounded-md mb-1 text-xl hover:opacity-80">
                     Chats
                   </p>
                 </Link>
@@ -118,12 +118,12 @@ const ANavBar = (props) => {
               </label>
               <div
                 tabIndex={0}
-                className="menu menu-sm dropdown-content mt-1 z-[1] p-2 shadow bg-base-100 w-60 right-0 rounded-md"
+                className="menu menu-sm dropdown-content mt-1 z-[1] p-2 shadow bg-white w-60 right-0 rounded-md"
               >
-                <Link to="/login" className="bg-neutral text-white text-xl py-2 px-4 rounded-md mb-1">
+                <Link to="/login" className="text-neutral text-xl py-2 px-4 rounded-md mb-1 bg-neutral-300">
               Login
             </Link>
-            <Link to="/signup" className="bg-neutral text-white text-xl py-2 px-4 rounded-md">
+            <Link to="/signup" className="text-neutral text-xl py-2 px-4 rounded-md bg-neutral-300">
               Signup
             </Link>
               </div>
