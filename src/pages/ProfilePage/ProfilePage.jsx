@@ -6,7 +6,6 @@ import { v4 as uuidv4 } from "uuid";
 import EditProfile from "../../components/EditProfile/EditProfile";
 import EditAvatar from "../../components/EditAvatar/EditAvatar";
 import EditProduct from "../../components/EditProduct/EditProduct";
-import Footer from "../../components/Footer/Footer";
 
 function ProfilePage() {
   const [user, setUser] = useState(null);
@@ -33,6 +32,10 @@ function ProfilePage() {
       };
     }
   }, [message]);
+
+  const updateUser = (newUser) => {
+    setUser(newUser);
+  };
 
   return (
     <>
@@ -75,7 +78,7 @@ function ProfilePage() {
               <div className="gap-4">
                 <EditProfile
                   user={user}
-                  setUser={setUser}
+                  updateUser={updateUser}
                   setMessage={setMessage}
                 />
                 <EditAvatar
@@ -86,7 +89,7 @@ function ProfilePage() {
               </div>
             </div>
           </main>
-          <div className="flex flex-col place-content-evenly">
+          <div className="flex flex-col place-content-evenly mt-4">
             <div>
               <h3>Reviews:</h3>
               {user.reviews.length > 0 ? (
@@ -102,10 +105,10 @@ function ProfilePage() {
                 <p>no reviews so far</p>
               )}
             </div>
-            <div className="w-full max-w-[100%]">
+            <div className="w-full max-w-[100%] mt-4">
               <h3>Products:</h3>
               {user.products.length > 0 ? (
-                <table>
+                <table className="mt-4 mb-4">
                   <thead>
                     <tr>
                       <th>Name</th>
@@ -130,7 +133,7 @@ function ProfilePage() {
                           <td>{product.title}</td>
                           <td>
                             <img
-                              className="max-w-[100%]"
+                              className="max-w-[100px]"
                               src={product.images[0]}
                               alt={product.title}
                               key={`image product ${product.title}`}
@@ -163,7 +166,6 @@ function ProfilePage() {
           </div>
         </>
       )}
-      <Footer/>
     </>
   );
 }

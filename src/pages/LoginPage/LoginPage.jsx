@@ -3,7 +3,6 @@ import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/auth.context";
 import authService from "../../services/auth.service";
-import Footer from "../../components/Footer/Footer";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
@@ -82,7 +81,6 @@ function LoginPage() {
         {" "}
         Sign Up
       </Link>
-      <Footer />
     </div>
   );
 }

@@ -1,24 +1,43 @@
-import { useFetchRecipientUser } from "../../hooks/useFetchRecipient";
+import { useContext } from "react";
+import { ChatContext } from "../../context/chat.context";
+import { AuthContext } from "../../context/auth.context";
+import ChatDrawerItem from "./ChatDrawerItem";
 import { useNavigate } from "react-router-dom";
 
-const UserList = ({ chat, user }) => {
+const UserList = () => {
+  const { userChats, isUserChatsLoading, updateCurrentChat } =
+    useContext(ChatContext);
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
-  const { recipientUser } = useFetchRecipientUser(chat, user);
-  const onClickNavigate = () => {
-    navigate("/chat");
+
+  const handleNavigate = (chatId) => {
+    navigate(`/chat/${chatId}`);
   };
+
   return (
-    <div className="mb-2" style={{ maxHeight: "300px", overflowY: "auto" }}>
-      {!recipientUser ? (
-        <p>Loading</p>
+    <div className="max-w-md mx-auto py-10 min-h-[70vh]">
+      {isUserChatsLoading ? (
+        <p>Loading your contacts...</p>
       ) : (
-        <div
-          className="flex py-2 hover:cursor-pointer hover:bg-neutral hover:text-white"
-          onClick={onClickNavigate}
-        >
-          <img src={recipientUser.image} alt="pic" className="w-10 ml-2" />
-          <p className="my-auto ml-2 text-lg">{recipientUser.username}</p>
-        </div>
+        userChats?.map((chat, index) => {
+          return (
+            <div
+              key={index}
+              onClick={() => {
+                updateCurrentChat(chat);
+                handleNavigate(chat._id);
+              }}
+            >
+              <ChatDrawerItem user={user} chat={chat} />
+            </div>
+          );
+        })
+      )}
+      {userChats?.length === 0 && (
+        <p className="text-neutral mt-20 text-xl">
+          No Contacts added yet! <br />
+          Go to a profile and press the Send Message button!
+        </p>
       )}
     </div>
   );

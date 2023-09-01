@@ -2,12 +2,8 @@ import "./Navbar.css";
 import { Link } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/auth.context";
-import { ReactComponent as Logo } from "../../logo.svg";
-import ChatDrawer from "../chatComponents/ChatDrawer";
 
 function Navbar() {
-  // Subscribe to the AuthContext to gain access to
-  // the values from AuthContext.Provider's `value` prop
   const { isLoggedIn, user, logOutUser } = useContext(AuthContext);
   const [menuOpen, setMenuOpen] = useState(false);
   const toggleMenu = () => setMenuOpen(!menuOpen);
@@ -52,14 +48,21 @@ function Navbar() {
             logout
           </Link>
         </li>
-        <li className="lg:hidden">
+        <li className="2xl:hidden">
           <Link to="/chat" className="text-white hover:text-gray-300">
             Chats
           </Link>
         </li>
         <li>
           <Link to={`/profile/${user._id}`}>
-            <Logo className="all-width-burger-menu max-height-image" />
+            <div className="text-white">
+              {user.username}
+              <img
+                src={user.image}
+                alt="profile pic"
+                className="all-width-burger-menu max-height-image"
+              />
+            </div>
           </Link>
         </li>
       </>
@@ -138,7 +141,6 @@ function Navbar() {
           </ul>
         </div>
       </div>
-      {isLoggedIn && <ChatDrawer />}
     </nav>
   );
 }

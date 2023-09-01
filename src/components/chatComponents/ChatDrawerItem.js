@@ -1,20 +1,14 @@
 import { useFetchRecipientUser } from "../../hooks/useFetchRecipient";
-import { useNavigate } from "react-router-dom";
 
 const ChatDrawerItem = ({ chat, user }) => {
-  const navigate = useNavigate();
   const { recipientUser } = useFetchRecipientUser(chat, user);
-  const onClickNavigate = () => {
-    navigate("/chat");
-  };
   return (
     <div className="mb-2">
       {!recipientUser ? (
         <p>Loading</p>
       ) : (
         <div
-          className="flex border-b border-t py-2 hover:cursor-pointer hover:bg-neutral hover:text-white"
-          onClick={onClickNavigate}
+          className="flex border py-2 hover:cursor-pointer hover:bg-neutral hover:text-white"
         >
           <div className="avatar">
             <div className="w-10 rounded-xl">
