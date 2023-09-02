@@ -8,6 +8,9 @@ import EditAvatar from "../../components/EditAvatar/EditAvatar";
 import EditProduct from "../../components/EditProduct/EditProduct";
 import { ChatContext } from "../../context/chat.context";
 import { AuthContext } from "../../context/auth.context";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar as solidStar } from "@fortawesome/free-solid-svg-icons";
+import { faStar as regularStar } from "@fortawesome/free-regular-svg-icons";
 
 function ProfilePage() {
   const { potentialChats, createChat } = useContext(ChatContext);
@@ -19,7 +22,6 @@ function ProfilePage() {
   const [message, setMessage] = useState(false);
   const [newContact, setNewContact] = useState(false);
   const [visitorIsProfilePage, setVisitorIsProfilePage] = useState(false);
-  console.log(user._id === userId);
 
   useEffect(() => {
     if (user._id === userId) {
@@ -38,6 +40,11 @@ function ProfilePage() {
       setLoading(false);
     });
   }, [userId]);
+
+  const calculateAverageRating = (reviews) => {
+    const totalRating = reviews.reduce((sum, review) => sum + review.review, 0);
+    return (totalRating / reviews.length).toFixed(0);
+  };
 
   useEffect(() => {
     if (message) {
@@ -128,14 +135,30 @@ function ProfilePage() {
             <div>
               <h3>Reviews:</h3>
               {foundUser.reviews.length > 0 ? (
-                foundUser.reviews.map((review) => {
-                  return (
-                    <div key={review._id}>
-                      <p>{review.review}</p>
-                      <p>comment: {review.comment}</p>
-                    </div>
-                  );
-                })
+                <>
+                  <p>
+                    Average Rating:
+                    {Array.from(
+                      { length: calculateAverageRating(foundUser.reviews) },
+                      () => (
+                        <FontAwesomeIcon key={uuidv4()} icon={solidStar} />
+                      )
+                    )}
+                    {Array.from(
+                      { length: 5 - calculateAverageRating(foundUser.reviews) },
+                      () => (
+                        <FontAwesomeIcon key={uuidv4()} icon={regularStar} />
+                      )
+                    )}
+                  </p>
+                  {foundUser.reviews.map((review) => {
+                    return (
+                      <div key={review._id}>
+                        <p>comment: "{review.comment}"</p>
+                      </div>
+                    );
+                  })}
+                </>
               ) : (
                 <p>no reviews so far</p>
               )}
