@@ -1,7 +1,7 @@
 import "./ProfilePage.css";
 import profileService from "../../services/profile.service";
 import { useState, useEffect, useContext } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import EditProfile from "../../components/EditProfile/EditProfile";
 import EditAvatar from "../../components/EditAvatar/EditAvatar";
@@ -164,7 +164,7 @@ function ProfilePage() {
               )}
             </div>
             <div className="w-full max-w-[100%] mt-4">
-              <h3>Products:</h3>
+              <h3>Products to be sold:</h3>
               {foundUser.products.length > 0 ? (
                 <table className="mt-4 mb-4">
                   <thead>
@@ -194,7 +194,12 @@ function ProfilePage() {
                             }
                           }}
                         >
-                          <td>{product.title}</td>
+                          <td>
+                            <Link to={`/product/single/${product._id}`}>
+                              {" "}
+                              {product.title}
+                            </Link>
+                          </td>
                           <td>
                             <img
                               className="max-w-[100px]"
@@ -227,6 +232,80 @@ function ProfilePage() {
                 <p>no products added</p>
               )}
             </div>
+            {visitorIsProfilePage ? (
+              <div className="w-full max-w-[100%] mt-4">
+                <h3>Products liked:</h3>
+                {foundUser.productsLiked.length > 0 ? (
+                  <table className="mt-4 mb-4">
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>images</th>
+                        <th>Price €</th>
+                        <th>Quantity</th>
+                        <th>Categories</th>
+                        <th className="hidden-desktop"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {foundUser.productsLiked.map((product, index) => {
+                        return (
+                          <tr
+                            className="gap-4"
+                            key={product._id}
+                            onMouseEnter={() => {
+                              if (visitorIsProfilePage) {
+                                setProductHovered(product._id);
+                              }
+                            }}
+                            onMouseLeave={() => {
+                              if (visitorIsProfilePage) {
+                                setProductHovered(null);
+                              }
+                            }}
+                          >
+                            <td>
+                              <Link to={`/product/single/${product._id}`}>
+                                {" "}
+                                {product.title}
+                              </Link>
+                            </td>
+                            <td>
+                              <img
+                                className="max-w-[100px]"
+                                src={product.images[0]}
+                                alt={product.title}
+                                key={`image product ${product.title}`}
+                              />
+                            </td>
+                            <td>{product.price}</td>
+                            <td>{product.quantity}</td>
+                            <td>
+                              {product.categories.map((category) => {
+                                return <span key={uuidv4()}>{category} </span>;
+                              })}
+                            </td>
+                            <td>
+                              {productHovered === product._id ? (
+                                <button className="btn btn-outline bg-base-100">
+                                  Unlike
+                                </button>
+                              ) : (
+                                ""
+                              )}
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                ) : (
+                  <p>no products liked</p>
+                )}
+              </div>
+            ) : (
+              ""
+            )}
           </div>
         </>
       )}
