@@ -3,17 +3,47 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/auth.context";
 import ChatDrawer from "../components/chatComponents/ChatDrawer";
 import "../index.css";
+import SearchBar from "./SearchBar";
+import productService from "../services/product.service";
 
 const ANavBar = () => {
   const { user, logOutUser, isLoggedIn } = useContext(AuthContext);
-  const [isFocused, setIsFocused] = useState(false)
+  const [isFocused, setIsFocused] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
+  const [searchData, setSearchData] = useState([]);
+  const [titleSearch, setTitleSearch] = useState([]);
+  const [categorySearch, setCategorySearch] = useState([]);
+
+  useEffect(() => {
+    productService.getAll().then((response) => {
+      setSearchData(response.data);
+    });
+  }, []);
+
+  console.log(searchData);
 
   const setFocus = () => {
-    setIsFocused(true)
-  }
+    setIsFocused(true);
+  };
   const deFocus = () => {
-    setIsFocused(false)
-  }
+    setIsFocused(false);
+  };
+
+  console.log(searchValue);
+
+  useEffect(() => {
+    const handleSearch = () => {
+      if (searchValue === "") {
+        return setTitleSearch([]);
+      }
+      const filteredTitles = searchData.filter((product) => {
+        return product.title.toLowerCase().includes(searchValue.toLowerCase());
+      });
+      console.log(filteredTitles);
+      setTitleSearch(filteredTitles);
+    };
+    handleSearch()
+  }, [searchValue, searchData]);
 
   return (
     <nav className="h-24 bg-neutral flex w-full">
@@ -22,18 +52,21 @@ const ANavBar = () => {
           <p className="text-2xl text-white">Home</p>
         </Link>
       </div>
-      <div className="flex justify-center items-center" id="searchbar">
-        <input
-          type="text"
-          className="w-full sm:w-[250px] inset-x-0 mx-auto p-2 focus:absolute focus:outline-none focus:z-50 focus:w-[80%]"
-          placeholder="Search..."
-          onFocus={setFocus}
-          onBlur={deFocus}
-        />
-      </div>
+      <SearchBar
+        setFocus={setFocus}
+        titleSearch={titleSearch}
+        deFocus={deFocus}
+        isFocused={isFocused}
+        categorySearch={categorySearch}
+        searchValue={searchValue}
+        setSearchValue={setSearchValue}
+      />
       {isFocused && (
-    <div className="fixed top-0 left-0 w-full h-full bg-black opacity-50 z-40"></div>
-  )}
+        <div
+          className="fixed top-0 left-0 w-full h-full bg-black opacity-80 z-40"
+          onClick={deFocus}
+        ></div>
+      )}
       {user && (
         <div className="w-[350px] h-full flex items-center justify-center ml-auto">
           <div className="md:flex hidden">
