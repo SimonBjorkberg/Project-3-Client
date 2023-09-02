@@ -3,13 +3,15 @@ import { useEffect, useState } from "react";
 import { useContext } from "react";
 import { AuthContext } from "../../context/auth.context";
 import productService from "../../services/product.service";
-import { useNavigate } from "react-router-dom";
+import Select from "react-select"
 
 function SellPage() {
   const { user } = useContext(AuthContext);
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
   const [images, setImages] = useState([]);
+  const [categorieOptions, setCategorieOptions] = useState();
+  const [wearOptions, setWearOptions] = useState();
   const [product, setProduct] = useState({
     title: "",
     description: "",
@@ -63,18 +65,46 @@ function SellPage() {
         author: user._id,
         price: 0,
         quantity: 0,
-        categories: [],
-        wear: "New",
+        categories: categorieOptions,
+        wear: wearOptions,
         brand: "",
       });
     }
   };
+
+  function handleCategorie(data) {
+    setCategorieOptions(data);
+  }
+
+  function handleWear(data) {
+    setWearOptions(data);
+  }
 
   useEffect(() => {
     setTimeout(() => {
       setMessage("");
     }, 4000);
   }, [message]);
+
+  const categoriesList = [
+    { value: "rompers", label: "Rompers" },
+    { value: "sleepsuits", label: "Sleepsuits" },
+    { value: "onesies", label: "Onesies" },
+    { value: "bodysuits", label: "Bodysuits" },
+    { value: "dresses", label: "Dresses" },
+    { value: "t-shirts", label: "T-shirts" },
+    { value: "pants and leggings", label: "Pants and Leggings" },
+    { value: "sweaters and cardigans", label: "Sweaters and Cardigans" },
+    { value: "bibs", label: "Bibs" },
+    { value: "outerwear", label: "Outerwear" }      
+  ]
+
+  const wearList = [
+    { value: "brand new", label: "Brand New" },
+    { value: "well worn", label: "Well Worn" },
+    { value: "stains", label: "Stains" },
+   
+  ]
 
   return (
     <div>
@@ -132,17 +162,29 @@ function SellPage() {
           value={product.quantity}
           onChange={handleChange}
         />
+
         <label className="text-left font-semibold ml-1">Wear & Tear:</label>
-        <select
-          className="p-2 focus:outline-none border my-1"
-          name="wear"
-          value={product.wear}
-          onChange={handleChange}
-        >
-          <option>Brand New</option>
-          <option>Well Worn</option>
-          <option>Stains</option>
-        </select>
+
+        <Select
+        options={wearList}
+        name="categories"
+        value={wearOptions}
+        onChange={handleWear}
+        isSearchable={true}
+       />
+      
+        <label className="text-left font-semibold ml-1">Categories:</label>
+
+        <Select
+        options={categoriesList}
+        name="wear"
+        value={categorieOptions}
+        onChange={handleCategorie}
+        isSearchable={true}
+        isMulti
+       />
+
+        
         <label className="text-left font-semibold ml-1">
           Clothing Brand(s):
         </label>

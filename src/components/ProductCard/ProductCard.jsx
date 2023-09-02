@@ -1,5 +1,5 @@
 import "./ProductCard.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import LikeButton from "../LikeButton/LikeButton";
 import { useContext, useEffect, useState } from "react";
 import productService from "../../services/product.service";
