@@ -1,11 +1,11 @@
-import "./ProductCard.css";
+import "./ProductCardHomepage.css";
 import { Link } from "react-router-dom";
 import LikeButton from "../LikeButton/LikeButton";
 import { useContext, useEffect, useState } from "react";
 import productService from "../../services/product.service";
 import { AuthContext } from "../../context/auth.context";
 
-function ProductCard() {
+function ProductCardHomepage() {
   const [products, setProducts] = useState("");
 
   const { user, isLoggedIn } = useContext(AuthContext);
@@ -37,11 +37,11 @@ function ProductCard() {
           return (
             <div
               key={index}
-              className="card w-96 bg-base-100 shadow-xl my-8 min-w-200 min-h-[28rem] max-h-[28]"
+              className="card w-96 bg-base-100 shadow-xl my-8 min-w-200 "
             >
-              <figure className="max-h-[14rem] min-h-[14rem]">
+              <figure className="max-h-[7rem] min-h-[7rem]">
                 <Link to={`/product/single/${product._id}`}>
-                  <img src={product.images[0]} alt={product.title} />
+                  <img src={product.images[0]} alt={product.title}  />
                 </Link>
               </figure>
               <div className="card-body">
@@ -86,4 +86,4 @@ function ProductCard() {
   );
 }
 
-export default ProductCard;
+export default ProductCardHomepage;
