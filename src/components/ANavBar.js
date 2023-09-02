@@ -20,16 +20,12 @@ const ANavBar = () => {
     });
   }, []);
 
-  console.log(searchData);
-
   const setFocus = () => {
     setIsFocused(true);
   };
   const deFocus = () => {
     setIsFocused(false);
   };
-
-  console.log(searchValue);
 
   useEffect(() => {
     const handleSearch = () => {
@@ -39,10 +35,9 @@ const ANavBar = () => {
       const filteredTitles = searchData.filter((product) => {
         return product.title.toLowerCase().includes(searchValue.toLowerCase());
       });
-      console.log(filteredTitles);
       setTitleSearch(filteredTitles);
     };
-    handleSearch()
+    handleSearch();
   }, [searchValue, searchData]);
 
   return (
