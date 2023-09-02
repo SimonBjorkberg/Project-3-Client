@@ -18,6 +18,14 @@ function ProfilePage() {
   const { userId } = useParams();
   const [message, setMessage] = useState(false);
   const [newContact, setNewContact] = useState(false);
+  const [visitorIsProfilePage, setVisitorIsProfilePage] = useState(false);
+  console.log(user._id === userId);
+
+  useEffect(() => {
+    if (user._id === userId) {
+      setVisitorIsProfilePage(true);
+    }
+  }, [visitorIsProfilePage]);
 
   useEffect(() => {
     if (potentialChats.some((chat) => chat._id === userId))
@@ -97,16 +105,22 @@ function ProfilePage() {
               <h2>{`${foundUser.username}`}</h2>
               <h3>Email registred: {`${foundUser.email}`}</h3>
               <div className="gap-4">
-                <EditProfile
-                  user={foundUser}
-                  updateUser={updateUser}
-                  setMessage={setMessage}
-                />
-                <EditAvatar
-                  user={foundUser}
-                  setUser={setFoundUser}
-                  setMessage={setMessage}
-                />
+                {visitorIsProfilePage ? (
+                  <>
+                    <EditProfile
+                      user={foundUser}
+                      updateUser={updateUser}
+                      setMessage={setMessage}
+                    />
+                    <EditAvatar
+                      user={foundUser}
+                      setUser={setFoundUser}
+                      setMessage={setMessage}
+                    />{" "}
+                  </>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
           </main>
@@ -147,9 +161,15 @@ function ProfilePage() {
                           className="gap-4"
                           key={product._id}
                           onMouseEnter={() => {
-                            setProductHovered(product._id);
+                            if (visitorIsProfilePage) {
+                              setProductHovered(product._id);
+                            }
                           }}
-                          onMouseLeave={() => setProductHovered(null)}
+                          onMouseLeave={() => {
+                            if (visitorIsProfilePage) {
+                              setProductHovered(null);
+                            }
+                          }}
                         >
                           <td>{product.title}</td>
                           <td>
