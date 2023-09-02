@@ -1,14 +1,17 @@
 import "./ProductDetailsPage.css";
 import LikeButton from "../../components/LikeButton/LikeButton";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import productService from "../../services/product.service";
+import { AuthContext } from "../../context/auth.context";
 
 function ProductDetailsPage() {
   const { productId } = useParams();
 
   const [product, setProduct] = useState("");
   const [index, setIndex] = useState(0);
+
+  const { user, isLoggedIn } = useContext(AuthContext);
 
   const goToPreviousSlide = () => {
     console.log(index);
@@ -29,6 +32,26 @@ function ProductDetailsPage() {
       .getOne(productId)
       .then((response) => setProduct(response.data));
   }, [productId]);
+
+  let includesId = false;
+
+  if(isLoggedIn){
+    const idToCheck = user._id
+   
+  
+  
+  for (let i = 0; i < product.likes.length; i++) {
+  if (product.likes[i] === idToCheck) {
+  console.log(product.likes)
+  includesId = true;
+  break; // Exit the loop early once a match is found
+      }
+    }
+  } else {
+    includesId = false
+  }
+
+
 
   return (
     <div className="flex sm:flex-col  lg:flex-row">
@@ -58,6 +81,25 @@ function ProductDetailsPage() {
           <h5 className="text-3xl font-semibold">{product.title}</h5>
           <LikeButton />
         </div>
+       <div className=" lg:w-2/4 m-8 shrink-0 sm: w-fit">
+          {product.images && ( 
+            <div className="carousel">
+              <div  className="carousel-item relative w-full">
+                <img src={product.images[index]} className="w-full  min-w-200 " alt={`slide${index}`} />
+                <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+                  <button onClick={goToPreviousSlide} className="btn btn-circle">❮</button> 
+                  <button onClick={goToNextSlide} className="btn btn-circle">❯</button>
+                </div>
+              </div> 
+            </div>
+          )}
+
+        </div>
+        <div className="my-8  text-black lg:text-left ">
+          <div className=" flex gap-24 sm: justify-center lg:justify-start ">
+            <h5 className="text-3xl font-semibold">{product.title}</h5>
+            <LikeButton productId={productId} likedStatus={includesId ? true : false}/>
+          </div>
 
         <div className="flex flex-row lg:flex">
           {product.categories && product.categories.length > 0 && (
@@ -90,6 +132,7 @@ function ProductDetailsPage() {
           </button>
         </div>
       </div>
+    </div>
     </div>
   );
 }
