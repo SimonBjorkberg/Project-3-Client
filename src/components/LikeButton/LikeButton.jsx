@@ -1,30 +1,14 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import "./LikeButton.css";
 import productService from "../../services/product.service";
 import { AuthContext } from "../../context/auth.context";
 
-const LikeButton = ({ productId }) => {
+const LikeButton = ({ productId, likedStatus }) => {
 
   const { user } = useContext(AuthContext);
-  const [liked, setLiked] = useState(false);
+  const [liked, setLiked] = useState(likedStatus);
 
-  useEffect(() => {
-    // Define an async function to check if the product is liked
-    const checkIfLiked = async () => {
-      try {
-        // Send a request to the backend to check if the product is liked
-        const response = await productService.get(productId);
 
-        // Update the liked state based on the response
-        setLiked(response.data.liked);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    // Call the function to check if the product is liked
-    checkIfLiked();
-  }, [productId]); 
 
   const handleLikeClick = async () => {
     try {

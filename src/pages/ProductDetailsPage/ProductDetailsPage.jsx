@@ -1,14 +1,17 @@
 import "./ProductDetailsPage.css";
 import LikeButton from "../../components/LikeButton/LikeButton";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import productService from "../../services/product.service";
+import { AuthContext } from "../../context/auth.context";
 
 function ProductDetailsPage() {
   const { productId } = useParams();
 
   const [product, setProduct] = useState("");
   const [index, setIndex] = useState(0);
+
+  const { user, isLoggedIn } = useContext(AuthContext);
 
   const goToPreviousSlide = () => {
     console.log(index);
@@ -29,6 +32,26 @@ function ProductDetailsPage() {
       .getOne(productId)
       .then((response) => setProduct(response.data));
   }, [productId]);
+
+  let includesId = false;
+
+  if(isLoggedIn){
+    const idToCheck = user._id
+   
+  
+  
+  for (let i = 0; i < product.likes.length; i++) {
+  if (product.likes[i] === idToCheck) {
+  console.log(product.likes)
+  includesId = true;
+  break; // Exit the loop early once a match is found
+      }
+    }
+  } else {
+    includesId = false
+  }
+
+
 
   return (
     <div className="flex sm:flex-col  lg:flex-row">
@@ -75,7 +98,7 @@ function ProductDetailsPage() {
         <div className="my-8  text-black lg:text-left ">
           <div className=" flex gap-24 sm: justify-center lg:justify-start ">
             <h5 className="text-3xl font-semibold">{product.title}</h5>
-            <LikeButton productId={productId}/>
+            <LikeButton productId={productId} likedStatus={includesId ? true : false}/>
           </div>
 
         <div className="flex flex-row lg:flex">

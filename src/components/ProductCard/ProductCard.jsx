@@ -1,12 +1,17 @@
 import "./ProductCard.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LikeButton from "../LikeButton/LikeButton";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import productService from "../../services/product.service";
+import { AuthContext } from "../../context/auth.context";
 
 function ProductCard() {
 
   const [products, setProducts] = useState("")
+
+  const { user, isLoggedIn } = useContext(AuthContext);
+
+  const navigate = useNavigate();
 
 
   useEffect(() => {
@@ -21,8 +26,26 @@ function ProductCard() {
     
       
       {products && products.map((product, index) => {
+let includesId = false;
 
-      const likedStatus = localStorage.getItem(`liked_${product._id}`) === "true";
+if(isLoggedIn){
+  const idToCheck = user._id
+ 
+
+
+for (let i = 0; i < product.likes.length; i++) {
+if (product.likes[i] === idToCheck) {
+console.log(product.likes)
+includesId = true;
+break; // Exit the loop early once a match is found
+    }
+  }
+} else {
+  includesId = false
+  navigate("")
+}
+
+
 
         return (
         <div key={index} className="card w-96 bg-base-100 shadow-xl my-8 min-w-200">
@@ -48,7 +71,7 @@ function ProductCard() {
                <div className="absolute top-3 right-3">
 
                
-                 <LikeButton productId={product._id} initialLiked={likedStatus}/>
+                 <LikeButton productId={product._id} likedStatus={includesId ? true : false}/>
                </div>
              </div>
            </div>
