@@ -71,10 +71,9 @@ function ProfilePage() {
               <span>Avatar changed!</span>
             </div>
           )}
-          <h1>Profile page</h1>
           {newContact && (
             <p
-              className="p-2 bg-green-500 w-40 mx-auto hover:cursor-pointer"
+              className="p-2 bg-green-500 w-40 mx-auto hover:cursor-pointer mt-8 rounded-lg"
               onClick={() => {
                 createChat(user._id, userId);
                 setNewContact(false);
@@ -83,7 +82,7 @@ function ProfilePage() {
               Add {foundUser.username} as a Contact
             </p>
           )}
-          <main className="flex flex-row place-content-center items-center gap-4">
+          <main className="flex flex-row place-content-center items-center gap-4 mt-8">
             {foundUser.image ? (
               <img
                 src={foundUser.image}
@@ -134,7 +133,7 @@ function ProfilePage() {
                     <tr>
                       <th>Name</th>
                       <th>images</th>
-                      <th>Price €</th>
+                      <th>Price</th>
                       <th>Quantity</th>
                       <th>Categories</th>
                       <th className="hidden-desktop"></th>
@@ -160,7 +159,7 @@ function ProfilePage() {
                               key={`image product ${product.title}`}
                             />
                           </td>
-                          <td>{product.price}</td>
+                          <td>{product.price} €</td>
                           <td>{product.quantity}</td>
                           <td>
                             {product.categories.map((category) => {

@@ -108,7 +108,7 @@ function SellPage() {
 
   return (
     <div>
-      <h1 className="my-4 text-2xl">Sell</h1>
+      <h1 className="my-4 text-2xl">Sell an Item</h1>
       {message && (
         <p className="p-2 text-green-600 font-semibold text-xl">{message}</p>
       )}
@@ -128,9 +128,9 @@ function SellPage() {
         </div>
       )}
       <form className="flex flex-col w-[400px] mx-auto" onSubmit={handleSubmit}>
-        <label className="text-left font-semibold ml-1">Title:</label>
+        <label className="text-left font-semibold ml-1 mt-4" >Title:</label>
         <input
-          className="p-2 focus:outline-none border my-1"
+          className="p-2 focus:outline-none border  my-4"
           type="text"
           name="title"
           value={product.title}
@@ -139,7 +139,7 @@ function SellPage() {
         />
         <label className="text-left font-semibold ml-1">Description:</label>
         <textarea
-          className="p-2 focus:outline-none border"
+          className="p-2 focus:outline-none border my-4"
           type="text"
           name="description"
           value={product.description}
@@ -148,7 +148,7 @@ function SellPage() {
         />
         <label className="text-left font-semibold ml-1">Price:</label>
         <input
-          className="p-2 focus:outline-none border my-1"
+          className="p-2 focus:outline-none border my-2"
           type="number"
           name="price"
           value={product.price}
@@ -156,7 +156,7 @@ function SellPage() {
         />
         <label className="text-left font-semibold ml-1">Quantity:</label>
         <input
-          className="p-2 focus:outline-none border"
+          className="p-2 focus:outline-none border my-2"
           type="number"
           name="quantity"
           value={product.quantity}
@@ -171,6 +171,7 @@ function SellPage() {
         value={wearOptions}
         onChange={handleWear}
         isSearchable={true}
+        className="my-4"
        />
       
         <label className="text-left font-semibold ml-1">Categories:</label>
@@ -182,6 +183,7 @@ function SellPage() {
         onChange={handleCategorie}
         isSearchable={true}
         isMulti
+        className="my-4"
        />
 
         
@@ -195,7 +197,7 @@ function SellPage() {
           value={product.brand}
           onChange={handleChange}
         />
-        <button className="text-neutral p-2 border-2 border-neutral hover:bg-neutral-100 my-1">
+        <button className="text-neutral p-2 border-2 border-neutral hover:bg-neutral-100 my-6">
           Create Product
         </button>
       </form>

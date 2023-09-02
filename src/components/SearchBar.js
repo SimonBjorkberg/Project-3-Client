@@ -22,7 +22,7 @@ const SearchBar = ({
     >
       <input
         type="text"
-        className="w-full sm:w-[250px] inset-x-0 mx-auto p-2 focus:absolute focus:outline-none focus:z-50 focus:w-[80%]"
+        className="w-full sm:w-[250px] inset-x-0 mx-auto p-2 focus:absolute focus:outline-none focus:z-50 focus:w-[80%] rounded"
         placeholder="Search..."
         value={searchValue}
         onChange={(e) => setSearchValue(e.target.value)}

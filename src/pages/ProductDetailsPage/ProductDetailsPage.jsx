@@ -1,7 +1,7 @@
 import "./ProductDetailsPage.css";
 import LikeButton from "../../components/LikeButton/LikeButton";
 import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import productService from "../../services/product.service";
 import { AuthContext } from "../../context/auth.context";
 
@@ -10,6 +10,7 @@ function ProductDetailsPage() {
 
   const [product, setProduct] = useState("");
   const [index, setIndex] = useState(0);
+  
 
   const { user, isLoggedIn } = useContext(AuthContext);
 
@@ -60,7 +61,7 @@ function ProductDetailsPage() {
             <div className="carousel-item relative w-full">
               <img
                 src={product.images[index]}
-                className="w-full  min-w-200 "
+                className="w-full  max-w-[38rem] min-w-[38rem] max-h-[28rem] min-h-[28rem] rounded"
                 alt={`slide${index}`}
               />
               <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
@@ -96,7 +97,7 @@ function ProductDetailsPage() {
 
         <p className="mb-6 font-semibold">$ {product.price}</p>
         {product.brand && <p>Brand: {product.brand}</p>}
-        <p>Age: {product.age}</p>
+        <p>Wear: {product.wear}</p>
         <div className="mb-8">
           <p className=" mt-4">{product.description}</p>
           <p className="mt-4 font-semibold">Quantity</p>
@@ -105,7 +106,12 @@ function ProductDetailsPage() {
             value={product.quantity}
             className="input input-bordered w-full max-w-xs mb-4 mt-2"
           />
-          <p>Author: {product.author && product.author.username}</p>
+           <p>Author: {product.author &&  <Link
+                      to={`/profile/${product.author._id}`}
+                      className="text-blue-500 font-semibold"
+                    >
+                      {product.author.username}
+                    </Link>}</p>
         </div>
         <div className="text-center">
           <button className="btn btn-outline bg-gray-800 text-white w-4/5">
