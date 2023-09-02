@@ -1,10 +1,19 @@
 import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/auth.context";
 import ChatDrawer from "../components/chatComponents/ChatDrawer";
+import "../index.css";
 
 const ANavBar = () => {
   const { user, logOutUser, isLoggedIn } = useContext(AuthContext);
+  const [isFocused, setIsFocused] = useState(false)
+
+  const setFocus = () => {
+    setIsFocused(true)
+  }
+  const deFocus = () => {
+    setIsFocused(false)
+  }
 
   return (
     <nav className="h-24 bg-neutral flex w-full">
@@ -13,7 +22,18 @@ const ANavBar = () => {
           <p className="text-2xl text-white">Home</p>
         </Link>
       </div>
-
+      <div className="flex justify-center items-center" id="searchbar">
+        <input
+          type="text"
+          className="w-full sm:w-[250px] inset-x-0 mx-auto p-2 focus:absolute focus:outline-none focus:z-50 focus:w-[80%]"
+          placeholder="Search..."
+          onFocus={setFocus}
+          onBlur={deFocus}
+        />
+      </div>
+      {isFocused && (
+    <div className="fixed top-0 left-0 w-full h-full bg-black opacity-50 z-40"></div>
+  )}
       {user && (
         <div className="w-[350px] h-full flex items-center justify-center ml-auto">
           <div className="md:flex hidden">
@@ -27,7 +47,7 @@ const ANavBar = () => {
                 Chats
               </p>
             </Link>
-            <Link onClick={logOutUser}  className="my-auto">
+            <Link onClick={logOutUser} className="my-auto">
               <p className="bg-red-400 text-white py-2 px-4 rounded-sm ml-2 hover:bg-red-500">
                 Logout
               </p>
