@@ -42,6 +42,11 @@ class ProductService {
 
   like = (productId) => {
     return this.api.post(`/product/${productId}/like`);
+  
+  }
+  
+  uploadImage = async (image) => {
+    return this.api.post(`/api/upload`, image);
   };
 }
 

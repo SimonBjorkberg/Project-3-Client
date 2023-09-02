@@ -41,7 +41,7 @@ function ProductCard() {
              </div>
              <div className="card-actions justify-center">
               {product.categories.map((categorie, index) => <div key={index} className="badge badge-outline">{categorie}</div>)}
-               <p>Sold by: {product.author.username}</p>
+               <p>Sold by: <Link to={`/profile/${product.author._id}`} className="text-blue-500 font-semibold">{product.author.username}</Link></p>
                <div className="flex ">
                  <button className="btn btn-primary">Add to Cart</button>
                </div>
