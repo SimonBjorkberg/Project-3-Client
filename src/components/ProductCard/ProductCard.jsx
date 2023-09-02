@@ -1,5 +1,5 @@
 import "./ProductCard.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import LikeButton from "../LikeButton/LikeButton";
 import { useContext, useEffect, useState } from "react";
 import productService from "../../services/product.service";
@@ -10,9 +10,6 @@ function ProductCard() {
   const [products, setProducts] = useState("")
 
   const { user, isLoggedIn } = useContext(AuthContext);
-
-  const navigate = useNavigate();
-
 
   useEffect(() => {
     productService.getAll()
@@ -42,7 +39,6 @@ break; // Exit the loop early once a match is found
   }
 } else {
   includesId = false
-  navigate("")
 }
 
 

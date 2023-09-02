@@ -38,11 +38,10 @@ function ProductDetailsPage() {
   if(isLoggedIn){
     const idToCheck = user._id
    
-  
-  
+
   for (let i = 0; i < product.likes.length; i++) {
   if (product.likes[i] === idToCheck) {
-  console.log(product.likes)
+  
   includesId = true;
   break; // Exit the loop early once a match is found
       }
@@ -76,25 +75,7 @@ function ProductDetailsPage() {
           </div>
         )}
       </div>
-      <div className="my-8  text-black lg:text-left ">
-        <div className=" flex gap-24 sm: justify-center lg:justify-start ">
-          <h5 className="text-3xl font-semibold">{product.title}</h5>
-          <LikeButton />
-        </div>
-       <div className=" lg:w-2/4 m-8 shrink-0 sm: w-fit">
-          {product.images && ( 
-            <div className="carousel">
-              <div  className="carousel-item relative w-full">
-                <img src={product.images[index]} className="w-full  min-w-200 " alt={`slide${index}`} />
-                <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-                  <button onClick={goToPreviousSlide} className="btn btn-circle">❮</button> 
-                  <button onClick={goToNextSlide} className="btn btn-circle">❯</button>
-                </div>
-              </div> 
-            </div>
-          )}
-
-        </div>
+    
         <div className="my-8  text-black lg:text-left ">
           <div className=" flex gap-24 sm: justify-center lg:justify-start ">
             <h5 className="text-3xl font-semibold">{product.title}</h5>
@@ -132,7 +113,7 @@ function ProductDetailsPage() {
           </button>
         </div>
       </div>
-    </div>
+   
     </div>
   );
 }
