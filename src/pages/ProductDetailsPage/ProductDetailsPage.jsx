@@ -39,7 +39,7 @@ function ProductDetailsPage() {
     const idToCheck = user._id
    
 
-  for (let i = 0; i < product.likes.length; i++) {
+  for (let i = 0; i < product.likes?.length; i++) {
   if (product.likes[i] === idToCheck) {
   
   includesId = true;
