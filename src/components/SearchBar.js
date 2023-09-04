@@ -4,7 +4,7 @@ const SearchBar = ({
   deFocus,
   titleSearch,
   isFocused,
-  categorySearch,
+
   searchValue,
   setSearchValue,
 }) => {
@@ -16,7 +16,7 @@ const SearchBar = ({
 
   return (
     <div
-      className="flex justify-center items-center"
+      className="flex justify-center items-center w-3/5 md:w-[200px]"
       id="searchbar"
       onFocus={setFocus}
     >
@@ -25,7 +25,7 @@ const SearchBar = ({
         className={`${
           isFocused &&
           "inset-x-0 mx-auto absolute outline-none z-50 w-[80%] rounded"
-        }sm:w-[250px] p-2 rounded`}
+        } p-2 rounded`}
         placeholder="Search..."
         value={searchValue}
         onChange={(e) => setSearchValue(e.target.value)}
@@ -72,9 +72,3 @@ const SearchBar = ({
 };
 
 export default SearchBar;
-
-{
-  /*handleNavigate(product._id);
-                  deFocus();
-                  setSearchValue("");*/
-}
