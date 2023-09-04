@@ -12,7 +12,6 @@ const ANavBar = () => {
   const [searchValue, setSearchValue] = useState("");
   const [searchData, setSearchData] = useState([]);
   const [titleSearch, setTitleSearch] = useState([]);
-  const [categorySearch, setCategorySearch] = useState([]);
 
   useEffect(() => {
     productService.getAll().then((response) => {
@@ -41,8 +40,8 @@ const ANavBar = () => {
   }, [searchValue, searchData]);
 
   return (
-    <nav className="h-24 bg-neutral flex w-full">
-      <div className="h-full w-40 flex justify-center items-center">
+    <nav className="h-24 bg-neutral flex w-full pl-5 md:pl-0">
+      <div className="h-full w-1/5 md:w-40 flex md:justify-center justify-between items-center">
         <Link to="/">
           <p className="text-2xl text-white">Home</p>
         </Link>
@@ -52,7 +51,6 @@ const ANavBar = () => {
         titleSearch={titleSearch}
         deFocus={deFocus}
         isFocused={isFocused}
-        categorySearch={categorySearch}
         searchValue={searchValue}
         setSearchValue={setSearchValue}
       />
@@ -63,7 +61,7 @@ const ANavBar = () => {
         ></div>
       )}
       {user && (
-        <div className="w-[350px] h-full flex items-center justify-center ml-auto">
+        <div className="md:w-[350px] h-full flex items-center justify-center ml-auto">
           <div className="md:flex hidden">
             <Link to="/sell" className="my-auto">
               <p className="bg-white py-2 px-4 rounded-sm ml-2 hover:opacity-80 ">
@@ -88,7 +86,7 @@ const ANavBar = () => {
               </div>
             </Link>
           </div>
-          <div className="w-10 ml-auto mr-8 md:hidden flex">
+          <div className="md:w-10 w-1/5 ml-auto mr-10 md:hidden flex">
             <div className="dropdown">
               <label tabIndex={0} className="btn btn-ghost btn-circle">
                 <svg
