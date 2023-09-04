@@ -35,7 +35,7 @@ const ChatBox = () => {
 
   return (
     <div className="flex w-full">
-      <div className="w-full max-h-[80vh]">
+      <div className="w-full max-h-[70vh]">
         {recipientUser ? (
           <p className="w-full top-0 z-10 bg-neutral text-white text-xl p-4">
             <span
