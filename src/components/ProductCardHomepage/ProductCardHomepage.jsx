@@ -11,7 +11,10 @@ function ProductCardHomepage() {
   const { user, isLoggedIn } = useContext(AuthContext);
 
   useEffect(() => {
-    productService.getAll().then((response) => setProducts(response.data));
+    productService.getAll().then((response) => {
+      const fiveRecent = response.data.slice(Math.max(response.data.length -5, 1))
+      setProducts(fiveRecent);
+    });
   }, []);
 
   return (
@@ -41,7 +44,7 @@ function ProductCardHomepage() {
             >
               <figure className="max-h-[7rem] min-h-[7rem]">
                 <Link to={`/product/single/${product._id}`}>
-                  <img src={product.images[0]} alt={product.title}  />
+                  <img src={product.images[0]} alt={product.title} />
                 </Link>
               </figure>
               <div className="card-body">
