@@ -10,13 +10,12 @@ function SellPage() {
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
   const [images, setImages] = useState([]);
-  const [categorieOptions, setCategorieOptions] = useState();
+  const [categorieOptions, setCategorieOptions] = useState([""]);
   const [wearOptions, setWearOptions] = useState();
   const [product, setProduct] = useState({
     title: "",
     description: "",
     images: [],
-    author: user._id,
     price: 0,
     quantity: 0,
     categories: [],
@@ -55,28 +54,41 @@ function SellPage() {
     } else if (product.quantity === 0) {
       return setErrorMessage("Please set a quantity above 0");
     } else {
-      productService.create(product);
+      const createThisProduct = {
+        title: product.title,
+        description: product.description,
+        images: product.images,
+        price: product.price,
+        quantity: product.quantity,
+        categories: categorieOptions,
+        wear: wearOptions,
+        brand: product.brand
+      }
+      productService.create(createThisProduct);
       setErrorMessage("");
       setMessage("Product Created!");
       setProduct({
         title: "",
         description: "",
         images: [],
-        author: user._id,
         price: 0,
         quantity: 0,
         categories: categorieOptions,
         wear: wearOptions,
         brand: "",
       });
+     setCategorieOptions({})
+     setWearOptions({})
     }
   };
 
   function handleCategorie(data) {
+    console.log(data)
     setCategorieOptions(data);
   }
 
   function handleWear(data) {
+    console.log(data)
     setWearOptions(data);
   }
 
