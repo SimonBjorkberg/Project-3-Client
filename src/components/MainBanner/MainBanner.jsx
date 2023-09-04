@@ -24,7 +24,6 @@ function MainBanner() {
           </div>
         </div>
       </div>
-
       <div className="card bg-base-100 shadow-md absolute rounded-md top-56 left-40 w-96 hidden lg:flex">
         <div className="card-body ">
           <h2 className="card-title">Want to make money?</h2>
@@ -43,5 +42,4 @@ function MainBanner() {
 }
 
 export default MainBanner;
-
 // https://static.vinted.com/assets/seller-promotion/gender_test/a/banner-wide-7403f719caac875cfeea61593da7fc7e7320c126193b4ff654e4397f54d430ae.jpg
