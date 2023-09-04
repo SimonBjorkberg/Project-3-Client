@@ -1,24 +1,70 @@
 import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/auth.context";
 import ChatDrawer from "../components/chatComponents/ChatDrawer";
+import "../index.css";
+import SearchBar from "./SearchBar";
+import productService from "../services/product.service";
 
 const ANavBar = () => {
   const { user, logOutUser, isLoggedIn } = useContext(AuthContext);
+  const [isFocused, setIsFocused] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
+  const [searchData, setSearchData] = useState([]);
+  const [titleSearch, setTitleSearch] = useState([]);
+
+  useEffect(() => {
+    productService.getAll().then((response) => {
+      setSearchData(response.data);
+    });
+  }, []);
+
+  const setFocus = () => {
+    setIsFocused(true);
+  };
+  const deFocus = () => {
+    setIsFocused(false);
+  };
+
+  useEffect(() => {
+    const handleSearch = () => {
+      if (searchValue === "") {
+        return setTitleSearch([]);
+      }
+      const filteredTitles = searchData.filter((product) => {
+        return product.title.toLowerCase().includes(searchValue.toLowerCase());
+      });
+      setTitleSearch(filteredTitles);
+    };
+    handleSearch();
+  }, [searchValue, searchData]);
 
   return (
-    <nav className="h-24 bg-neutral flex w-full">
-      <div className="h-full w-40 flex justify-center items-center">
+    <nav className="h-24 bg-neutral flex w-full pl-5 md:pl-0">
+      <div className="h-full w-1/5 md:w-40 flex md:justify-center justify-between items-center">
         <Link to="/">
           <p className="text-2xl text-white">Home</p>
         </Link>
       </div>
-
+      <SearchBar
+        setFocus={setFocus}
+        titleSearch={titleSearch}
+        deFocus={deFocus}
+        isFocused={isFocused}
+        searchValue={searchValue}
+        setSearchValue={setSearchValue}
+      />
+      {isFocused && (
+        <div
+          className="fixed top-0 left-0 w-full h-full bg-black opacity-80 z-40"
+          onClick={deFocus}
+        ></div>
+      )}
       {user && (
-        <div className="w-[350px] h-full flex items-center justify-center ml-auto">
+        <div className="md:w-[350px] h-full flex items-center justify-center ml-auto">
           <div className="md:flex hidden">
             <Link to="/sell" className="my-auto">
-              <p className="bg-white py-2 px-4 rounded-sm ml-2 hover:opacity-80">
+              <p className="bg-white py-2 px-4 rounded-sm ml-2 hover:opacity-80 ">
                 Sell
               </p>
             </Link>
@@ -27,7 +73,7 @@ const ANavBar = () => {
                 Chats
               </p>
             </Link>
-            <Link onClick={logOutUser}  className="my-auto">
+            <Link onClick={logOutUser} className="my-auto">
               <p className="bg-red-400 text-white py-2 px-4 rounded-sm ml-2 hover:bg-red-500">
                 Logout
               </p>
@@ -40,7 +86,7 @@ const ANavBar = () => {
               </div>
             </Link>
           </div>
-          <div className="w-10 ml-auto mr-8 md:hidden flex">
+          <div className="md:w-10 w-1/5 ml-auto mr-10 md:hidden flex">
             <div className="dropdown">
               <label tabIndex={0} className="btn btn-ghost btn-circle">
                 <svg
@@ -89,7 +135,7 @@ const ANavBar = () => {
       )}
 
       {!user && (
-        <div className="w-[350px] h-full flex items-center justify-center ml-auto">
+        <div className="md:w-[350px] h-full flex items-center justify-center ml-auto">
           <div className="md:flex hidden">
             <Link
               to="/login"

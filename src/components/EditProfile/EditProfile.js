@@ -1,13 +1,16 @@
 import React, { useState } from "react";
+import "./EditProfile.css";
 import profileService from "../../services/profile.service";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 
-const EditProfile = ({ user }) => {
-  console.log(user);
+const EditProfile = ({ user, updateUser }) => {
+  const [errorMessage, setErrorMessage] = useState("");
   const [username, setUsername] = useState(user.username);
   const [email, setEmail] = useState(user.email);
-  // const [image, setImage] = useState(user.image);
-  const [password, setPassword] = useState(user.password);
-
+  const [newPassword, setnewPassword] = useState("");
+  const [confirmNewPassword, setconfirmNewPassword] = useState("");
+  const [showInformation, setShowInformation] = useState(false);
   const showModal = () => {
     const modal = document.getElementById("edit-profile");
     if (modal) {
@@ -20,20 +23,38 @@ const EditProfile = ({ user }) => {
     modal.close();
   };
 
+  const showInfo = () => {
+    setShowInformation(true);
+    setTimeout(() => {
+      setShowInformation(false);
+    }, 3000);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("user id", user._id);
-    const requestBody = { username };
-    console.log("request body", requestBody);
+
+    if (newPassword !== confirmNewPassword) {
+      alert("the 2 passwords are different");
+      return;
+    } else {
+    }
     profileService
-      .edit(user._id, { username, image: user.image })
-      .then((response) => {
-        console.log("response:", response.data);
-        console.log("Updated Username:", response.data.username);
-        // handleModalClose();
+      .edit(user._id, { username, password: newPassword })
+      .then(() => {
+        updateUser({ ...user, username });
+        handleModalClose();
       })
       .catch((error) => {
         console.error("Error diting profile", error);
+        if (
+          error.response &&
+          error.response.data &&
+          error.response.data.message
+        ) {
+          setErrorMessage(error.response.data.message);
+        } else {
+          setErrorMessage("An error occurred while editing the profile.");
+        }
       });
   };
 
@@ -44,16 +65,20 @@ const EditProfile = ({ user }) => {
       </button>
       <dialog id="edit-profile" className="modal">
         <div className="modal-background">
-          <div className="modal-box">
+          <div className="modal-box minimum-width-350">
             <button
               onClick={handleModalClose}
               className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
             >
               ✕
             </button>
-            <form method="dialog" className="modal-box" onSubmit={handleSubmit}>
+            <form
+              method="dialog"
+              className="modal-box minimum-width-250"
+              onSubmit={handleSubmit}
+            >
               <h3 className="font-bold text-lg">Profile Information!</h3>
-              <p className="py-4">
+              <div className="py-4 flex flex-col">
                 <strong>Username:</strong>
                 <input
                   type="text"
@@ -61,23 +86,44 @@ const EditProfile = ({ user }) => {
                   value={username}
                   onChange={(e) => {
                     setUsername(e.target.value);
-                    // console.log(username);
                   }}
                 />
-                <br />
-                <strong>email:</strong>
-                <input type="text" name="email" value={email} readOnly />
-                <br />
-                <strong>Password:</strong>
+                <div>
+                  <strong>email:</strong>
+                  <FontAwesomeIcon
+                    className="information-email"
+                    onMouseEnter={showInfo}
+                    icon={faInfoCircle}
+                  />
+                  {showInformation && (
+                    <div className="tooltip-content">
+                      Email can not be changed.
+                    </div>
+                  )}
+                </div>
+                <div className="flex justify-start">{email}</div>
+                <strong>new password:</strong>
                 <input
+                  placeholder="new password"
                   type="password"
                   name="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  value={newPassword}
+                  onChange={(e) => setnewPassword(e.target.value)}
                 />
                 <br />
-                {/* <img src={user.image[0]} alt={/> */}
-              </p>
+                <input
+                  placeholder="type again your new password"
+                  type="password"
+                  name="password"
+                  value={confirmNewPassword}
+                  onChange={(e) => setconfirmNewPassword(e.target.value)}
+                />
+              </div>
+              {errorMessage && (
+                <div className="error-message">
+                  <i className="text-red-500">{errorMessage}</i>
+                </div>
+              )}
               <div className="modal-action">
                 <button className="btn">Update</button>
               </div>

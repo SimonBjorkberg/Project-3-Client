@@ -39,6 +39,15 @@ class ProductService {
   deleteOne = (productId) => {
     return this.api.post(`/product/delete/${productId}`);
   };
+
+  like = (productId) => {
+    return this.api.post(`/product/${productId}/like`);
+  
+  }
+  
+  uploadImage = async (image) => {
+    return this.api.post(`/api/upload`, image);
+  };
 }
 
 // Create one instance (object) of the service

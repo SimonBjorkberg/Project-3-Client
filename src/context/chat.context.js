@@ -8,7 +8,6 @@ const ChatContext = createContext();
 
 function ChatProviderWrapper({ children }) {
   const { user } = useContext(AuthContext);
-
   const [userChats, setUserChats] = useState(null);
   const [isUserChatsLoading, setIsUserChatsLoading] = useState(true);
   const [userChatsError, setUserChatsError] = useState(null);
