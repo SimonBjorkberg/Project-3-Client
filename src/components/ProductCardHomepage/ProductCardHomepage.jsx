@@ -98,7 +98,7 @@ function ProductCardHomepage() {
                 </div>
                 <p className="h-full mx-2 text-left">
                   Seller:{" "}
-                  <Link className="text-blue-500 font-semibold">
+                  <Link to={`/profile/${product.author._id}`} className="text-blue-500 font-semibold">
                     {product.author.username}
                   </Link>
                 </p>

@@ -11,7 +11,7 @@ function MainBanner() {
           alt=""
         ></img>
       </div>
-      <div className="card bg-base-100 shadow-xl lg:hidden ">
+      <div className="card bg-base-100 shadow-md rounded-none lg:hidden ">
         <div className="card-body">
           <h2 className="card-title">Want to make money?</h2>
           <p>
@@ -25,7 +25,7 @@ function MainBanner() {
         </div>
       </div>
 
-      <div className="card bg-base-100 shadow-xl absolute top-48 left-20 w-96 hidden lg:flex">
+      <div className="card bg-base-100 shadow-md absolute rounded-md top-56 left-40 w-96 hidden lg:flex">
         <div className="card-body ">
           <h2 className="card-title">Want to make money?</h2>
           <p>

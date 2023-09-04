@@ -1,13 +1,10 @@
 import "./SellPage.css";
 import { useEffect, useState } from "react";
-import { useContext } from "react";
-import { AuthContext } from "../../context/auth.context";
 import productService from "../../services/product.service";
 import Select from "react-select";
 import scrollToTop from "../../utils/ScrollToTop";
 
 function SellPage() {
-  const { user } = useContext(AuthContext);
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
   const [images, setImages] = useState([]);
@@ -126,7 +123,7 @@ function SellPage() {
       )}
       <input
         type="file"
-        className="file-input w-full max-w-xs"
+        className="file-input file-input-bordered file-input-xs w-full max-w-xs"
         onChange={(e) => appendImage(e)}
       />
       {product.images.length !== 0 && (
