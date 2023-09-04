@@ -7,20 +7,30 @@ import { AuthContext } from "../../context/auth.context";
 
 function ProductCardHomepage() {
   const [products, setProducts] = useState("");
+  const [errorMessage, setErrorMessage] = useState('')
 
   const { user, isLoggedIn } = useContext(AuthContext);
 
   useEffect(() => {
     productService.getAll().then((response) => {
-      const fiveRecent = response.data.slice(
-        Math.max(response.data.length - 7, 1)
-      );
-      setProducts(fiveRecent.reverse());
+      console.log(response.data)
+      if (response.data.message) {
+        return setErrorMessage(response.data.message)
+      }
+      if (response.data.length > 7) {
+        const sevenRecent = response.data.slice(
+          Math.max(response.data.length - 7, 1)
+        );
+        setProducts(sevenRecent.reverse());
+      }
+      else {
+        setProducts(response.data)
+      }
     });
   }, []);
 
   return (
-    <div className="flex flex-row overflow-x-auto min-w-[1900px]">
+    <div className="flex flex-row overflow-x-auto min-w-[1900px] justify-center">
       {products &&
         products.map((product, index) => {
           let includesId = false;
@@ -42,7 +52,7 @@ function ProductCardHomepage() {
           return (
             <div
               key={index}
-              className="card bg-base-100 shadow-xl mx-1 rounded-t-md mb-3"
+              className="card w-[263.85px] bg-base-100 shadow-xl mx-1 rounded-t-md mb-3"
             >
               <figure className="max-h-[7rem] min-h-[7rem]">
                 <Link to={`/product/single/${product._id}`}>

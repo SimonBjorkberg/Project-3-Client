@@ -36,9 +36,6 @@ function SellPage() {
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    if (typeof value === Number) {
-      console.log(true);
-    }
     setProduct((product) => ({ ...product, [name]: value }));
   };
 
@@ -89,12 +86,10 @@ function SellPage() {
   };
 
   function handleCategorie(data) {
-    console.log(data);
     setCategorieOptions(data);
   }
 
   function handleWear(data) {
-    console.log(data);
     setWearOptions(data);
   }
 
