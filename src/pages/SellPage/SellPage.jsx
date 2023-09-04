@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import { useContext } from "react";
 import { AuthContext } from "../../context/auth.context";
 import productService from "../../services/product.service";
-import Select from "react-select"
+import Select from "react-select";
+import scrollToTop from "../../utils/ScrollToTop";
 
 function SellPage() {
   const { user } = useContext(AuthContext);
@@ -53,6 +54,8 @@ function SellPage() {
       return setErrorMessage("Please enter a price above $0");
     } else if (product.quantity === 0) {
       return setErrorMessage("Please set a quantity above 0");
+    } else if (product.categories.length < 0) {
+      return setErrorMessage("Please select at least one category");
     } else {
       const createThisProduct = {
         title: product.title,
@@ -62,8 +65,8 @@ function SellPage() {
         quantity: product.quantity,
         categories: categorieOptions,
         wear: wearOptions,
-        brand: product.brand
-      }
+        brand: product.brand,
+      };
       productService.create(createThisProduct);
       setErrorMessage("");
       setMessage("Product Created!");
@@ -77,18 +80,19 @@ function SellPage() {
         wear: wearOptions,
         brand: "",
       });
-     setCategorieOptions({})
-     setWearOptions({})
+      setCategorieOptions(null);
+      setWearOptions(null);
+      scrollToTop()
     }
   };
 
   function handleCategorie(data) {
-    console.log(data)
+    console.log(data);
     setCategorieOptions(data);
   }
 
   function handleWear(data) {
-    console.log(data)
+    console.log(data);
     setWearOptions(data);
   }
 
@@ -108,15 +112,14 @@ function SellPage() {
     { value: "pants and leggings", label: "Pants and Leggings" },
     { value: "sweaters and cardigans", label: "Sweaters and Cardigans" },
     { value: "bibs", label: "Bibs" },
-    { value: "outerwear", label: "Outerwear" }      
-  ]
+    { value: "outerwear", label: "Outerwear" },
+  ];
 
   const wearList = [
     { value: "brand new", label: "Brand New" },
     { value: "well worn", label: "Well Worn" },
     { value: "stains", label: "Stains" },
-   
-  ]
+  ];
 
   return (
     <div>
@@ -140,7 +143,7 @@ function SellPage() {
         </div>
       )}
       <form className="flex flex-col w-[400px] mx-auto" onSubmit={handleSubmit}>
-        <label className="text-left font-semibold ml-1 mt-4" >Title:</label>
+        <label className="text-left font-semibold ml-1 mt-4">Title:</label>
         <input
           className="p-2 focus:outline-none border  my-4"
           type="text"
@@ -178,27 +181,26 @@ function SellPage() {
         <label className="text-left font-semibold ml-1">Wear & Tear:</label>
 
         <Select
-        options={wearList}
-        name="categories"
-        value={wearOptions}
-        onChange={handleWear}
-        isSearchable={true}
-        className="my-4"
-       />
-      
+          options={wearList}
+          name="categories"
+          value={wearOptions}
+          onChange={handleWear}
+          isSearchable={true}
+          className="my-4"
+        />
+
         <label className="text-left font-semibold ml-1">Categories:</label>
 
         <Select
-        options={categoriesList}
-        name="wear"
-        value={categorieOptions}
-        onChange={handleCategorie}
-        isSearchable={true}
-        isMulti
-        className="my-4"
-       />
+          options={categoriesList}
+          name="wear"
+          value={categorieOptions}
+          onChange={handleCategorie}
+          isSearchable={true}
+          isMulti
+          className="my-4"
+        />
 
-        
         <label className="text-left font-semibold ml-1">
           Clothing Brand(s):
         </label>

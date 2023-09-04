@@ -12,13 +12,15 @@ function ProductCardHomepage() {
 
   useEffect(() => {
     productService.getAll().then((response) => {
-      const fiveRecent = response.data.slice(Math.max(response.data.length -5, 1))
+      const fiveRecent = response.data.slice(
+        Math.max(response.data.length - 7, 1)
+      );
       setProducts(fiveRecent);
     });
   }, []);
 
   return (
-    <>
+    <div className="flex flex-row overflow-x-auto min-w-[1900px]">
       {products &&
         products.map((product, index) => {
           let includesId = false;
@@ -38,54 +40,65 @@ function ProductCardHomepage() {
           }
 
           return (
-            <div
-              key={index}
-              className="card w-96 bg-base-100 shadow-xl my-8 min-w-200 "
-            >
+            <div key={index} className="card min-w-96 bg-base-100 shadow-xl mx-1 rounded-t-md mb-3">
               <figure className="max-h-[7rem] min-h-[7rem]">
                 <Link to={`/product/single/${product._id}`}>
                   <img src={product.images[0]} alt={product.title} />
                 </Link>
               </figure>
-              <div className="card-body">
-                <div className="flex flex-col items-start">
+              <div className="card-body p-0">
+                <div className="flex flex-col items-start p-3">
                   <h3 className="card-title">
                     {product.price}$
                     <div className="badge badge-secondary">NEW</div>
                   </h3>
-                  <p>Brand: {product.brand}</p>
-                  <p>{product.age}</p>
-                </div>
-                <div className="card-actions justify-center">
-                  {product.categories.map((categorie, index) => (
-                    <div key={index} className="badge badge-outline">
-                      {categorie.value}
-                    </div>
-                  ))}
                   <p>
-                    Sold by:{" "}
-                    <Link
-                      to={`/profile/${product.author._id}`}
-                      className="text-blue-500 font-semibold"
-                    >
+                    Brand:{" "}
+                    <span className="font-semibold">{product.brand}</span>
+                  </p>
+                  <p>
+                    Wear & Tear:{" "}
+                    <span className="font-semibold">{product.wear.value}</span>
+                  </p>
+                </div>
+                <div className="flex flex-col h-full px-2">
+                  <div className="min-h-[48px] mb-4">
+                    {product.categories.map((category, index) => (
+                      <div key={index} className={`${
+                          category.value === "onesies" && "bg-teal-500"
+                        } ${category.value === "t-shirts" && "bg-green-500"} ${
+                          category.value === "sleepsuits" && "bg-yellow-500"
+                        } ${category.value === "bodysuits" && "bg-cyan-500"} ${
+                          category.value === "dresses" && "bg-orange-500"
+                        } badge badge-outline mx-1 my-auto`}>
+                        {category.value}
+                      </div>
+                    ))}
+                  </div>
+
+                  <p className="h-full text-left">
+                    Seller:{" "}
+                    <Link className="text-blue-500 font-semibold mt-auto">
                       {product.author.username}
                     </Link>
                   </p>
-                  <div className="flex ">
-                    <button className="btn btn-primary">Add to Cart</button>
-                  </div>
-                  <div className="absolute top-3 right-3">
-                    <LikeButton
-                      productId={product._id}
-                      likedStatus={includesId ? true : false}
-                    />
-                  </div>
+                </div>
+                <div className="flex w-full h-full">
+                  <button className="btn btn-primary mt-auto rounded-none rounded-b-md">
+                    Add to Cart
+                  </button>
+                </div>
+                <div className="absolute top-3 right-3">
+                  <LikeButton
+                    productId={product._id}
+                    likedStatus={includesId ? true : false}
+                  />
                 </div>
               </div>
             </div>
           );
         })}
-    </>
+    </div>
   );
 }
 
