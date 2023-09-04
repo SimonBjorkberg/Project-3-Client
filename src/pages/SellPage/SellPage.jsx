@@ -54,8 +54,10 @@ function SellPage() {
       return setErrorMessage("Please enter a price above $0");
     } else if (product.quantity === 0) {
       return setErrorMessage("Please set a quantity above 0");
-    } else if (product.categories.length < 0) {
+    } else if (categorieOptions.length === 0) {
       return setErrorMessage("Please select at least one category");
+    } else if (categorieOptions.length >= 3) {
+      return setErrorMessage("You can only select 2 categories");
     } else {
       const createThisProduct = {
         title: product.title,
@@ -82,7 +84,7 @@ function SellPage() {
       });
       setCategorieOptions(null);
       setWearOptions(null);
-      scrollToTop()
+      scrollToTop();
     }
   };
 
@@ -109,8 +111,8 @@ function SellPage() {
     { value: "bodysuits", label: "Bodysuits" },
     { value: "dresses", label: "Dresses" },
     { value: "t-shirts", label: "T-shirts" },
-    { value: "pants and leggings", label: "Pants and Leggings" },
-    { value: "sweaters and cardigans", label: "Sweaters and Cardigans" },
+    { value: "pantsNleggings", label: "Pants" },
+    { value: "sweatersNcardigans", label: "Sweaters" },
     { value: "bibs", label: "Bibs" },
     { value: "outerwear", label: "Outerwear" },
   ];

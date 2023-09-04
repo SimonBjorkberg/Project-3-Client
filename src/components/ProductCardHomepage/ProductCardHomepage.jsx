@@ -15,7 +15,7 @@ function ProductCardHomepage() {
       const fiveRecent = response.data.slice(
         Math.max(response.data.length - 7, 1)
       );
-      setProducts(fiveRecent);
+      setProducts(fiveRecent.reverse());
     });
   }, []);
 
@@ -40,14 +40,17 @@ function ProductCardHomepage() {
           }
 
           return (
-            <div key={index} className="card min-w-96 bg-base-100 shadow-xl mx-1 rounded-t-md mb-3">
+            <div
+              key={index}
+              className="card bg-base-100 shadow-xl mx-1 rounded-t-md mb-3"
+            >
               <figure className="max-h-[7rem] min-h-[7rem]">
                 <Link to={`/product/single/${product._id}`}>
                   <img src={product.images[0]} alt={product.title} />
                 </Link>
               </figure>
               <div className="card-body p-0">
-                <div className="flex flex-col items-start p-3">
+                <div className="flex flex-col items-start pt-3 px-3">
                   <h3 className="card-title">
                     {product.price}$
                     <div className="badge badge-secondary">NEW</div>
@@ -58,31 +61,39 @@ function ProductCardHomepage() {
                   </p>
                   <p>
                     Wear & Tear:{" "}
-                    <span className="font-semibold">{product.wear.value}</span>
+                    <span className="font-semibold">{product.wear.label}</span>
                   </p>
                 </div>
-                <div className="flex flex-col h-full px-2">
-                  <div className="min-h-[48px] mb-4">
-                    {product.categories.map((category, index) => (
-                      <div key={index} className={`${
-                          category.value === "onesies" && "bg-teal-500"
-                        } ${category.value === "t-shirts" && "bg-green-500"} ${
-                          category.value === "sleepsuits" && "bg-yellow-500"
-                        } ${category.value === "bodysuits" && "bg-cyan-500"} ${
-                          category.value === "dresses" && "bg-orange-500"
-                        } badge badge-outline mx-1 my-auto`}>
-                        {category.value}
-                      </div>
-                    ))}
-                  </div>
-
-                  <p className="h-full text-left">
-                    Seller:{" "}
-                    <Link className="text-blue-500 font-semibold mt-auto">
-                      {product.author.username}
-                    </Link>
-                  </p>
+                <div className="h-[40px] px-2">
+                  {product.categories.map((category, index) => (
+                    <div
+                      key={index}
+                      className={`${
+                        category.value === "onesies" && "bg-teal-500"
+                      } ${category.value === "t-shirts" && "bg-green-500"} ${
+                        category.value === "sleepsuits" && "bg-yellow-500"
+                      } ${category.value === "bodysuits" && "bg-cyan-500"} ${
+                        category.value === "dresses" && "bg-orange-500"
+                      } ${
+                        category.value === "pantsNleggings" && "bg-purple-500"
+                      } ${
+                        category.value === "sweatersNcardigans" && "bg-pink-500"
+                      } ${category.value === "bibs" && "bg-rose-500"} ${
+                        category.value === "outerwear" && "bg-violet-500"
+                      } ${
+                        category.value === "rompers" && "bg-yellow-600"
+                      } badge badge-outline mx-1 my-auto`}
+                    >
+                      {category.label}
+                    </div>
+                  ))}
                 </div>
+                <p className="h-full mx-2 text-left">
+                  Seller:{" "}
+                  <Link className="text-blue-500 font-semibold">
+                    {product.author.username}
+                  </Link>
+                </p>
                 <div className="flex w-full h-full">
                   <button className="btn btn-primary mt-auto rounded-none rounded-b-md">
                     Add to Cart
