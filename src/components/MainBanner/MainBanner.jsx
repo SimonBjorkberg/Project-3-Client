@@ -15,9 +15,9 @@ function MainBanner() {
               money
             </p>
             <div className="card-actions justify-end">
-              <button className="btn btn-primary">
-                <Link to="/products">Our products</Link>
-              </button>
+              <Link to="/products" className="w-full">
+                <button className="btn btn-primary">Our products</button>
+              </Link>
             </div>
           </div>
         </div>

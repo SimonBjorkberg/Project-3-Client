@@ -7,18 +7,30 @@ import { AuthContext } from "../../context/auth.context";
 
 function ProductCardHomepage() {
   const [products, setProducts] = useState("");
+  const [errorMessage, setErrorMessage] = useState('')
 
   const { user, isLoggedIn } = useContext(AuthContext);
 
   useEffect(() => {
     productService.getAll().then((response) => {
-      const fiveRecent = response.data.slice(Math.max(response.data.length -5, 1))
-      setProducts(fiveRecent);
+      console.log(response.data)
+      if (response.data.message) {
+        return setErrorMessage(response.data.message)
+      }
+      if (response.data.length > 7) {
+        const sevenRecent = response.data.slice(
+          Math.max(response.data.length - 7, 1)
+        );
+        setProducts(sevenRecent.reverse());
+      }
+      else {
+        setProducts(response.data)
+      }
     });
   }, []);
 
   return (
-    <>
+    <div className="flex flex-row overflow-x-auto min-w-[1900px] justify-center">
       {products &&
         products.map((product, index) => {
           let includesId = false;
@@ -40,52 +52,74 @@ function ProductCardHomepage() {
           return (
             <div
               key={index}
-              className="card w-96 bg-base-100 shadow-xl my-8 min-w-200 "
+              className="card w-[263.85px] bg-base-100 shadow-xl mx-1 rounded-t-md mb-3"
             >
               <figure className="max-h-[7rem] min-h-[7rem]">
                 <Link to={`/product/single/${product._id}`}>
                   <img src={product.images[0]} alt={product.title} />
                 </Link>
               </figure>
-              <div className="card-body">
-                <div className="flex flex-col items-start">
+              <div className="card-body p-0">
+                <div className="flex flex-col items-start pt-3 px-3">
                   <h3 className="card-title">
                     {product.price}$
                     <div className="badge badge-secondary">NEW</div>
                   </h3>
-                  <p>Brand: {product.brand}</p>
-                  <p>{product.age}</p>
+                  <p>
+                    Brand:{" "}
+                    <span className="font-semibold">{product.brand}</span>
+                  </p>
+                  <p>
+                    Wear & Tear:{" "}
+                    <span className="font-semibold">{product.wear.label}</span>
+                  </p>
                 </div>
-                <div className="card-actions justify-center">
-                  {product.categories.map((categorie, index) => (
-                    <div key={index} className="badge badge-outline">
-                      {categorie.value}
+                <div className="h-[40px] px-2">
+                  {product.categories.map((category, index) => (
+                    <div
+                      key={index}
+                      className={`${
+                        category.value === "onesies" && "bg-teal-500"
+                      } ${category.value === "t-shirts" && "bg-green-500"} ${
+                        category.value === "sleepsuits" && "bg-yellow-500"
+                      } ${category.value === "bodysuits" && "bg-cyan-500"} ${
+                        category.value === "dresses" && "bg-orange-500"
+                      } ${
+                        category.value === "pantsNleggings" && "bg-purple-500"
+                      } ${
+                        category.value === "sweatersNcardigans" && "bg-pink-500"
+                      } ${category.value === "bibs" && "bg-rose-500"} ${
+                        category.value === "outerwear" && "bg-violet-500"
+                      } ${
+                        category.value === "rompers" && "bg-yellow-600"
+                      } badge badge-outline mx-1 my-auto`}
+                    >
+                      {category.label}
                     </div>
                   ))}
-                  <p>
-                    Sold by:{" "}
-                    <Link
-                      to={`/profile/${product.author._id}`}
-                      className="text-blue-500 font-semibold"
-                    >
-                      {product.author.username}
-                    </Link>
-                  </p>
-                  <div className="flex ">
-                    <button className="btn btn-primary">Add to Cart</button>
-                  </div>
-                  <div className="absolute top-3 right-3">
-                    <LikeButton
-                      productId={product._id}
-                      likedStatus={includesId ? true : false}
-                    />
-                  </div>
+                </div>
+                <p className="h-full mx-2 text-left">
+                  Seller:{" "}
+                  <Link className="text-blue-500 font-semibold">
+                    {product.author.username}
+                  </Link>
+                </p>
+                <div className="flex w-full h-full">
+                  <button className="btn btn-primary mt-auto rounded-none rounded-b-md">
+                    Add to Cart
+                  </button>
+                </div>
+                <div className="absolute top-3 right-3">
+                  <LikeButton
+                    productId={product._id}
+                    likedStatus={includesId ? true : false}
+                  />
                 </div>
               </div>
             </div>
           );
         })}
-    </>
+    </div>
   );
 }
 

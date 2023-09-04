@@ -54,8 +54,6 @@ function ProductDetailsPage() {
     includesId = false;
   }
 
-  console.log(includesId)
-
   return (
     <div className="flex sm:flex-col  lg:flex-row">
       <div className=" lg:w-2/4 m-8 shrink-0 sm: w-fit">
@@ -100,10 +98,14 @@ function ProductDetailsPage() {
                     category.value === "sleepsuits" && "bg-yellow-500"
                   } ${category.value === "bodysuits" && "bg-cyan-500"} ${
                     category.value === "dresses" && "bg-orange-500"
+                  } ${category.value === "pantsNleggings" && "bg-purple-500"} ${
+                    category.value === "sweatersNcardigans" && "bg-pink-500"
+                  } ${category.value === "bibs" && "bg-rose-500"} ${
+                    category.value === "outerwear" && "bg-violet-500"
                   } badge badge-outline mx-1 my-auto`}
                   key={index}
                 >
-                  {category.value}
+                  {category.label}
                 </p>
               ))}
             </div>
