@@ -28,12 +28,13 @@ function MainBanner() {
         <div className="card-body ">
           <h2 className="card-title">Want to make money?</h2>
           <p>
-            If you have baby clothes not used anymore discover how to make moneysds
+            If you have baby clothes not used anymore discover how to make
+            moneysds
           </p>
           <div className="card-actions justify-end">
-            <button className="btn btn-primary">
-              <Link to="/products">Our products</Link>
-            </button>
+            <Link to="/products" className="w-full">
+              <button className="btn btn-primary">Our products</button>
+            </Link>
           </div>
         </div>
       </div>

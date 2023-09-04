@@ -8,7 +8,7 @@ function SellPage() {
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
   const [images, setImages] = useState([]);
-  const [categorieOptions, setCategorieOptions] = useState([""]);
+  const [categorieOptions, setCategorieOptions] = useState([]);
   const [wearOptions, setWearOptions] = useState();
   const [product, setProduct] = useState({
     title: "",
@@ -35,6 +35,8 @@ function SellPage() {
     const value = e.target.value;
     setProduct((product) => ({ ...product, [name]: value }));
   };
+
+  console.log(categorieOptions)
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -76,8 +78,8 @@ function SellPage() {
         wear: wearOptions,
         brand: "",
       });
-      setCategorieOptions(null);
-      setWearOptions(null);
+      setCategorieOptions([]);
+      setWearOptions({});
       scrollToTop();
     }
   };
