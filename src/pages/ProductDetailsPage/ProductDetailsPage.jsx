@@ -38,8 +38,14 @@ function ProductDetailsPage() {
   if (isLoggedIn) {
     const idToCheck = user._id;
 
+    console.log(user._id)
+    console.log(productId)
+    console.log(product.likes)
+
     for (let i = 0; i < product.likes?.length; i++) {
       if (product.likes[i] === idToCheck) {
+        console.log(product.likes[i])
+        console.log(idToCheck)
         includesId = true;
         break; // Exit the loop early once a match is found
       }
@@ -48,7 +54,7 @@ function ProductDetailsPage() {
     includesId = false;
   }
 
-  console.log(product);
+  console.log(includesId)
 
   return (
     <div className="flex sm:flex-col  lg:flex-row">
@@ -58,7 +64,7 @@ function ProductDetailsPage() {
             <div className="carousel-item relative w-full">
               <img
                 src={product.images[index]}
-                className="w-full  max-w-[38rem] min-w-[38rem] max-h-[28rem] min-h-[28rem] rounded"
+                className="w-full   rounded lg: max-w-[38rem] min-w-[38rem] max-h-[28rem] min-h-[28rem]"
                 alt={`slide${index}`}
               />
               <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
