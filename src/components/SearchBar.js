@@ -22,29 +22,47 @@ const SearchBar = ({
     >
       <input
         type="text"
-        className="w-full sm:w-[250px] inset-x-0 mx-auto p-2 focus:absolute focus:outline-none focus:z-50 focus:w-[80%] rounded"
+        className={`${
+          isFocused &&
+          "inset-x-0 mx-auto absolute outline-none z-50 w-[80%] rounded"
+        }sm:w-[250px] p-2 rounded`}
         placeholder="Search..."
         value={searchValue}
         onChange={(e) => setSearchValue(e.target.value)}
       />
       {isFocused && titleSearch.length > 0 && (
-        <div className="z-50 w-[80%] bg-white absolute inset-x-0 mx-auto top-20 h-80 overflow-y-auto">
-          <h1 className="bg-neutral text-white py-2 font-semibold">
-            Search results by Title:
-          </h1>
+        <div className="z-50 w-[80%] bg-white absolute inset-x-0 mx-auto top-[70px] max-h-80 overflow-y-auto">
           {titleSearch?.map((product) => {
             return (
-              <p
+              <div
                 onClick={() => {
                   handleNavigate(product._id);
                   deFocus();
                   setSearchValue("");
                 }}
-                className="text-left p-2 border-b hover:cursor-pointer hover:bg-neutral-100"
                 key={product._id}
+                className="bg-neutral-50 rounded-none text-left border-b flex justify-between hover:cursor-pointer p-2"
               >
-                {product.title}
-              </p>
+                <p className="text-lg p-2 font-semibold">{product.title}</p>
+                <div className="hidden md:flex mr-2">
+                  {product.categories?.map((category, index) => {
+                    return (
+                      <p
+                        className={`${
+                          category.value === "onesies" && "bg-teal-500"
+                        } ${category.value === "t-shirts" && "bg-green-500"} ${
+                          category.value === "sleepsuits" && "bg-yellow-500"
+                        } ${category.value === "bodysuits" && "bg-cyan-500"} ${
+                          category.value === "dresses" && "bg-orange-500"
+                        } badge badge-outline mx-1 my-auto`}
+                        key={index}
+                      >
+                        {category.value}
+                      </p>
+                    );
+                  })}
+                </div>
+              </div>
             );
           })}
         </div>
@@ -54,3 +72,9 @@ const SearchBar = ({
 };
 
 export default SearchBar;
+
+{
+  /*handleNavigate(product._id);
+                  deFocus();
+                  setSearchValue("");*/
+}

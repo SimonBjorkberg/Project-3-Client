@@ -8,9 +8,8 @@ import { AuthContext } from "../../context/auth.context";
 function ProductDetailsPage() {
   const { productId } = useParams();
 
-  const [product, setProduct] = useState("");
+  const [product, setProduct] = useState({});
   const [index, setIndex] = useState(0);
-  
 
   const { user, isLoggedIn } = useContext(AuthContext);
 
@@ -36,22 +35,20 @@ function ProductDetailsPage() {
 
   let includesId = false;
 
-  if(isLoggedIn){
-    const idToCheck = user._id
-   
+  if (isLoggedIn) {
+    const idToCheck = user._id;
 
-  for (let i = 0; i < product.likes?.length; i++) {
-  if (product.likes[i] === idToCheck) {
-  
-  includesId = true;
-  break; // Exit the loop early once a match is found
+    for (let i = 0; i < product.likes?.length; i++) {
+      if (product.likes[i] === idToCheck) {
+        includesId = true;
+        break; // Exit the loop early once a match is found
       }
     }
   } else {
-    includesId = false
+    includesId = false;
   }
 
-
+  console.log(product);
 
   return (
     <div className="flex sm:flex-col  lg:flex-row">
@@ -76,20 +73,32 @@ function ProductDetailsPage() {
           </div>
         )}
       </div>
-    
-        <div className="my-8  text-black lg:text-left ">
-          <div className=" flex gap-24 sm: justify-center lg:justify-start ">
-            <h5 className="text-3xl font-semibold">{product.title}</h5>
-            <LikeButton productId={productId} likedStatus={includesId ? true : false}/>
-          </div>
+
+      <div className="my-8  text-black lg:text-left ">
+        <div className=" flex gap-24 sm: justify-center lg:justify-start ">
+          <h5 className="text-3xl font-semibold">{product.title}</h5>
+          <LikeButton
+            productId={productId}
+            likedStatus={includesId ? true : false}
+          />
+        </div>
 
         <div className="flex flex-row lg:flex">
           {product.categories && product.categories.length > 0 && (
             <div className="flex flex-row flex-wrap gap-x-2 gap-y-2 my-8 justify-center">
-              {product.categories.map((category) => (
-                <button className="btn btn-outline bg-gray-800 text-white w-fit">
-                  {category}
-                </button>
+              {product.categories.map((category, index) => (
+                <p
+                  className={`${
+                    category.value === "onesies" && "bg-teal-500"
+                  } ${category.value === "t-shirts" && "bg-green-500"} ${
+                    category.value === "sleepsuits" && "bg-yellow-500"
+                  } ${category.value === "bodysuits" && "bg-cyan-500"} ${
+                    category.value === "dresses" && "bg-orange-500"
+                  } badge badge-outline mx-1 my-auto`}
+                  key={index}
+                >
+                  {category.value}
+                </p>
               ))}
             </div>
           )}
@@ -97,7 +106,7 @@ function ProductDetailsPage() {
 
         <p className="mb-6 font-semibold">$ {product.price}</p>
         {product.brand && <p>Brand: {product.brand}</p>}
-        <p>Wear: {product.wear}</p>
+        <p>Wear: {product.wear?.value}</p>
         <div className="mb-8">
           <p className=" mt-4">{product.description}</p>
           <p className="mt-4 font-semibold">Quantity</p>
@@ -106,12 +115,17 @@ function ProductDetailsPage() {
             value={product.quantity}
             className="input input-bordered w-full max-w-xs mb-4 mt-2"
           />
-           <p>Author: {product.author &&  <Link
-                      to={`/profile/${product.author._id}`}
-                      className="text-blue-500 font-semibold"
-                    >
-                      {product.author.username}
-                    </Link>}</p>
+          <p>
+            Seller:{" "}
+            {product.author && (
+              <Link
+                to={`/profile/${product.author._id}`}
+                className="text-blue-500 font-semibold"
+              >
+                {product.author.username}
+              </Link>
+            )}
+          </p>
         </div>
         <div className="text-center">
           <button className="btn btn-outline bg-gray-800 text-white w-4/5">
@@ -119,7 +133,6 @@ function ProductDetailsPage() {
           </button>
         </div>
       </div>
-   
     </div>
   );
 }

@@ -66,8 +66,8 @@ const ANavBar = () => {
         <div className="w-[350px] h-full flex items-center justify-center ml-auto">
           <div className="md:flex hidden">
             <Link to="/sell" className="my-auto">
-              <p className="bg-white py-2 px-4 rounded-sm ml-2 hover:opacity-80 md:w-32 ">
-                Sell an Item
+              <p className="bg-white py-2 px-4 rounded-sm ml-2 hover:opacity-80 ">
+                Sell
               </p>
             </Link>
             <Link to="/chat" className="2xl:hidden my-auto">

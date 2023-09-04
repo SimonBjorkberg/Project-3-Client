@@ -162,8 +162,8 @@ function ProfilePage() {
                           <td>{product.price} €</td>
                           <td>{product.quantity}</td>
                           <td>
-                            {product.categories.map((category) => {
-                              return <span key={uuidv4()}>{category} </span>;
+                            {product.categories?.map((category) => {
+                              return <span key={uuidv4()}>{category.value} </span>;
                             })}
                           </td>
                           <td>

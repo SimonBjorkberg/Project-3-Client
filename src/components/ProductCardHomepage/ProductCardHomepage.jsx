@@ -56,7 +56,7 @@ function ProductCardHomepage() {
                 <div className="card-actions justify-center">
                   {product.categories.map((categorie, index) => (
                     <div key={index} className="badge badge-outline">
-                      {categorie}
+                      {categorie.value}
                     </div>
                   ))}
                   <p>
