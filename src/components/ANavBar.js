@@ -135,7 +135,7 @@ const ANavBar = () => {
       )}
 
       {!user && (
-        <div className="w-[350px] h-full flex items-center justify-center ml-auto">
+        <div className="md:w-[350px] h-full flex items-center justify-center ml-auto">
           <div className="md:flex hidden">
             <Link
               to="/login"
