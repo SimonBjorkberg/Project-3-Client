@@ -7,7 +7,7 @@ import { SearchContext } from "../../context/search.context";
 
 function ProductCard({ products }) {
   const { filter } = useContext(SearchContext);
-  const { user, isLoggedIn } = useContext(AuthContext);
+  const { loggedInUser, isLoggedIn } = useContext(AuthContext);
 
   return (
     <>
@@ -19,7 +19,7 @@ function ProductCard({ products }) {
           let includesId = false;
 
           if (isLoggedIn) {
-            const idToCheck = user._id;
+            const idToCheck = loggedInUser._id;
 
             for (let i = 0; i < product.likes.length; i++) {
               if (product.likes[i] === idToCheck) {

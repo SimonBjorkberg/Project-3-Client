@@ -11,7 +11,7 @@ import { AuthContext } from "../../context/auth.context";
 
 function ProfilePage() {
   const { potentialChats, createChat } = useContext(ChatContext);
-  const { user } = useContext(AuthContext);
+  const { loggedInUser } = useContext(AuthContext);
   const [foundUser, setFoundUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [productHovered, setProductHovered] = useState(null);
@@ -75,7 +75,7 @@ function ProfilePage() {
             <p
               className="p-2 bg-green-500 w-40 mx-auto hover:cursor-pointer mt-8 rounded-lg"
               onClick={() => {
-                createChat(user._id, userId);
+                createChat(loggedInUser._id, userId);
                 setNewContact(false);
               }}
             >

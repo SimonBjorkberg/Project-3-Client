@@ -11,7 +11,7 @@ function ProductDetailsPage() {
   const [product, setProduct] = useState({});
   const [index, setIndex] = useState(0);
 
-  const { user, isLoggedIn } = useContext(AuthContext);
+  const { loggedInUser, isLoggedIn } = useContext(AuthContext);
 
   const goToPreviousSlide = () => {
     console.log(index);
@@ -36,9 +36,9 @@ function ProductDetailsPage() {
   let includesId = false;
 
   if (isLoggedIn) {
-    const idToCheck = user._id;
+    const idToCheck = loggedInUser._id;
 
-    console.log(user._id)
+    console.log(loggedInUser._id)
     console.log(productId)
     console.log(product.likes)
 

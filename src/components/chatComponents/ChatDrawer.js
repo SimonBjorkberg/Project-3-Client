@@ -5,7 +5,7 @@ import { AuthContext } from "../../context/auth.context";
 import ChatPopup from "./ChatPopup";
 
 const ChatDrawer = () => {
-  const { user } = useContext(AuthContext);
+  const { loggedInUser } = useContext(AuthContext);
   const { userChats, isUserChatsLoading, updateCurrentChat, currentChat } =
     useContext(ChatContext);
   const [active, setActive] = useState(true);
@@ -38,7 +38,7 @@ const ChatDrawer = () => {
           <ChatPopup
             handleClick={handleClick}
             active={active}
-            user={user}
+            user={loggedInUser}
             chat={currentChat}
           />
         )}
@@ -64,7 +64,7 @@ const ChatDrawer = () => {
                       handleClick("show");
                     }}
                   >
-                    <ChatDrawerItem user={user} chat={chat} />
+                    <ChatDrawerItem user={loggedInUser} chat={chat} />
                   </div>
                 </label>
               );

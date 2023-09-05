@@ -6,7 +6,7 @@ const AuthContext = createContext();
 function AuthProviderWrapper(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [user, setUser] = useState(null);
+  const [loggedInUser, setLoggedInUser] = useState(null);
 
   const storeToken = (token) => {
     localStorage.setItem("authToken", token);
@@ -36,20 +36,20 @@ function AuthProviderWrapper(props) {
           // Update state variables
           setIsLoggedIn(true);
           setIsLoading(false);
-          setUser(user);
+          setLoggedInUser(user);
         })
         .catch((error) => {
           // If the server sends an error response (invalid token) ❌
           // Update state variables
           setIsLoggedIn(false);
           setIsLoading(false);
-          setUser(null);
+          setLoggedInUser(null);
         });
     } else {
       // If the token is not available
       setIsLoggedIn(false);
       setIsLoading(false);
-      setUser(null);
+      setLoggedInUser(null);
     }
   };
 
@@ -74,7 +74,7 @@ function AuthProviderWrapper(props) {
       value={{
         isLoggedIn,
         isLoading,
-        user,
+        loggedInUser,
         storeToken,
         authenticateUser,
         logOutUser,

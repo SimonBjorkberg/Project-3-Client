@@ -9,7 +9,7 @@ function ProductCardHomepage() {
   const [products, setProducts] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const { user, isLoggedIn } = useContext(AuthContext);
+  const { loggedInUser, isLoggedIn } = useContext(AuthContext);
 
   useEffect(() => {
     productService.getAll().then((response) => {
@@ -34,7 +34,7 @@ function ProductCardHomepage() {
           let includesId = false;
 
           if (isLoggedIn) {
-            const idToCheck = user._id;
+            const idToCheck = loggedInUser._id;
 
             for (let i = 0; i < product.likes.length; i++) {
               if (product.likes[i] === idToCheck) {

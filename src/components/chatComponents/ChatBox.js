@@ -6,13 +6,13 @@ import moment from "moment";
 import { useNavigate } from "react-router-dom";
 
 const ChatBox = () => {
-  const { user } = useContext(AuthContext);
+  const { loggedInUser } = useContext(AuthContext);
   const {
     currentChat,
     messages,
     sendTextMessage,
   } = useContext(ChatContext);
-  const { recipientUser } = useFetchRecipientUser(currentChat, user);
+  const { recipientUser } = useFetchRecipientUser(currentChat, loggedInUser);
   const [textMessage, setTextMessage] = useState("");
   const navigate = useNavigate();
 
@@ -64,7 +64,7 @@ const ChatBox = () => {
             <div
               key={index}
               className={`flex flex-col chat ${
-                message?.senderId === user?._id ? "chat-end" : "chat-start"
+                message?.senderId === loggedInUser?._id ? "chat-end" : "chat-start"
               }`}
             >
               <div className="chat-bubble max-w-[355px] mx-4">
@@ -89,7 +89,7 @@ const ChatBox = () => {
             onClick={() =>
               sendTextMessage(
                 textMessage,
-                user._id,
+                loggedInUser._id,
                 currentChat._id,
                 setTextMessage
               )
