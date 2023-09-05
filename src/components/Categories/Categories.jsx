@@ -12,10 +12,7 @@ function Categories() {
   }
 
   return (
-    <div className="max-w-[676px] mx-auto">
-    <h1 className="my-3 text-xl font-semibold">
-      Search through various categories
-    </h1>
+    <div className="max-w-[676px] mx-auto mt-10">
       <div className="flex flex-row flex-wrap gap-x-1 gap-y-1 mb-8 justify-center">
         <button onClick={() => handleClick("rompers")} className="px-2.5 py-1.5 rounded-md font-light bg-neutral hover:bg-neutral-focus text-white w-fit">
           <Link to="/products">Rompers</Link>

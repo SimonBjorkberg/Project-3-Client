@@ -124,7 +124,6 @@ function ProductDetailsPage() {
           <p className="mt-4 font-semibold">Quantity</p>
           <input
             type="number"
-            value={product.quantity}
             className="input input-bordered w-full max-w-xs mb-4 mt-2"
           />
           <p>
