@@ -103,8 +103,10 @@ function ProductCardHomepage() {
                   </Link>
                 </p>
                 <div className="flex w-full h-full">
-                  <button className="btn btn-primary mt-auto rounded-none rounded-b-md">
-                    Add to Cart
+                  <button className="h-12 btn-neutral mt-auto rounded-none rounded-b-md">
+                  <Link to={`/product/single/${product._id}`}>
+                  More Information
+                  </Link>
                   </button>
                 </div>
                 <div className="absolute top-3 right-3">

@@ -1,24 +1,17 @@
 import "./ProductCard.css";
 import { Link } from "react-router-dom";
 import LikeButton from "../LikeButton/LikeButton";
-import { useContext, useEffect, useState } from "react";
-import productService from "../../services/product.service";
+import { useContext } from "react";
 import { AuthContext } from "../../context/auth.context";
 
-function ProductCard() {
-  const [products, setProducts] = useState("");
+function ProductCard({ products }) {
 
   const { user, isLoggedIn } = useContext(AuthContext);
-
-  useEffect(() => {
-    productService.getAll().then((response) => setProducts(response.data));
-  }, []);
 
   return (
     <>
       {products &&
         products.map((product, index) => {
-
           let includesId = false;
 
           if (isLoggedIn) {
@@ -26,7 +19,6 @@ function ProductCard() {
 
             for (let i = 0; i < product.likes.length; i++) {
               if (product.likes[i] === idToCheck) {
-        
                 includesId = true;
                 break; // Exit the loop early once a match is found
               }
@@ -55,9 +47,26 @@ function ProductCard() {
                   <p>{product.age}</p>
                 </div>
                 <div className="card-actions justify-center">
-                  {product.categories?.map((categorie, index) => (
-                    <div key={index} className="badge badge-outline">
-                      {categorie.value}
+                  {product.categories?.map((category, index) => (
+                    <div
+                      key={index}
+                      className={`${
+                        category.value === "onesies" && "bg-teal-500"
+                      } ${category.value === "t-shirts" && "bg-green-500"} ${
+                        category.value === "sleepsuits" && "bg-yellow-500"
+                      } ${category.value === "bodysuits" && "bg-cyan-500"} ${
+                        category.value === "dresses" && "bg-orange-500"
+                      } ${
+                        category.value === "pantsNleggings" && "bg-purple-500"
+                      } ${
+                        category.value === "sweatersNcardigans" && "bg-pink-500"
+                      } ${category.value === "bibs" && "bg-rose-500"} ${
+                        category.value === "outerwear" && "bg-violet-500"
+                      } ${
+                        category.value === "rompers" && "bg-yellow-600"
+                      } badge badge-outline mx-1 my-auto`}
+                    >
+                      {category.value}
                     </div>
                   ))}
                   <p>

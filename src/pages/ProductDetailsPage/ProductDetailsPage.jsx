@@ -93,16 +93,20 @@ function ProductDetailsPage() {
               {product.categories.map((category, index) => (
                 <p
                   className={`${
-                    category.value === "onesies" && "bg-teal-500"
-                  } ${category.value === "t-shirts" && "bg-green-500"} ${
-                    category.value === "sleepsuits" && "bg-yellow-500"
-                  } ${category.value === "bodysuits" && "bg-cyan-500"} ${
-                    category.value === "dresses" && "bg-orange-500"
-                  } ${category.value === "pantsNleggings" && "bg-purple-500"} ${
-                    category.value === "sweatersNcardigans" && "bg-pink-500"
-                  } ${category.value === "bibs" && "bg-rose-500"} ${
-                    category.value === "outerwear" && "bg-violet-500"
-                  } badge badge-outline mx-1 my-auto`}
+                        category.value === "onesies" && "bg-teal-500"
+                      } ${category.value === "t-shirts" && "bg-green-500"} ${
+                        category.value === "sleepsuits" && "bg-yellow-500"
+                      } ${category.value === "bodysuits" && "bg-cyan-500"} ${
+                        category.value === "dresses" && "bg-orange-500"
+                      } ${
+                        category.value === "pantsNleggings" && "bg-purple-500"
+                      } ${
+                        category.value === "sweatersNcardigans" && "bg-pink-500"
+                      } ${category.value === "bibs" && "bg-rose-500"} ${
+                        category.value === "outerwear" && "bg-violet-500"
+                      } ${
+                        category.value === "rompers" && "bg-yellow-600"
+                      } badge badge-outline mx-1 my-auto`}
                   key={index}
                 >
                   {category.label}
