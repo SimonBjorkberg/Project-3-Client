@@ -9,7 +9,7 @@ function ProductCardHomepage() {
   const [products, setProducts] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const { user, isLoggedIn } = useContext(AuthContext);
+  const { loggedInUser, isLoggedIn } = useContext(AuthContext);
 
   useEffect(() => {
     productService.getAll().then((response) => {
@@ -34,7 +34,7 @@ function ProductCardHomepage() {
           let includesId = false;
 
           if (isLoggedIn) {
-            const idToCheck = user._id;
+            const idToCheck = loggedInUser._id;
 
             for (let i = 0; i < product.likes.length; i++) {
               if (product.likes[i] === idToCheck) {
@@ -103,8 +103,10 @@ function ProductCardHomepage() {
                   </Link>
                 </p>
                 <div className="flex w-full h-full">
-                  <button className="btn btn-primary mt-auto rounded-none rounded-b-md">
-                    Add to Cart
+                  <button className="h-12 btn-neutral mt-auto rounded-none rounded-b-md">
+                  <Link to={`/product/single/${product._id}`}>
+                  More Information
+                  </Link>
                   </button>
                 </div>
                 <div className="absolute top-3 right-3">

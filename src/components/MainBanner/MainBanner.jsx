@@ -11,29 +11,17 @@ function MainBanner() {
           alt=""
         ></img>
       </div>
-      <div className="card bg-base-100 shadow-md rounded-none lg:hidden ">
-        <div className="card-body">
-          <h2 className="card-title">Want to make money?</h2>
-          <p>
-            If you have baby clothes not used anymore discover how to make money
-          </p>
-          <div className="card-actions justify-end">
-            <Link to="/products" className="w-full">
-              <button className="btn btn-primary">Our products</button>
-            </Link>
-          </div>
-        </div>
-      </div>
-      <div className="card bg-base-100 shadow-md absolute rounded-md top-56 left-40 w-96 hidden lg:flex">
+      <div className="card bg-base-100 shadow-md rounded-none lg:absolute lg:rounded-md lg:top-56 lg:left-40 lg:w-[500px] lg:flex">
         <div className="card-body ">
-          <h2 className="card-title">Want to make money?</h2>
+          <h2 className="card-title">Turn Unwanted Baby Clothes into Cash</h2>
           <p>
-            If you have baby clothes not used anymore discover how to make
-            moneysds
+            Say goodbye to unused baby clothes and hello to extra income!
+            Discover how to effortlessly sell your gently used baby clothes and
+            make money today.
           </p>
           <div className="card-actions justify-end">
             <Link to="/products" className="w-full">
-              <button className="btn btn-primary">Our products</button>
+              <button className="btn btn-neutral">Our products</button>
             </Link>
           </div>
         </div>

@@ -1,12 +1,14 @@
 import { useState, useEffect, createContext } from "react";
 import authService from "../services/auth.service";
+import profileService from "../services/profile.service";
 
 const AuthContext = createContext();
 
 function AuthProviderWrapper(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [user, setUser] = useState(null);
+  const [loggedInUser, setLoggedInUser] = useState(null);
+  const [userInfo, setUserInfo] = useState(null)
 
   const storeToken = (token) => {
     localStorage.setItem("authToken", token);
@@ -36,20 +38,20 @@ function AuthProviderWrapper(props) {
           // Update state variables
           setIsLoggedIn(true);
           setIsLoading(false);
-          setUser(user);
+          setLoggedInUser(user);
         })
         .catch((error) => {
           // If the server sends an error response (invalid token) ❌
           // Update state variables
           setIsLoggedIn(false);
           setIsLoading(false);
-          setUser(null);
+          setLoggedInUser(null);
         });
     } else {
       // If the token is not available
       setIsLoggedIn(false);
       setIsLoading(false);
-      setUser(null);
+      setLoggedInUser(null);
     }
   };
 
@@ -69,12 +71,23 @@ function AuthProviderWrapper(props) {
     authenticateUser();
   }, []);
 
+  useEffect(() => {
+    if (loggedInUser) {
+      profileService.getOne(loggedInUser._id)
+        .then((response) => {
+          setUserInfo(response.data.user)
+        })
+    }
+  }, [loggedInUser])
+
   return (
     <AuthContext.Provider
       value={{
         isLoggedIn,
         isLoading,
-        user,
+        loggedInUser,
+        userInfo,
+        setUserInfo,
         storeToken,
         authenticateUser,
         logOutUser,

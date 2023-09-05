@@ -11,7 +11,7 @@ function ProductDetailsPage() {
   const [product, setProduct] = useState({});
   const [index, setIndex] = useState(0);
 
-  const { user, isLoggedIn } = useContext(AuthContext);
+  const { loggedInUser, isLoggedIn } = useContext(AuthContext);
 
   const goToPreviousSlide = () => {
     console.log(index);
@@ -36,9 +36,9 @@ function ProductDetailsPage() {
   let includesId = false;
 
   if (isLoggedIn) {
-    const idToCheck = user._id;
+    const idToCheck = loggedInUser._id;
 
-    console.log(user._id)
+    console.log(loggedInUser._id)
     console.log(productId)
     console.log(product.likes)
 
@@ -93,16 +93,20 @@ function ProductDetailsPage() {
               {product.categories.map((category, index) => (
                 <p
                   className={`${
-                    category.value === "onesies" && "bg-teal-500"
-                  } ${category.value === "t-shirts" && "bg-green-500"} ${
-                    category.value === "sleepsuits" && "bg-yellow-500"
-                  } ${category.value === "bodysuits" && "bg-cyan-500"} ${
-                    category.value === "dresses" && "bg-orange-500"
-                  } ${category.value === "pantsNleggings" && "bg-purple-500"} ${
-                    category.value === "sweatersNcardigans" && "bg-pink-500"
-                  } ${category.value === "bibs" && "bg-rose-500"} ${
-                    category.value === "outerwear" && "bg-violet-500"
-                  } badge badge-outline mx-1 my-auto`}
+                        category.value === "onesies" && "bg-teal-500"
+                      } ${category.value === "t-shirts" && "bg-green-500"} ${
+                        category.value === "sleepsuits" && "bg-yellow-500"
+                      } ${category.value === "bodysuits" && "bg-cyan-500"} ${
+                        category.value === "dresses" && "bg-orange-500"
+                      } ${
+                        category.value === "pantsNleggings" && "bg-purple-500"
+                      } ${
+                        category.value === "sweatersNcardigans" && "bg-pink-500"
+                      } ${category.value === "bibs" && "bg-rose-500"} ${
+                        category.value === "outerwear" && "bg-violet-500"
+                      } ${
+                        category.value === "rompers" && "bg-yellow-600"
+                      } badge badge-outline mx-1 my-auto`}
                   key={index}
                 >
                   {category.label}
@@ -120,7 +124,6 @@ function ProductDetailsPage() {
           <p className="mt-4 font-semibold">Quantity</p>
           <input
             type="number"
-            value={product.quantity}
             className="input input-bordered w-full max-w-xs mb-4 mt-2"
           />
           <p>

@@ -1,8 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import profileService from "../../services/profile.service";
 import scrollToTop from "../../utils/ScrollToTop";
+import { AuthContext } from "../../context/auth.context";
 
 const EditAvatar = ({ user, setUser, setMessage }) => {
+  const { userInfo, setUserInfo } = useContext(AuthContext);
+
   const [image, setImage] = useState();
 
   const appendImage = (e) => {
@@ -31,6 +34,10 @@ const EditAvatar = ({ user, setUser, setMessage }) => {
     );
     console.log(userResponse.data.image);
     setUser((user) => ({ ...user, image: userResponse.data.image }));
+    setUserInfo((userInfo) => ({
+      ...userInfo,
+      image: userResponse.data.image,
+    }));
     setMessage(userResponse.data.message);
   };
 

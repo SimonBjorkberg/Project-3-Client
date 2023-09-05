@@ -7,7 +7,8 @@ import SearchBar from "./SearchBar";
 import productService from "../services/product.service";
 
 const ANavBar = () => {
-  const { user, logOutUser, isLoggedIn } = useContext(AuthContext);
+  const { loggedInUser, logOutUser, isLoggedIn, userInfo } =
+    useContext(AuthContext);
   const [isFocused, setIsFocused] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [searchData, setSearchData] = useState([]);
@@ -40,7 +41,7 @@ const ANavBar = () => {
   }, [searchValue, searchData]);
 
   return (
-    <nav className="h-24 bg-neutral flex w-full pl-5 md:pl-0">
+    <nav className="h-20 bg-neutral flex w-full pl-5 md:pl-0">
       <div className="h-full w-1/5 md:w-40 flex md:justify-center justify-between items-center">
         <Link to="/">
           <p className="text-2xl text-white">Home</p>
@@ -60,7 +61,7 @@ const ANavBar = () => {
           onClick={deFocus}
         ></div>
       )}
-      {user && (
+      {loggedInUser && (
         <div className="md:w-[350px] h-full flex items-center justify-center ml-auto">
           <div className="md:flex hidden">
             <Link to="/sell" className="my-auto">
@@ -78,10 +79,13 @@ const ANavBar = () => {
                 Logout
               </p>
             </Link>
-            <Link to={`/profile/${user._id}`} className="ml-8 mt-2 my-auto">
+            <Link
+              to={`/profile/${userInfo?._id}`}
+              className="ml-8 mt-1 my-auto"
+            >
               <div className="avatar hover:opacity-50">
-                <div className="h-[60px] rounded-xl">
-                  <img src={user.image} alt="profile-pic" />
+                <div className="h-[60px] rounded-xl border border-neutral-400 bg-white">
+                  <img src={userInfo?.image} alt="profile-pic" />
                 </div>
               </div>
             </Link>
@@ -108,7 +112,7 @@ const ANavBar = () => {
                 tabIndex={0}
                 className="menu menu-sm dropdown-content mt-1 z-[1] p-2 shadow bg-base-100 w-60 right-0 rounded-md"
               >
-                <Link to={`/profile/${user._id}`}>
+                <Link to={`/profile/${userInfo?._id}`}>
                   <p className="text-xl text-white py-2 mb-1 px-4 rounded-md bg-neutral hover:opacity-80">
                     Profile
                   </p>
@@ -134,7 +138,7 @@ const ANavBar = () => {
         </div>
       )}
 
-      {!user && (
+      {!loggedInUser && (
         <div className="md:w-[350px] h-full flex items-center justify-center ml-auto">
           <div className="md:flex hidden">
             <Link

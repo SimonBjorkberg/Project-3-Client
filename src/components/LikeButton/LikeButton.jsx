@@ -5,7 +5,7 @@ import { AuthContext } from "../../context/auth.context";
 
 const LikeButton = ({ productId, likedStatus }) => {
 
-  const { user } = useContext(AuthContext);
+  const { loggedInUser } = useContext(AuthContext);
   const [liked, setLiked] = useState(likedStatus);
 
 
@@ -16,7 +16,7 @@ const LikeButton = ({ productId, likedStatus }) => {
       const response = await productService.like(productId);
 
       // Update liked state based on response
-      setLiked(response.data.likes.includes(user._id));
+      setLiked(response.data.likes.includes(loggedInUser._id));
     } catch (error) {
       console.error(error);
     }

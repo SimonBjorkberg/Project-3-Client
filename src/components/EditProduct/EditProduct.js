@@ -71,7 +71,7 @@ const EditProduct = ({ productDetails, productIndex, isHovered, userId }) => {
             </button>
             <form className="flex flex-col" onSubmit={handleSubmit}>
               <h3 className="font-bold text-lg">Product details!</h3>
-              <p>
+              <div>
                 <strong>Title:</strong>
                 <br />
                 <input
@@ -156,7 +156,7 @@ const EditProduct = ({ productDetails, productIndex, isHovered, userId }) => {
                   );
                 })}
                 <br />
-              </p>
+              </div>
               <div className="modal-action">
                 <button type="submit" className="btn" onClick={handleSubmit}>
                   Submit
