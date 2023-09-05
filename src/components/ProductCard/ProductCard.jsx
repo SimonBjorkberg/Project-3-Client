@@ -1,17 +1,23 @@
 import "./ProductCard.css";
 import { Link } from "react-router-dom";
 import LikeButton from "../LikeButton/LikeButton";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/auth.context";
+import { SearchContext } from "../../context/search.context";
 
 function ProductCard({ products }) {
-
+  const { filter } = useContext(SearchContext);
   const { user, isLoggedIn } = useContext(AuthContext);
+
+  console.log(filter)
 
   return (
     <>
+      {(products?.length === 0 && filter !== "") && (
+        <h1 className="my-10 font-semibold text-xl">There are no products within your selected category</h1>
+      )}
       {products &&
-        products.map((product, index) => {
+        products?.map((product, index) => {
           let includesId = false;
 
           if (isLoggedIn) {

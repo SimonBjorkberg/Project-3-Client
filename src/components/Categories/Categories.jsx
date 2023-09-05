@@ -5,7 +5,7 @@ import { SearchContext } from "../../context/search.context";
 
 function Categories() {
 
-  const { filter, setFilter } = useContext(SearchContext)
+  const { setFilter } = useContext(SearchContext)
 
   const handleClick = (value) => {
     setFilter(value)
