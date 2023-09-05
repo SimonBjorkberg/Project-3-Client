@@ -9,8 +9,6 @@ function ProductCard({ products }) {
   const { filter } = useContext(SearchContext);
   const { user, isLoggedIn } = useContext(AuthContext);
 
-  console.log(filter)
-
   return (
     <>
       {(products?.length === 0 && filter !== "") && (

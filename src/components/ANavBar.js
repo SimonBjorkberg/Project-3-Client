@@ -5,6 +5,7 @@ import ChatDrawer from "../components/chatComponents/ChatDrawer";
 import "../index.css";
 import SearchBar from "./SearchBar";
 import productService from "../services/product.service";
+import profileService from "../services/profile.service";
 
 const ANavBar = () => {
   const { user, logOutUser, isLoggedIn } = useContext(AuthContext);
@@ -12,6 +13,15 @@ const ANavBar = () => {
   const [searchValue, setSearchValue] = useState("");
   const [searchData, setSearchData] = useState([]);
   const [titleSearch, setTitleSearch] = useState([]);
+
+  useEffect(() => {
+    if (user) {
+      profileService.getOne(user._id)
+        .then((response) => {
+          console.log(response)
+        })
+    }
+  }, [user])
 
   useEffect(() => {
     productService.getAll().then((response) => {
@@ -40,7 +50,7 @@ const ANavBar = () => {
   }, [searchValue, searchData]);
 
   return (
-    <nav className="h-24 bg-neutral flex w-full pl-5 md:pl-0">
+    <nav className="h-20 bg-neutral flex w-full pl-5 md:pl-0">
       <div className="h-full w-1/5 md:w-40 flex md:justify-center justify-between items-center">
         <Link to="/">
           <p className="text-2xl text-white">Home</p>
@@ -78,9 +88,9 @@ const ANavBar = () => {
                 Logout
               </p>
             </Link>
-            <Link to={`/profile/${user._id}`} className="ml-8 mt-2 my-auto">
+            <Link to={`/profile/${user._id}`} className="ml-8 mt-1 my-auto">
               <div className="avatar hover:opacity-50">
-                <div className="h-[60px] rounded-xl">
+                <div className="h-[60px] rounded-xl border border-neutral-400 bg-white">
                   <img src={user.image} alt="profile-pic" />
                 </div>
               </div>
