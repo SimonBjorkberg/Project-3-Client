@@ -5,23 +5,14 @@ import ChatDrawer from "../components/chatComponents/ChatDrawer";
 import "../index.css";
 import SearchBar from "./SearchBar";
 import productService from "../services/product.service";
-import profileService from "../services/profile.service";
 
 const ANavBar = () => {
-  const { loggedInUser, logOutUser, isLoggedIn } = useContext(AuthContext);
+  const { loggedInUser, logOutUser, isLoggedIn, userInfo } =
+    useContext(AuthContext);
   const [isFocused, setIsFocused] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [searchData, setSearchData] = useState([]);
   const [titleSearch, setTitleSearch] = useState([]);
-
-  useEffect(() => {
-    if (loggedInUser) {
-      profileService.getOne(loggedInUser._id)
-        .then((response) => {
-          console.log(response)
-        })
-    }
-  }, [loggedInUser])
 
   useEffect(() => {
     productService.getAll().then((response) => {
@@ -88,10 +79,13 @@ const ANavBar = () => {
                 Logout
               </p>
             </Link>
-            <Link to={`/profile/${loggedInUser._id}`} className="ml-8 mt-1 my-auto">
+            <Link
+              to={`/profile/${userInfo?._id}`}
+              className="ml-8 mt-1 my-auto"
+            >
               <div className="avatar hover:opacity-50">
                 <div className="h-[60px] rounded-xl border border-neutral-400 bg-white">
-                  <img src={loggedInUser.image} alt="profile-pic" />
+                  <img src={userInfo?.image} alt="profile-pic" />
                 </div>
               </div>
             </Link>
@@ -118,7 +112,7 @@ const ANavBar = () => {
                 tabIndex={0}
                 className="menu menu-sm dropdown-content mt-1 z-[1] p-2 shadow bg-base-100 w-60 right-0 rounded-md"
               >
-                <Link to={`/profile/${loggedInUser._id}`}>
+                <Link to={`/profile/${userInfo?._id}`}>
                   <p className="text-xl text-white py-2 mb-1 px-4 rounded-md bg-neutral hover:opacity-80">
                     Profile
                   </p>
