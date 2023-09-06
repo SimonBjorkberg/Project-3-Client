@@ -13,6 +13,7 @@ import ChatPage from "./pages/ChatPage";
 import UserList from "./components/chatComponents/UserList";
 import Footer from "./components/Footer/Footer";
 import ANavBar from "./components/ANavBar";
+import ProfilePageTest from "./pages/ProfilePageTest/ProfilePageTest";
 
 function App() {
   const location = useLocation();
@@ -33,9 +34,7 @@ function App() {
         <Route
           path="/profile/:userId"
           element={
-            <IsPrivate>
-              <ProfilePage />
-            </IsPrivate>
+              <ProfilePageTest />
           }
         />
 
