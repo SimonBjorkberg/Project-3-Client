@@ -30,7 +30,7 @@ const UserInfo = ({
           foundUser={foundUser}
         />
       )}
-      {newContact && (
+      {loggedInUser._id !== foundUser._id && newContact && (
         <p
           className="hover:cursor-pointer hover:bg-green-500 absolute right-[50px] top-[120px] w-40 bg-green-600 shadow-xl border border-neutral-400 rounded-sm py-2"
           onClick={() => {
