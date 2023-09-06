@@ -31,4 +31,3 @@ function MainBanner() {
 }
 
 export default MainBanner;
-// https://static.vinted.com/assets/seller-promotion/gender_test/a/banner-wide-7403f719caac875cfeea61593da7fc7e7320c126193b4ff654e4397f54d430ae.jpg
