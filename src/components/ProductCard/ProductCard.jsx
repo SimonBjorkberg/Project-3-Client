@@ -1,45 +1,85 @@
 import "./ProductCard.css";
 import { Link } from "react-router-dom";
 import LikeButton from "../LikeButton/LikeButton";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../context/auth.context";
 import { SearchContext } from "../../context/search.context";
+import { v4 as uuidv4 } from "uuid"
 
-function ProductCard({ products }) {
+function ProductCard({ product }) {
   const { filter } = useContext(SearchContext);
   const { loggedInUser, isLoggedIn } = useContext(AuthContext);
+  const [indexImage, setIndexImage] = useState(0);
+  
+  let includesId = false;
+
+  if (isLoggedIn) {
+    const idToCheck = loggedInUser._id;
+
+    for (let i = 0; i < product.likes.length; i++) {
+      if (product.likes[i] === idToCheck) {
+        includesId = true;
+        break; // Exit the loop early once a match is found
+      }
+    }
+  } else {
+    includesId = false;
+  }
+
+
+  const goToPreviousSlide = () => {
+    console.log(product._id)
+    setIndexImage((prevIndex) => 
+
+      prevIndex === 0 ? product.images.length - 1 : prevIndex - 1
+  
+    );
+  };
+
+  const goToNextSlide = () => {
+    console.log(product._id)
+
+    setIndexImage((prevIndex) =>
+      prevIndex === product.images.length - 1 ? 0 : prevIndex + 1
+    );
+  };
+
+
 
   return (
     <>
-      {(products?.length === 0 && filter !== "") && (
+      {(product?.length === 0 && filter !== "") && (
         <h1 className="my-10 font-semibold text-xl">There are no products within your selected category</h1>
       )}
-      {products &&
-        products?.map((product, index) => {
-          let includesId = false;
-
-          if (isLoggedIn) {
-            const idToCheck = loggedInUser._id;
-
-            for (let i = 0; i < product.likes.length; i++) {
-              if (product.likes[i] === idToCheck) {
-                includesId = true;
-                break; // Exit the loop early once a match is found
-              }
-            }
-          } else {
-            includesId = false;
-          }
-
-          return (
+      {product &&
+ (
             <div
-              key={index}
+              key={uuidv4()}
               className="card w-96 bg-base-100 shadow-xl my-8 min-w-200 min-h-[28rem] max-h-[28]"
             >
               <figure className="max-h-[14rem] min-h-[14rem]">
                 <Link to={`/product/single/${product._id}`}>
-                  <img src={product.images[0]} alt={product.title} />
+                {product.images && (
+          <div className="carousel">
+            <div className="carousel-item relative w-full">
+              <img
+                src={product.images[indexImage]}
+                className="w-full   rounded lg: max-w-[38rem] min-w-[38rem] max-h-[28rem] min-h-[28rem]"
+                alt={`slide${indexImage}`}
+              />
+             
+            </div>
+          </div>
+        )}
                 </Link>
+                 <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/3">
+                <button onClick={goToPreviousSlide} className="btn btn-circle">
+                  ❮
+                </button>
+                <button onClick={goToNextSlide} className="btn btn-circle">
+                  ❯
+                </button>
+              </div>
               </figure>
               <div className="card-body">
                 <div className="flex flex-col items-start">
@@ -94,8 +134,8 @@ function ProductCard({ products }) {
                 </div>
               </div>
             </div>
-          );
-        })}
+          )
+        }
     </>
   );
 }
