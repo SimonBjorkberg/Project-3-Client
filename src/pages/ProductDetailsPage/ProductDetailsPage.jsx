@@ -54,6 +54,8 @@ function ProductDetailsPage() {
     includesId = false;
   }
 
+  console.log(includesId)
+
   return (
     <div className="flex sm:flex-col  lg:flex-row">
       <div className=" lg:w-2/4 m-8 shrink-0 sm: w-fit">
@@ -83,7 +85,7 @@ function ProductDetailsPage() {
           <h5 className="text-3xl font-semibold">{product.title}</h5>
           <LikeButton
             productId={productId}
-            likedStatus={includesId ? true : false}
+            likedStatus={includesId}
           />
         </div>
 
