@@ -11,7 +11,7 @@ import LikedProducts from "../../components/ProfilePageComponents/LikedProducts"
 import scrollToTop from "../../utils/ScrollToTop";
 
 const ProfilePageTest = (props) => {
-  const { potentialChats } = useContext(ChatContext);
+  const { potentialChats, createChat } = useContext(ChatContext);
   const { loggedInUser } = useContext(AuthContext);
   const [foundUser, setFoundUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -36,18 +36,6 @@ const ProfilePageTest = (props) => {
       setLoading(false);
     });
   }, [userId]);
-
-  useEffect(() => {
-    if (message) {
-      const timeout = setTimeout(() => {
-        setMessage(false);
-      }, 3000);
-
-      return () => {
-        clearTimeout(timeout);
-      };
-    }
-  }, [message]);
 
   useEffect(() => {
     scrollToTop();
@@ -76,6 +64,9 @@ const ProfilePageTest = (props) => {
             setMessage={setMessage}
             setFoundUser={setFoundUser}
             loggedInUser={loggedInUser}
+            newContact={newContact}
+            createChat={createChat}
+            setNewContact={setNewContact}
           />
           <div className="bg-neutral-300 py-10">
             <ProfileList

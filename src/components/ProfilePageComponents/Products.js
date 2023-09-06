@@ -11,7 +11,7 @@ const Products = ({
 }) => {
   return (
     <div className="text-left ml-10 pt-10">
-      {!recentProducts ? (
+      {!foundUser?.products?.length ? (
         <p>This user has no listed products!</p>
       ) : (
         recentProducts?.map((product) => {

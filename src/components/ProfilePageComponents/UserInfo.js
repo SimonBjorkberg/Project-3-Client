@@ -1,6 +1,14 @@
 import EditProfile from "./EditProfile";
 
-const UserInfo = ({ foundUser, setMessage, setFoundUser, loggedInUser }) => {
+const UserInfo = ({
+  foundUser,
+  setMessage,
+  setFoundUser,
+  loggedInUser,
+  newContact,
+  createChat,
+  setNewContact,
+}) => {
   return (
     <div className="h-60 flex bg-neutral-200">
       <div className="avatar">
@@ -11,7 +19,8 @@ const UserInfo = ({ foundUser, setMessage, setFoundUser, loggedInUser }) => {
       <div className="ml-10 flex flex-col my-auto">
         <p className="text-5xl font-bold text-left">{foundUser.username}</p>
         <p className="font-semibold text-sm text-left">
-          {foundUser.products?.length} products listed * {foundUser.reviews.length} Reviews
+          {foundUser.products?.length} products listed *{" "}
+          {foundUser.reviews.length} Reviews
         </p>
       </div>
       {loggedInUser && loggedInUser._id === foundUser._id && (
@@ -20,6 +29,17 @@ const UserInfo = ({ foundUser, setMessage, setFoundUser, loggedInUser }) => {
           setFoundUser={setFoundUser}
           foundUser={foundUser}
         />
+      )}
+      {newContact && (
+        <p
+          className="hover:cursor-pointer hover:bg-green-500 absolute right-[50px] top-[120px] w-40 bg-green-600 shadow-xl border border-neutral-400 rounded-sm py-2"
+          onClick={() => {
+            createChat(loggedInUser._id, foundUser._id);
+            setNewContact(false);
+          }}
+        >
+          add {foundUser.username} as a contact
+        </p>
       )}
     </div>
   );
