@@ -19,7 +19,7 @@ const UserInfo = ({
       <div className="ml-10 flex flex-col my-auto">
         <p className="text-5xl font-bold text-left">{foundUser.username}</p>
         <p className="font-semibold text-sm text-left">
-          {foundUser.products?.length} products listed *{" "}
+          {foundUser.products?.length} Listed Products *{" "}
           {foundUser.reviews.length} Reviews
         </p>
       </div>

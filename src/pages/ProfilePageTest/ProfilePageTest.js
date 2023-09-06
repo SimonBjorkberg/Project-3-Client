@@ -15,7 +15,6 @@ const ProfilePageTest = (props) => {
   const { loggedInUser } = useContext(AuthContext);
   const [foundUser, setFoundUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [productHovered, setProductHovered] = useState(null);
   const { userId } = useParams();
   const [message, setMessage] = useState(false);
   const [newContact, setNewContact] = useState(false);
@@ -46,10 +45,10 @@ const ProfilePageTest = (props) => {
       const fiveRecent = foundUser.products.slice(
         Math.max(foundUser.products.length - 5, 1)
       );
-      setRecentProducts(fiveRecent);
+      setRecentProducts(fiveRecent.reverse());
     }
     else {
-        setRecentProducts(foundUser?.products)
+        setRecentProducts(foundUser?.products.reverse())
     }
   }, [foundUser, showMore]);
 
@@ -78,8 +77,6 @@ const ProfilePageTest = (props) => {
               <Products
                 recentProducts={recentProducts}
                 foundUser={foundUser}
-                setProductHovered={setProductHovered}
-                productHovered={productHovered}
                 loggedInUser={loggedInUser}
                 showMore={showMore}
                 setShowMore={setShowMore}

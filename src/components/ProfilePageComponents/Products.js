@@ -1,20 +1,22 @@
 import scrollToTop from "../../utils/ScrollToTop";
+import EditProduct from "./EditProduct";
+import { useState } from "react";
 
 const Products = ({
   foundUser,
-  setProductHovered,
-  productHovered,
   loggedInUser,
   recentProducts,
   showMore,
   setShowMore,
 }) => {
+  const [productHovered, setProductHovered] = useState(null);
   return (
     <div className="text-left ml-10 pt-10">
       {!foundUser?.products?.length ? (
         <p>This user has no listed products!</p>
       ) : (
         recentProducts?.map((product) => {
+          const modalId = `${product._id}`;
           return (
             <div
               onMouseEnter={() => {
@@ -39,10 +41,16 @@ const Products = ({
               <p className="my-auto ml-5 text-xl w-20">
                 {product.likes.length} Like/s
               </p>
-              {foundUser._id === loggedInUser?._id &&
+              {foundUser?._id === loggedInUser?._id &&
                 productHovered === product._id && (
                   <div className="my-auto ml-auto flex h-full">
-                    <button className="mr-2 h-full p-2 bg-neutral rounded-sm text-neutral-300 hover:bg-blue-900">
+                    <button
+                      className="mr-2 h-full p-2 bg-neutral rounded-sm text-neutral-300 hover:bg-blue-900"
+                      onClick={() => {
+                        const modal = document.getElementById(modalId);
+                        modal.showModal();
+                      }}
+                    >
                       Edit
                     </button>
                     <button className="mr-2 h-full p-2 bg-neutral rounded-sm text-neutral-300 hover:bg-red-600">
@@ -50,6 +58,7 @@ const Products = ({
                     </button>
                   </div>
                 )}
+              <EditProduct modalId={modalId} product={product} />
             </div>
           );
         })
@@ -66,7 +75,7 @@ const Products = ({
           <button
             onClick={() => {
               setShowMore(false);
-              scrollToTop()
+              scrollToTop();
             }}
             className="w-fit ml-auto"
           >
