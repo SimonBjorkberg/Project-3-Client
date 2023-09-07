@@ -41,6 +41,7 @@ function ProductsPage() {
       <div className="flex gap-2 flex-wrap justify-around">
         {filteredProducts?.map((product) => {
                  return  <ProductCard
+                
           product={product}
         ></ProductCard>
         })}

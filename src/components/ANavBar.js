@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/auth.context";
 import ChatDrawer from "../components/chatComponents/ChatDrawer";
@@ -117,6 +118,7 @@ const ANavBar = () => {
                     Profile
                   </p>
                 </Link>
+      
                 <Link to="/sell">
                   <p className="bg-neutral-300 text-neutral py-2 mb-1 px-4 rounded-md text-xl hover:opacity-80">
                     Sell
