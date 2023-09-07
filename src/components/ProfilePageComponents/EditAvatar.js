@@ -3,7 +3,7 @@ import profileService from "../../services/profile.service";
 import scrollToTop from "../../utils/ScrollToTop";
 import { AuthContext } from "../../context/auth.context";
 
-const EditProfile = ({ foundUser, setFoundUser, setMessage }) => {
+const EditAvatar = ({ foundUser, setFoundUser, setMessage }) => {
   const { setUserInfo, loggedInUser } = useContext(AuthContext);
   const [image, setImage] = useState();
 
@@ -35,7 +35,7 @@ const EditProfile = ({ foundUser, setFoundUser, setMessage }) => {
           onClick={() => window.my_modal_3.showModal()}
           className="my-auto h-full text-lg"
         >
-          Edit
+          Edit Avatar
         </button>
       </div>
       <dialog id="my_modal_3" className="modal">
@@ -54,16 +54,31 @@ const EditProfile = ({ foundUser, setFoundUser, setMessage }) => {
                 <img src={foundUser.image} alt="" />
               </div>
             </div>
-            <form onSubmit={handleSubmit} className="my-auto flex flex-col w-full">
-              <input type="file" className="w-60 mx-auto file-input file-input-bordered file-input-xs rounded-sm mb-2" onChange={appendImage} />
-              <button onClick={() => window.my_modal_3.close()} className="py-1 bg-neutral px-2 w-20 text-white font-semibold rounded-sm ml-auto mr-[50px]">Save</button>
+            <form
+              onSubmit={handleSubmit}
+              className="my-auto flex flex-col w-full"
+            >
+              <input
+                type="file"
+                className="w-60 mx-auto file-input file-input-bordered file-input-xs rounded-sm mb-2"
+                onChange={appendImage}
+              />
+              <button
+                onClick={() => window.my_modal_3.close()}
+                className="py-1 bg-neutral px-2 w-20 text-white font-semibold rounded-sm ml-auto mr-[50px]"
+              >
+                Save
+              </button>
             </form>
           </div>
-          <p className="text-[10px] text-left px-4 pb-4 mt-[-15px]">By proceeding, you agree to give us access to the image you choose to upload. Please make sure you have the right to upload the image.</p>
+          <p className="text-[10px] text-left px-4 pb-4 mt-[-15px]">
+            By proceeding, you agree to give us access to the image you choose
+            to upload. Please make sure you have the right to upload the image.
+          </p>
         </div>
       </dialog>
     </div>
   );
 };
 
-export default EditProfile;
+export default EditAvatar;
