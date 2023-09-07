@@ -14,7 +14,7 @@ import { faStar as regularStar } from "@fortawesome/free-regular-svg-icons";
 
 function ProfilePage() {
   const { potentialChats, createChat } = useContext(ChatContext);
-  const { user } = useContext(AuthContext);
+  const { loggedInUser } = useContext(AuthContext);
   const [foundUser, setFoundUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [productHovered, setProductHovered] = useState(null);
@@ -86,19 +86,18 @@ function ProfilePage() {
               <span>Avatar changed!</span>
             </div>
           )}
-          <h1>Profile page</h1>
           {newContact && (
             <p
-              className="p-2 bg-green-500 w-40 mx-auto hover:cursor-pointer"
+              className="p-2 bg-green-500 w-40 mx-auto hover:cursor-pointer mt-8 rounded-lg"
               onClick={() => {
-                createChat(user._id, userId);
+                createChat(loggedInUser._id, userId);
                 setNewContact(false);
               }}
             >
               Add {foundUser.username} as a Contact
             </p>
           )}
-          <main className="flex flex-row place-content-center items-center gap-4">
+          <main className="flex flex-row place-content-center items-center gap-4 mt-8">
             {foundUser.image ? (
               <img
                 src={foundUser.image}
@@ -171,7 +170,7 @@ function ProfilePage() {
                     <tr>
                       <th>Name</th>
                       <th>images</th>
-                      <th>Price €</th>
+                      <th>Price</th>
                       <th>Quantity</th>
                       <th>Categories</th>
                       <th className="hidden-desktop"></th>
@@ -208,11 +207,11 @@ function ProfilePage() {
                               key={`image product ${product.title}`}
                             />
                           </td>
-                          <td>{product.price}</td>
+                          <td>{product.price} €</td>
                           <td>{product.quantity}</td>
                           <td>
-                            {product.categories.map((category) => {
-                              return <span key={uuidv4()}>{category} </span>;
+                            {product.categories?.map((category) => {
+                              return <span key={uuidv4()}>{category.value} </span>;
                             })}
                           </td>
                           <td>

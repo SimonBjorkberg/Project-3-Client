@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 const UserList = () => {
   const { userChats, isUserChatsLoading, updateCurrentChat } =
     useContext(ChatContext);
-  const { user } = useContext(AuthContext);
+  const { loggedInUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleNavigate = (chatId) => {
@@ -28,7 +28,7 @@ const UserList = () => {
                 handleNavigate(chat._id);
               }}
             >
-              <ChatDrawerItem user={user} chat={chat} />
+              <ChatDrawerItem user={loggedInUser} chat={chat} />
             </div>
           );
         })

@@ -6,13 +6,13 @@ import moment from "moment";
 import { useNavigate } from "react-router-dom";
 
 const ChatBox = () => {
-  const { user } = useContext(AuthContext);
+  const { loggedInUser } = useContext(AuthContext);
   const {
     currentChat,
     messages,
     sendTextMessage,
   } = useContext(ChatContext);
-  const { recipientUser } = useFetchRecipientUser(currentChat, user);
+  const { recipientUser } = useFetchRecipientUser(currentChat, loggedInUser);
   const [textMessage, setTextMessage] = useState("");
   const navigate = useNavigate();
 
@@ -35,9 +35,9 @@ const ChatBox = () => {
 
   return (
     <div className="flex w-full">
-      <div className="w-full max-h-[80vh]">
+      <div className="w-full max-h-[75vh]">
         {recipientUser ? (
-          <p className="w-full top-0 z-10 bg-neutral text-white text-xl p-4 fixed">
+          <p className="w-full top-0 z-10 bg-neutral text-white text-xl p-4">
             <span
               className="float-left hover:cursor-pointer"
               onClick={handleNavigate}
@@ -54,7 +54,7 @@ const ChatBox = () => {
             {"< "}Select a contact
           </p>
         )}
-        <div className="overflow-y-scroll h-[80vh]" id="chatbox">
+        <div className="overflow-y-scroll h-full bg-white" id="chatbox">
           {messages && messages.length === 0 && (
             <p className="mt-[35vh]">
               {recipientUser ? "Start the conversation!" : null}
@@ -64,7 +64,7 @@ const ChatBox = () => {
             <div
               key={index}
               className={`flex flex-col chat ${
-                message?.senderId === user?._id ? "chat-end" : "chat-start"
+                message?.senderId === loggedInUser?._id ? "chat-end" : "chat-start"
               }`}
             >
               <div className="chat-bubble max-w-[355px] mx-4">
@@ -89,7 +89,7 @@ const ChatBox = () => {
             onClick={() =>
               sendTextMessage(
                 textMessage,
-                user._id,
+                loggedInUser._id,
                 currentChat._id,
                 setTextMessage
               )

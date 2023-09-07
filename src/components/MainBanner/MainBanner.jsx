@@ -4,27 +4,25 @@ import "./MainBanner.css";
 function MainBanner() {
   return (
     <div className="block">
-      <div className="flex flex-col align-center left-desktop">
-        <div className="banner-container flex justify-center items-center relative absolute-desktop">
+      <div className="lg:h-[55vh] md:h-[40vh] overflow-hidden">
           <img
             src="https://static.vinted.com/assets/seller-promotion/gender_test/a/banner-wide-7403f719caac875cfeea61593da7fc7e7320c126193b4ff654e4397f54d430ae.jpg"
-            alt="banner"
-            className="banner-image"
-          />
-          <div className="hero-block__overlay"></div>
-        </div>
-        <div className="card bg-base-100 shadow-xl  width-tablette align-items-center-tablette top-desktop">
-          <div className="card-body">
-            <h2 className="card-title">Want to make money?</h2>
-            <p>
-              If you have baby clothes not used anymore discover how to make
-              money
-            </p>
-            <div className="card-actions justify-end">
-              <button className="btn btn-primary">
-                <Link to="/products">Our products</Link>
-              </button>
-            </div>
+            className="w-full 2xl:relative 2xl:top-[-20%]"
+            alt=""
+          ></img>
+      </div>
+      <div className="card bg-base-100 shadow-md rounded-none lg:absolute lg:rounded-md lg:top-56 lg:left-40 lg:w-[500px] lg:flex">
+        <div className="card-body ">
+          <h2 className="card-title">Turn Unwanted Baby Clothes into Cash</h2>
+          <p>
+            Say goodbye to unused baby clothes and hello to extra income!
+            Discover how to effortlessly sell your gently used baby clothes and
+            make money today.
+          </p>
+          <div className="card-actions justify-end">
+            <Link to="/products" className="w-full">
+              <button className="btn btn-neutral">Our products</button>
+            </Link>
           </div>
         </div>
       </div>

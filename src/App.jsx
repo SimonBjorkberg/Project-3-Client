@@ -7,13 +7,13 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import ProductsPage from "./pages/ProductsPage/ProductsPage";
 import SellPage from "./pages/SellPage/SellPage";
 import ProductDetailsPage from "./pages/ProductDetailsPage/ProductDetailsPage";
-import Navbar from "./components/Navbar/Navbar";
 import IsPrivate from "./components/IsPrivate/IsPrivate";
 import IsAnon from "./components/IsAnon/IsAnon";
 import ChatPage from "./pages/ChatPage";
 import UserList from "./components/chatComponents/UserList";
 import Footer from "./components/Footer/Footer";
 import ANavBar from "./components/ANavBar";
+import ProfilePageTest from "./pages/ProfilePageTest/ProfilePageTest";
 
 function App() {
   const location = useLocation();
@@ -34,9 +34,7 @@ function App() {
         <Route
           path="/profile/:userId"
           element={
-            <IsPrivate>
-              <ProfilePage />
-            </IsPrivate>
+              <ProfilePageTest />
           }
         />
 

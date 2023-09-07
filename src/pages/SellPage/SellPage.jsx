@@ -1,26 +1,27 @@
 import "./SellPage.css";
 import { useEffect, useState } from "react";
-import { useContext } from "react";
-import { AuthContext } from "../../context/auth.context";
 import productService from "../../services/product.service";
-import { useNavigate } from "react-router-dom";
+import Select from "react-select";
+import scrollToTop from "../../utils/ScrollToTop";
 
 function SellPage() {
-  const { user } = useContext(AuthContext);
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
   const [images, setImages] = useState([]);
+  const [categorieOptions, setCategorieOptions] = useState([]);
+  const [wearOptions, setWearOptions] = useState();
   const [product, setProduct] = useState({
     title: "",
     description: "",
     images: [],
-    author: user._id,
     price: 0,
     quantity: 0,
     categories: [],
     wear: "New",
     brand: "",
   });
+
+  console.log(product)
 
   const appendImage = async (e) => {
     const formData = new FormData();
@@ -34,9 +35,6 @@ function SellPage() {
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    if (typeof value === Number) {
-      console.log(true);
-    }
     setProduct((product) => ({ ...product, [name]: value }));
   };
 
@@ -52,23 +50,47 @@ function SellPage() {
       return setErrorMessage("Please enter a price above $0");
     } else if (product.quantity === 0) {
       return setErrorMessage("Please set a quantity above 0");
+    } else if (categorieOptions.length === 0) {
+      return setErrorMessage("Please select at least one category");
+    } else if (categorieOptions.length >= 3) {
+      return setErrorMessage("You can only select 2 categories");
     } else {
-      productService.create(product);
+      const createThisProduct = {
+        title: product.title,
+        description: product.description,
+        images: product.images,
+        price: product.price,
+        quantity: product.quantity,
+        categories: categorieOptions,
+        wear: wearOptions,
+        brand: product.brand,
+      };
+      productService.create(createThisProduct);
       setErrorMessage("");
       setMessage("Product Created!");
       setProduct({
         title: "",
         description: "",
         images: [],
-        author: user._id,
         price: 0,
         quantity: 0,
-        categories: [],
-        wear: "New",
+        categories: categorieOptions,
+        wear: wearOptions,
         brand: "",
       });
+      setCategorieOptions([]);
+      setWearOptions({});
+      scrollToTop();
     }
   };
+
+  function handleCategorie(data) {
+    setCategorieOptions(data);
+  }
+
+  function handleWear(data) {
+    setWearOptions(data);
+  }
 
   useEffect(() => {
     setTimeout(() => {
@@ -76,15 +98,34 @@ function SellPage() {
     }, 4000);
   }, [message]);
 
+  const categoriesList = [
+    { value: "rompers", label: "Rompers" },
+    { value: "sleepsuits", label: "Sleepsuits" },
+    { value: "onesies", label: "Onesies" },
+    { value: "bodysuits", label: "Bodysuits" },
+    { value: "dresses", label: "Dresses" },
+    { value: "t-shirts", label: "T-shirts" },
+    { value: "pantsNleggings", label: "Pants" },
+    { value: "sweatersNcardigans", label: "Sweaters" },
+    { value: "bibs", label: "Bibs" },
+    { value: "outerwear", label: "Outerwear" },
+  ];
+
+  const wearList = [
+    { value: "brand new", label: "Brand New" },
+    { value: "well worn", label: "Well Worn" },
+    { value: "stains", label: "Stains" },
+  ];
+
   return (
     <div>
-      <h1 className="my-4 text-2xl">Sell</h1>
+      <h1 className="my-4 text-2xl">Sell an Item</h1>
       {message && (
         <p className="p-2 text-green-600 font-semibold text-xl">{message}</p>
       )}
       <input
         type="file"
-        className="file-input w-full max-w-xs"
+        className="file-input file-input-bordered file-input-xs w-full max-w-xs"
         onChange={(e) => appendImage(e)}
       />
       {product.images.length !== 0 && (
@@ -98,9 +139,9 @@ function SellPage() {
         </div>
       )}
       <form className="flex flex-col w-[400px] mx-auto" onSubmit={handleSubmit}>
-        <label className="text-left font-semibold ml-1">Title:</label>
+        <label className="text-left font-semibold ml-1 mt-4">Title:</label>
         <input
-          className="p-2 focus:outline-none border my-1"
+          className="p-2 focus:outline-none border  my-4"
           type="text"
           name="title"
           value={product.title}
@@ -109,7 +150,7 @@ function SellPage() {
         />
         <label className="text-left font-semibold ml-1">Description:</label>
         <textarea
-          className="p-2 focus:outline-none border"
+          className="p-2 focus:outline-none border my-4"
           type="text"
           name="description"
           value={product.description}
@@ -118,7 +159,7 @@ function SellPage() {
         />
         <label className="text-left font-semibold ml-1">Price:</label>
         <input
-          className="p-2 focus:outline-none border my-1"
+          className="p-2 focus:outline-none border my-2"
           type="number"
           name="price"
           value={product.price}
@@ -126,23 +167,36 @@ function SellPage() {
         />
         <label className="text-left font-semibold ml-1">Quantity:</label>
         <input
-          className="p-2 focus:outline-none border"
+          className="p-2 focus:outline-none border my-2"
           type="number"
           name="quantity"
           value={product.quantity}
           onChange={handleChange}
         />
+
         <label className="text-left font-semibold ml-1">Wear & Tear:</label>
-        <select
-          className="p-2 focus:outline-none border my-1"
+
+        <Select
+          options={wearList}
+          name="categories"
+          value={wearOptions}
+          onChange={handleWear}
+          isSearchable={true}
+          className="my-4"
+        />
+
+        <label className="text-left font-semibold ml-1">Categories:</label>
+
+        <Select
+          options={categoriesList}
           name="wear"
-          value={product.wear}
-          onChange={handleChange}
-        >
-          <option>Brand New</option>
-          <option>Well Worn</option>
-          <option>Stains</option>
-        </select>
+          value={categorieOptions}
+          onChange={handleCategorie}
+          isSearchable={true}
+          isMulti
+          className="my-4"
+        />
+
         <label className="text-left font-semibold ml-1">
           Clothing Brand(s):
         </label>
@@ -153,7 +207,7 @@ function SellPage() {
           value={product.brand}
           onChange={handleChange}
         />
-        <button className="text-neutral p-2 border-2 border-neutral hover:bg-neutral-100 my-1">
+        <button className="text-neutral p-2 border-2 border-neutral hover:bg-neutral-100 my-6">
           Create Product
         </button>
       </form>

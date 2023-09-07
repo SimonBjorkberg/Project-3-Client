@@ -7,7 +7,7 @@ import { io } from "socket.io-client";
 const ChatContext = createContext();
 
 function ChatProviderWrapper({ children }) {
-  const { user } = useContext(AuthContext);
+  const { loggedInUser } = useContext(AuthContext);
   const [userChats, setUserChats] = useState(null);
   const [isUserChatsLoading, setIsUserChatsLoading] = useState(true);
   const [userChatsError, setUserChatsError] = useState(null);
@@ -28,11 +28,11 @@ function ChatProviderWrapper({ children }) {
     return () => {
       newSocket.disconnect();
     };
-  }, [user]);
+  }, [loggedInUser]);
 
   useEffect(() => {
     if (socket === null) return;
-    socket.emit("addNewUser", user?._id);
+    socket.emit("addNewUser", loggedInUser?._id);
     socket.on("getOnlineUsers", (res) => {
       setOnlineUsers(res);
     });
@@ -45,7 +45,7 @@ function ChatProviderWrapper({ children }) {
 
   useEffect(() => {
     if (socket === null) return;
-    const recipientId = currentChat?.members?.find((id) => id !== user?._id);
+    const recipientId = currentChat?.members?.find((id) => id !== loggedInUser?._id);
     socket.emit("sendMessage", {
       newMessage,
       recipientId,
@@ -68,7 +68,7 @@ function ChatProviderWrapper({ children }) {
   }, [socket, currentChat]);
 
   useEffect(() => {
-    if (user) {
+    if (loggedInUser) {
       const getUsers = async () => {
         const response = await chatService.findAllUsers();
 
@@ -79,7 +79,7 @@ function ChatProviderWrapper({ children }) {
         const pChats = response.data.filter((pUsers) => {
           let isChatCreated = false;
 
-          if (user._id === pUsers._id) return false;
+          if (loggedInUser._id === pUsers._id) return false;
 
           if (userChats) {
             isChatCreated = userChats.some((chat) => {
@@ -95,14 +95,14 @@ function ChatProviderWrapper({ children }) {
       };
       getUsers();
     }
-  }, [userChats, user]);
+  }, [userChats, loggedInUser]);
 
   useEffect(() => {
     const getUserChats = async () => {
-      if (user) {
+      if (loggedInUser) {
         setIsUserChatsLoading(true);
         setUserChatsError(null);
-        const response = await chatService.findAll(user._id);
+        const response = await chatService.findAll(loggedInUser._id);
 
         setIsUserChatsLoading(false);
 
@@ -114,7 +114,7 @@ function ChatProviderWrapper({ children }) {
       }
     };
     getUserChats();
-  }, [user]);
+  }, [loggedInUser]);
 
   useEffect(() => {
     const getMessages = async () => {
