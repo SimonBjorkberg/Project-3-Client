@@ -9,6 +9,7 @@ import ProfileList from "../../components/ProfilePageComponents/ProfileList";
 import UserInfo from "../../components/ProfilePageComponents/UserInfo";
 import LikedProducts from "../../components/ProfilePageComponents/LikedProducts";
 import scrollToTop from "../../utils/ScrollToTop";
+import ListOfReviews from "../../components/ProfilePageComponents/ListOfReviews";
 
 const ProfilePageTest = (props) => {
   const { potentialChats, createChat } = useContext(ChatContext);
@@ -46,9 +47,8 @@ const ProfilePageTest = (props) => {
         Math.max(foundUser.products.length - 5, 1)
       );
       setRecentProducts(fiveRecent.reverse());
-    }
-    else {
-        setRecentProducts(foundUser?.products.reverse())
+    } else {
+      setRecentProducts(foundUser?.products.reverse());
     }
   }, [foundUser, showMore]);
 
@@ -87,10 +87,11 @@ const ProfilePageTest = (props) => {
             )}
             {showInfo === "reviews" && (
               <div className="text-left ml-10 pt-10">
-                {foundUser.reviews.length === 0 && (
+                {foundUser.reviews.length === 0 ? (
                   <p>This user has not been reviewed yet!</p>
+                ) : (
+                  <ListOfReviews foundUser={foundUser} />
                 )}
-                {/* CREATE USER REVIEW HERE */}
               </div>
             )}
           </div>

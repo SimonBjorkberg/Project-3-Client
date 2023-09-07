@@ -69,10 +69,10 @@ const Products = ({
             return updatedProducts;
           });
         });
-        setEditProduct({})
-        setCategorieOptions([])
-        setWearOptions({})
-        scrollToTop();
+      setEditProduct({});
+      setCategorieOptions([]);
+      setWearOptions({});
+      scrollToTop();
     }
   };
 
