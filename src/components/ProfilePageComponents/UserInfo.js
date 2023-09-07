@@ -1,4 +1,5 @@
-import EditProfile from "./EditProfile";
+import EditAvatar from "./EditAvatar";
+import EditProfile from "./EditProfile/EditProfile";
 
 const UserInfo = ({
   foundUser,
@@ -24,11 +25,18 @@ const UserInfo = ({
         </p>
       </div>
       {loggedInUser && loggedInUser?._id === foundUser?._id && (
-        <EditProfile
-          setMessage={setMessage}
-          setFoundUser={setFoundUser}
-          foundUser={foundUser}
-        />
+        <>
+          <EditAvatar
+            setMessage={setMessage}
+            setFoundUser={setFoundUser}
+            foundUser={foundUser}
+          />
+          <EditProfile
+            user={foundUser}
+            updateUser={setFoundUser}
+            setMessage={setMessage}
+          />
+        </>
       )}
       {loggedInUser?._id !== foundUser._id && newContact && (
         <p
