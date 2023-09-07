@@ -17,7 +17,7 @@ const UserInfo = ({
         </div>
       </div>
       <div className="ml-10 flex flex-col my-auto">
-        <p className="text-5xl font-bold text-left">{foundUser?.username}</p>
+        <p className="text-5xl mb-2 font-bold text-left">{foundUser?.username}</p>
         <p className="font-semibold text-sm text-left">
           {foundUser.products?.length} Listed Products *{" "}
           {foundUser.reviews.length} Reviews
