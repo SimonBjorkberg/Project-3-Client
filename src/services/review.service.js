@@ -20,6 +20,12 @@ class ReviewService {
   createReview = (targetId, reviewData) => {
     return this.api.post(`/review/create/${targetId}`, reviewData);
   };
+  deleteReview = (targetId) => {
+    return this.api.post(`/review/delete/${targetId}`);
+  };
+  editReview = (targetId, updatedReview) => {
+    return this.api.put(`/review/edit/${targetId}`, updatedReview);
+  };
 }
 
 const reviewService = new ReviewService();

@@ -28,6 +28,7 @@ const ProfilePageTest = (props) => {
   const [recentProducts, setRecentProducts] = useState(null);
   const [showMore, setShowMore] = useState(false);
   const [userReviews, setUserReviews] = useState([]);
+  const [editingReview, setEditingReview] = useState(null);
 
   const navigate = useNavigate();
 
@@ -58,6 +59,27 @@ const ProfilePageTest = (props) => {
       setRecentProducts(foundUser?.products.reverse());
     }
   }, [foundUser, showMore]);
+
+  const handleEditReview = (review) => {
+    setEditingReview(review);
+  };
+
+  const handleUpdateReview = (reviewId, updatedComment) => {
+    const updatedReview = {
+      comment: updatedComment,
+    };
+    reviewService.editReview(reviewId, updatedReview).then((response) => {
+      const updatedReviews = userReviews.map((review) => {
+        if (review._id === updatedReview._id) {
+          return response.data.updatedReview;
+        }
+        return review;
+      });
+
+      setEditingReview(null);
+      setUserReviews(updatedReviews);
+    });
+  };
 
   return (
     <div>
@@ -102,6 +124,7 @@ const ProfilePageTest = (props) => {
                     <textarea
                       id="commentInput"
                       placeholder="Entrez votre commentaire ici"
+                      defaultValue={editingReview ? editingReview.comment : ""}
                     />
                     <Rating
                       emptySymbol={
@@ -136,8 +159,10 @@ const ProfilePageTest = (props) => {
                       }}
                     />
                     <ListOfReviews
-                      // foundUser={foundUser}
                       userReviews={userReviews}
+                      handleEditReview={handleEditReview}
+                      handleUpdateReview={handleUpdateReview}
+                      editingReview={editingReview}
                     />
                   </div>
                 )}
