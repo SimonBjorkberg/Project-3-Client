@@ -10,6 +10,11 @@ import UserInfo from "../../components/ProfilePageComponents/UserInfo";
 import LikedProducts from "../../components/ProfilePageComponents/LikedProducts";
 import scrollToTop from "../../utils/ScrollToTop";
 import ListOfReviews from "../../components/ProfilePageComponents/ListOfReviews";
+import Rating from "react-rating";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar as solidStar } from "@fortawesome/free-solid-svg-icons";
+import { faStar as regularStar } from "@fortawesome/free-regular-svg-icons";
+import reviewService from "../../services/review.service";
 
 const ProfilePageTest = (props) => {
   const { potentialChats, createChat } = useContext(ChatContext);
@@ -22,6 +27,7 @@ const ProfilePageTest = (props) => {
   const [showInfo, setShowInfo] = useState("products");
   const [recentProducts, setRecentProducts] = useState(null);
   const [showMore, setShowMore] = useState(false);
+  const [userReviews, setUserReviews] = useState([]);
 
   const navigate = useNavigate();
 
@@ -33,6 +39,7 @@ const ProfilePageTest = (props) => {
   useEffect(() => {
     profileService.getOne(userId).then((response) => {
       setFoundUser(response.data.user);
+      setUserReviews(response.data.user.reviews);
       setLoading(false);
     });
   }, [userId]);
@@ -85,12 +92,54 @@ const ProfilePageTest = (props) => {
             {showInfo === "liked" && (
               <LikedProducts navigate={navigate} foundUser={foundUser} />
             )}
-            {showInfo === "reviews" && (
+            {showInfo === "reviews" && foundUser && (
               <div className="text-left ml-10 pt-10">
                 {foundUser.reviews.length === 0 ? (
                   <p>This user has not been reviewed yet!</p>
                 ) : (
-                  <ListOfReviews foundUser={foundUser} />
+                  <div>
+                    <p>User Rating:</p>
+                    <textarea
+                      id="commentInput"
+                      placeholder="Entrez votre commentaire ici"
+                    />
+                    <Rating
+                      emptySymbol={
+                        <FontAwesomeIcon icon={regularStar} size="2x" />
+                      }
+                      fullSymbol={
+                        <FontAwesomeIcon icon={solidStar} size="2x" />
+                      }
+                      onChange={(rating) => {
+                        const comment =
+                          document.getElementById("commentInput").value;
+                        const newReview = {
+                          comment: comment,
+                          review: rating,
+                        };
+
+                        reviewService
+                          .createReview(foundUser._id, newReview)
+                          .then((response) => {
+                            const updatedReviews = [
+                              ...userReviews,
+                              response.data.newReview,
+                            ];
+                            setUserReviews(updatedReviews);
+
+                            document.getElementById("commentInput").value = "";
+                          })
+
+                          .catch((error) => {
+                            console.error("Error creating review:", error);
+                          });
+                      }}
+                    />
+                    <ListOfReviews
+                      // foundUser={foundUser}
+                      userReviews={userReviews}
+                    />
+                  </div>
                 )}
               </div>
             )}
