@@ -44,6 +44,8 @@ function ProductCard({ product }) {
     );
   };
 
+  console.log(product?.length, filter)
+
 
 
   return (

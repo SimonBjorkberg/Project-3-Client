@@ -39,7 +39,7 @@ function ProductsPage() {
       <Categories setFilter={setFilter} ></Categories>
       <button className={`${filter !== "" ? "px-2.5 py-1.5 rounded-md font-light bg-white hover:opacity-40 text-neutral border-2 border-neutral w-32" : "hidden"}`} onClick={() => handleClick()} >Clear Filter</button>
       <div className="flex gap-2 flex-wrap justify-around">
-        {products.map((product) => {
+        {filteredProducts?.map((product) => {
                  return  <ProductCard
           product={product}
         ></ProductCard>
