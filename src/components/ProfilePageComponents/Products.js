@@ -171,6 +171,18 @@ const Products = ({
     setMessage("Image added");
   };
 
+  const reloadProducts = () => {
+    productService.getAll().then((response) => {
+      setProducts(response.data.products);
+    });
+  };
+
+  const handleDeleteProduct = (productId) => {
+    productService.deleteOne(productId).then(() => {
+      reloadProducts();
+    });
+  };
+
   return (
     <div className="text-left ml-10 pt-10">
       {!foundUser?.products?.length ? (
@@ -218,7 +230,10 @@ const Products = ({
                   >
                     Edit
                   </button>
-                  <button className="h-fit my-auto p-2 bg-neutral-400 z-20">
+                  <button
+                    onClick={() => handleDeleteProduct(product._id)}
+                    className="h-fit my-auto p-2 bg-neutral-400 z-20"
+                  >
                     Delete
                   </button>
                 </div>
