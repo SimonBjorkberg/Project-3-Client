@@ -3,7 +3,7 @@ import axios from "axios";
 class ProductService {
   constructor() {
     this.api = axios.create({
-      baseURL: process.env.REACT_APP_API_URL || "http://localhost:5005"
+      baseURL: process.env.REACT_APP_API_URL || "http://localhost:5005",
     });
 
     // Automatically set JWT token on the request headers for every request
@@ -42,9 +42,8 @@ class ProductService {
 
   like = (productId) => {
     return this.api.post(`/product/${productId}/like`);
-  
-  }
-  
+  };
+
   uploadImage = async (image) => {
     return this.api.post(`/api/upload`, image);
   };

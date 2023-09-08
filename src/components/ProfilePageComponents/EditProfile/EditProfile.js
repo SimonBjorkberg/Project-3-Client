@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./EditProfile.css";
-import profileService from "../../services/profile.service";
+import profileService from "../../../services/profile.service";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 
@@ -59,25 +59,27 @@ const EditProfile = ({ user, updateUser }) => {
   };
 
   return (
-    <div className="mt-4">
-      <button className="btn" onClick={showModal}>
-        EDIT PROFILE
+    <div className="absolute right-[69px] top-[150px]">
+      <button className="my-auto h-full text-lg" onClick={showModal}>
+        Edit Profile
       </button>
       <dialog id="edit-profile" className="modal">
         <div className="modal-background">
-          <div className="modal-box minimum-width-350">
+          <div className="modal-box rounded-md max-w-[500px] p-0">
             <button
               onClick={handleModalClose}
-              className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+              className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 text-white"
             >
               ✕
             </button>
+            <h3 className="font-bold text-lg bg-neutral text-neutral-300 p-3">
+              Edit Profile
+            </h3>
             <form
               method="dialog"
-              className="modal-box minimum-width-250"
+              className="modal-box max-width"
               onSubmit={handleSubmit}
             >
-              <h3 className="font-bold text-lg">Profile Information!</h3>
               <div className="py-4 flex flex-col">
                 <strong>Username:</strong>
                 <input
@@ -112,7 +114,7 @@ const EditProfile = ({ user, updateUser }) => {
                 />
                 <br />
                 <input
-                  placeholder="type again your new password"
+                  placeholder="Confirm new password"
                   type="password"
                   name="password"
                   value={confirmNewPassword}
