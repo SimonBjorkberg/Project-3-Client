@@ -10,6 +10,7 @@ function ProductCard({ product }) {
   const { filter } = useContext(SearchContext);
   const { loggedInUser, isLoggedIn } = useContext(AuthContext);
   const [indexImage, setIndexImage] = useState(0);
+  const [cartProducts, setCartProducts] = useState([]);
   
   let includesId = false;
 
@@ -43,6 +44,11 @@ function ProductCard({ product }) {
       prevIndex === product.images.length - 1 ? 0 : prevIndex + 1
     );
   };
+
+  const handleAddToCart = () => {
+    setCartProducts([...cartProducts, product]);
+  };
+
 
 
 
@@ -123,7 +129,7 @@ function ProductCard({ product }) {
                     </Link>
                   </p>
                   <div className="flex ">
-                    <button className="btn btn-primary">Add to Cart</button>
+                    <button className="btn btn-primary" onClick={handleAddToCart}>Add to Cart</button>
                   </div>
                   <div className="absolute top-3 right-3">
                     <LikeButton
