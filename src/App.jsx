@@ -20,7 +20,7 @@ function App() {
 
   return (
     <div className="App" data-theme="light">
-      {location.pathname.includes('/chat/') ? null : <ANavBar />}
+      {location.pathname.includes("/chat/") ? null : <ANavBar />}
       <Routes>
         <Route path="/" element={<HomePage />} />
 
@@ -31,12 +31,7 @@ function App() {
           element={<ProductDetailsPage />}
         />
 
-        <Route
-          path="/profile/:userId"
-          element={
-              <ProfilePageTest />
-          }
-        />
+        <Route path="/profile/:userId" element={<ProfilePageTest />} />
 
         <Route
           path="/chat"
@@ -80,7 +75,7 @@ function App() {
           }
         />
       </Routes>
-      {location.pathname.includes('/chat') ? null : <Footer />}
+      {location.pathname.includes("/chat") ? null : <Footer />}
     </div>
   );
 }

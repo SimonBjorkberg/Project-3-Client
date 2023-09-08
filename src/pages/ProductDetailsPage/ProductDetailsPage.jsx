@@ -42,14 +42,14 @@ function ProductDetailsPage() {
   if (isLoggedIn) {
     const idToCheck = loggedInUser._id;
 
-    console.log(loggedInUser._id)
-    console.log(productId)
-    console.log(product.likes)
+    console.log(loggedInUser._id);
+    console.log(productId);
+    console.log(product.likes);
 
     for (let i = 0; i < product.likes?.length; i++) {
       if (product.likes[i] === idToCheck) {
-        console.log(product.likes[i])
-        console.log(idToCheck)
+        console.log(product.likes[i]);
+        console.log(idToCheck);
         includesId = true;
         break; // Exit the loop early once a match is found
       }
@@ -58,7 +58,7 @@ function ProductDetailsPage() {
     includesId = false;
   }
 
-  console.log(includesId)
+  console.log(includesId);
 
   return (
     <div className="flex sm:flex-col  lg:flex-row">
@@ -87,10 +87,7 @@ function ProductDetailsPage() {
       <div className="my-8  text-black lg:text-left ">
         <div className=" flex gap-24 sm: justify-center lg:justify-start ">
           <h5 className="text-3xl font-semibold">{product.title}</h5>
-          <LikeButton
-            productId={productId}
-            likedStatus={includesId}
-          />
+          <LikeButton productId={productId} likedStatus={includesId} />
         </div>
 
         <div className="flex flex-row lg:flex">
@@ -99,20 +96,18 @@ function ProductDetailsPage() {
               {product.categories.map((category, index) => (
                 <p
                   className={`${
-                        category.value === "onesies" && "bg-teal-500"
-                      } ${category.value === "t-shirts" && "bg-green-500"} ${
-                        category.value === "sleepsuits" && "bg-yellow-500"
-                      } ${category.value === "bodysuits" && "bg-cyan-500"} ${
-                        category.value === "dresses" && "bg-orange-500"
-                      } ${
-                        category.value === "pantsNleggings" && "bg-purple-500"
-                      } ${
-                        category.value === "sweatersNcardigans" && "bg-pink-500"
-                      } ${category.value === "bibs" && "bg-rose-500"} ${
-                        category.value === "outerwear" && "bg-violet-500"
-                      } ${
-                        category.value === "rompers" && "bg-yellow-600"
-                      } badge badge-outline mx-1 my-auto`}
+                    category.value === "onesies" && "bg-teal-500"
+                  } ${category.value === "t-shirts" && "bg-green-500"} ${
+                    category.value === "sleepsuits" && "bg-yellow-500"
+                  } ${category.value === "bodysuits" && "bg-cyan-500"} ${
+                    category.value === "dresses" && "bg-orange-500"
+                  } ${category.value === "pantsNleggings" && "bg-purple-500"} ${
+                    category.value === "sweatersNcardigans" && "bg-pink-500"
+                  } ${category.value === "bibs" && "bg-rose-500"} ${
+                    category.value === "outerwear" && "bg-violet-500"
+                  } ${
+                    category.value === "rompers" && "bg-yellow-600"
+                  } badge badge-outline mx-1 my-auto`}
                   key={index}
                 >
                   {category.label}
