@@ -4,9 +4,13 @@ import { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import productService from "../../services/product.service";
 import { AuthContext } from "../../context/auth.context";
+import { ShoppingCartContext } from "../../context/shoppingCart.context";
+
 
 function ProductDetailsPage() {
   const { productId } = useParams();
+
+  const { handleAddToCart } = useContext(ShoppingCartContext);
 
   const [product, setProduct] = useState({});
   const [index, setIndex] = useState(0);
@@ -136,7 +140,7 @@ function ProductDetailsPage() {
           </p>
         </div>
         <div className="text-center">
-          <button className="btn btn-outline bg-gray-800 text-white w-4/5">
+          <button className="btn btn-outline bg-gray-800 text-white w-4/5" onClick={() => handleAddToCart(product)}>
             Add To Cart
           </button>
         </div>
