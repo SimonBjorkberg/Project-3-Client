@@ -13,6 +13,7 @@ import UserList from "./components/chatComponents/UserList";
 import Footer from "./components/Footer/Footer";
 import ANavBar from "./components/ANavBar";
 import ProfilePageTest from "./pages/ProfilePageTest/ProfilePageTest";
+import ShoppingCartPage from "./pages/ShoppingCartPage/ShoppingCartPage";
 import StripeContainer from "./stripe/StripeContainer";
 
 function App() {
@@ -80,6 +81,12 @@ function App() {
             <IsPrivate>
               <SellPage />
             </IsPrivate>
+          }
+        />
+        <Route
+          path="/shopping-cart"
+          element={
+            <ShoppingCartPage />
           }
         />
       </Routes>
