@@ -21,6 +21,8 @@ function SellPage() {
     brand: "",
   });
 
+  console.log(product)
+
   const appendImage = async (e) => {
     const formData = new FormData();
     formData.append("imageUrl", e.target.files[0]);
@@ -35,8 +37,6 @@ function SellPage() {
     const value = e.target.value;
     setProduct((product) => ({ ...product, [name]: value }));
   };
-
-  console.log(categorieOptions)
 
   const handleSubmit = (e) => {
     e.preventDefault();

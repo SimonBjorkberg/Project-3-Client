@@ -1,7 +1,6 @@
 import "./App.css";
 import { Routes, Route, useLocation } from "react-router-dom";
 import HomePage from "./pages/HomePage/HomePage";
-import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import SignupPage from "./pages/SignupPage/SignupPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import ProductsPage from "./pages/ProductsPage/ProductsPage";
@@ -13,13 +12,16 @@ import ChatPage from "./pages/ChatPage";
 import UserList from "./components/chatComponents/UserList";
 import Footer from "./components/Footer/Footer";
 import ANavBar from "./components/ANavBar";
+import ProfilePageTest from "./pages/ProfilePageTest/ProfilePageTest";
+import ShoppingCartPage from "./pages/ShoppingCartPage/ShoppingCartPage";
+import StripeContainer from "./stripe/StripeContainer";
 
 function App() {
   const location = useLocation();
 
   return (
     <div className="App" data-theme="light">
-      {location.pathname.includes('/chat/') ? null : <ANavBar />}
+      {location.pathname.includes("/chat/") ? null : <ANavBar />}
       <Routes>
         <Route path="/" element={<HomePage />} />
 
@@ -30,14 +32,7 @@ function App() {
           element={<ProductDetailsPage />}
         />
 
-        <Route
-          path="/profile/:userId"
-          element={
-            <IsPrivate>
-              <ProfilePage />
-            </IsPrivate>
-          }
-        />
+        <Route path="/profile/:userId" element={<ProfilePageTest />} />
 
         <Route
           path="/chat"
@@ -52,6 +47,14 @@ function App() {
           element={
             <IsPrivate>
               <ChatPage />
+            </IsPrivate>
+          }
+        />
+        <Route
+          path="/payment"
+          element={
+            <IsPrivate>
+              <StripeContainer />
             </IsPrivate>
           }
         />
@@ -80,8 +83,14 @@ function App() {
             </IsPrivate>
           }
         />
+        <Route
+          path="/shopping-cart"
+          element={
+            <ShoppingCartPage />
+          }
+        />
       </Routes>
-      {location.pathname.includes('/chat') ? null : <Footer />}
+      {location.pathname.includes("/chat") ? null : <Footer />}
     </div>
   );
 }

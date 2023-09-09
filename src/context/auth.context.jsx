@@ -8,7 +8,7 @@ function AuthProviderWrapper(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [loggedInUser, setLoggedInUser] = useState(null);
-  const [userInfo, setUserInfo] = useState(null)
+  const [userInfo, setUserInfo] = useState(null);
 
   const storeToken = (token) => {
     localStorage.setItem("authToken", token);
@@ -73,12 +73,11 @@ function AuthProviderWrapper(props) {
 
   useEffect(() => {
     if (loggedInUser) {
-      profileService.getOne(loggedInUser._id)
-        .then((response) => {
-          setUserInfo(response.data.user)
-        })
+      profileService.getOne(loggedInUser._id).then((response) => {
+        setUserInfo(response.data.user);
+      });
     }
-  }, [loggedInUser])
+  }, [loggedInUser]);
 
   return (
     <AuthContext.Provider

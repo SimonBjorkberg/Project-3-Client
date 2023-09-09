@@ -26,3 +26,7 @@
 .minimum-width-350 {
   min-width: 350px;
 }
+
+.max-width {
+  width: 100% !important;
+}

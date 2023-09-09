@@ -32,7 +32,6 @@ const EditAvatar = ({ user, setUser, setMessage }) => {
       user._id,
       response.data.fileUrl
     );
-    console.log(userResponse.data.image);
     setUser((user) => ({ ...user, image: userResponse.data.image }));
     setUserInfo((userInfo) => ({
       ...userInfo,
