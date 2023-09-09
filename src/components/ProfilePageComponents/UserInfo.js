@@ -33,11 +33,6 @@ const UserInfo = ({
             setFoundUser={setFoundUser}
             foundUser={foundUser}
           />
-          <EditProfile
-            user={foundUser}
-            updateUser={setFoundUser}
-            setMessage={setMessage}
-          />
         </>
       )}
       {loggedInUser?._id !== foundUser._id && newContact && (
