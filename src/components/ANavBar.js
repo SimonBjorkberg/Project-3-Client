@@ -7,29 +7,23 @@ import "../index.css";
 import SearchBar from "./SearchBar";
 import productService from "../services/product.service";
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
+import { ShoppingCartContext } from "../context/shoppingCart.context";
 
 const ANavBar = () => {
   const { loggedInUser, logOutUser, isLoggedIn, userInfo } =
     useContext(AuthContext);
+    const { cartProducts, updateCart } = useContext(ShoppingCartContext);
   const [isFocused, setIsFocused] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [searchData, setSearchData] = useState([]);
   const [titleSearch, setTitleSearch] = useState([]);
   const [cartArray, setCartArray] = useState();
 
-  useEffect(() => {
-    const cart = localStorage.getItem("Cart")
-    // setCartArray(JSON.parse(cart));
-   
-  }, [cartArray])
-
- 
-
 const clearCart = () => {
+  updateCart([]);
   localStorage.removeItem("Cart");
 }
   
-
   useEffect(() => {
     productService.getAll().then((response) => {
       setSearchData(response.data);
@@ -92,7 +86,7 @@ const clearCart = () => {
                 className="menu menu-sm dropdown-content mt-1 z-[1] p-2 shadow bg-white w-60 right-0 rounded-md"
               >
                <h4 className="text-neutral text-xl py-2 px-4 rounded-md mb-1 bg-neutral-300">Shopping Cart</h4>
-                {cartArray?.map(product => <p className="text-neutral text-xl py-2 px-4 rounded-md mb-1 bg-neutral-300">{product.title}</p>)}
+                {cartProducts?.map(product => <p className="text-neutral text-xl py-2 px-4 rounded-md mb-1 bg-neutral-300">{product.title}</p>)}
                 
                 <button onClick={clearCart} className="bg-red-400 text-white py-2 px-4 rounded-md text-xl hover:bg-red-500">
                     Add to Cart
@@ -192,7 +186,7 @@ const clearCart = () => {
                 className="menu menu-sm dropdown-content mt-1 z-[1] p-2 shadow bg-white w-60 right-0 rounded-md"
               >
                 <h4 className="text-neutral text-xl py-2 px-4 rounded-md mb-1 bg-neutral-300">Shopping Cart</h4>
-                {cartArray?.map(product => <p className="text-neutral text-xl py-2 px-4 rounded-md mb-1 bg-neutral-300">{product.title}</p>)}
+                {cartProducts?.map(product => <p className="text-neutral text-xl py-2 px-4 rounded-md mb-1 bg-neutral-300">{product.title}</p>)}
                 
                 <button onClick={clearCart} className="bg-red-400 text-white py-2 px-4 rounded-md text-xl hover:bg-red-500">
                     Add to Cart

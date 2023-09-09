@@ -40,7 +40,7 @@ const Products = ({
     } else if (editProduct.images?.length === 0) {
       return setErrorMessage("Please insert at least one image");
     } else if (editProduct.price === 0) {
-      return setErrorMessage("Please enter a price above $0");
+      return setErrorMessage("Please enter a price above €0");
     } else if (editProduct.quantity === 0) {
       return setErrorMessage("Please set a quantity above 0");
     } else if (categorieOptions.length === 0) {
@@ -173,16 +173,13 @@ const Products = ({
     setMessage("Image added");
   };
 
-  const reloadProducts = () => {
-    productService.getAll().then((response) => {
-      setProducts(response.data.products);
-    });
-  };
-
   const handleDeleteProduct = (productId) => {
-    productService.deleteOne(productId).then(() => {
-      reloadProducts();
+    const productsCopy = [...products];
+    const filteredProducts = productsCopy.filter((product) => {
+      return product._id !== productId;
     });
+    productService.deleteOne(productId);
+    setProducts(filteredProducts);
   };
 
   return (
@@ -190,271 +187,414 @@ const Products = ({
       {!foundUser?.products?.length ? (
         <p>This user has no listed products!</p>
       ) : (
-        products?.map((product) => {
-          const modalId = `modal-${product._id}`;
-          return (
-            <div
-              key={product._id}
-              className="flex py-2 border-b lg:w-[900px] border-neutral hover:bg-neutral-200 hover:cursor-pointer"
-              onClick={() => navigate(`/product/single/${product._id}`)}
-            >
-              <div className="flex flex-row justify-between w-full">
-                <div className="flex flex-row">
-                  <div className="avatar">
-                    <div className="w-16 rounded-xl">
-                      <img src={product.images[0]} alt="" />
-                    </div>
-                  </div>
-                  <p className="my-auto ml-5 text-sm font-semibold w-24 truncate">
-                    {product.title}
-                  </p>
-                </div>
-                <div className="flex flex-row">
-                  <p className="my-auto md:flex hidden ml-5 text-sm w-12">
-                    ${product.price}
-                  </p>
-                  <p className="my-auto md:flex hidden ml-5 text-sm w-20">
-                    {product.quantity} item/s
-                  </p>
-                  <p className="my-auto md:flex hidden ml-5 text-sm w-20">
-                    {product.likes.length} Like/s
-                  </p>
-                  {loggedInUser?._id === foundUser._id && (
-                    <div
-                      className="flex ml-auto"
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      <button
-                        className="mr-2 h-fit my-auto py-1 px-2 bg-neutral-400 z-20 hover:bg-blue-700 text-sm"
-                        onClick={() => {
-                          const modal = document.getElementById(modalId);
-                          if (modal) {
-                            modal.showModal();
-                          }
-                          setEditProduct(product);
-                          setCategorieOptions(product.categories);
-                          setWearOptions(product.wear);
-                        }}
-                      >
-                        Edit
-                      </button>
-                      <button
-                        onClick={() => handleDeleteProduct(product._id)}
-                        className="h-fit my-auto py-1 px-2 bg-neutral-400 z-20 text-sm"
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  )}
-                </div>
+        <div>
+          <div className="flex lg:w-[900px]">
+            <div className="flex flex-row ml-auto">
+              <div className="flex flex-row w-40 justify-between">
+                <p
+                  className={`${
+                    loggedInUser?._id === foundUser._id
+                      ? "my-auto md:flex hidden text-sm text-left"
+                      : "my-auto flex text-sm text-left"
+                  }`}
+                >
+                  Price
+                </p>
+                <p
+                  className={`${
+                    loggedInUser?._id === foundUser._id
+                      ? "my-auto md:flex hidden text-sm text-left"
+                      : "my-auto flex text-sm text-left"
+                  }`}
+                >
+                  Available
+                </p>
+                <p
+                  className={`${
+                    loggedInUser?._id === foundUser._id
+                      ? "my-auto md:flex hidden text-sm text-left"
+                      : "my-auto flex text-sm text-left"
+                  }`}
+                >
+                  Likes
+                </p>
               </div>
-
-              <dialog
-                id={modalId}
-                className="modal hover:cursor-default"
-                onClick={(e) => e.stopPropagation()}
+              <div
+                className={`${
+                  loggedInUser?._id === foundUser._id ? "w-[85px]" : " w-[24px]"
+                }`}
+              ></div>
+            </div>
+          </div>
+          {products?.map((product) => {
+            const modalId = `modal-${product._id}`;
+            return (
+              <div
+                key={product._id}
+                className="flex py-2 border-b lg:w-[900px] border-neutral hover:bg-neutral-300 hover:cursor-pointer"
+                onClick={() => navigate(`/product/single/${product._id}`)}
               >
-                <div className="modal-box p-0 rounded-md max-w-md w-[98%]">
-                  <form method="dialog">
-                    <button
-                      onClick={() => {
-                        setImage(null);
-                        setEditProduct({});
-                      }}
-                      className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 text-white"
-                    >
-                      ✕
-                    </button>
-                  </form>
-                  <h3 className="font-bold text-lg bg-neutral text-neutral-300 p-3">
-                    {product.title}
-                  </h3>
-                  {message && (
+                <div className="flex flex-row justify-between w-full">
+                  <div className="flex flex-row">
+                    <div className="avatar">
+                      <div className="w-16 rounded-xl">
+                        <img src={product.images[0]} alt="" />
+                      </div>
+                    </div>
+                    <p className="my-auto ml-5 text-sm font-semibold w-24 truncate">
+                      {product.title}
+                    </p>
+                  </div>
+                  <div className="flex flex-row">
                     <p
                       className={`${
-                        message === "Image added"
-                          ? "text-green-500"
-                          : "text-red-500"
-                      } text-center`}
+                        loggedInUser?._id === foundUser._id
+                          ? "my-auto md:flex hidden ml-5 text-sm w-12 text-left"
+                          : "my-auto flex ml-5 text-sm w-12 text-left"
+                      }`}
                     >
-                      {message}
+                      € {product.price}
                     </p>
-                  )}
-                  <div
-                    className={`p-2 flex border-b ${
-                      product?.images.length <= 4
-                        ? "justify-center"
-                        : "overflow-auto"
-                    }`}
-                  >
-                    {product?.images.map((image) => {
-                      return (
-                        <div
-                          key={uuidv4()}
-                          className="avatar flex flex-col mx-1"
-                        >
-                          <div className="w-28 h-28 shadow-xl rounded-xl border-black border-2">
-                            <img src={image} alt="" />
-                          </div>
-                          <form
-                            className="flex justify-center"
-                            onSubmit={(e) =>
-                              handleRemoveImage(
-                                e,
-                                product,
-                                image,
-                                product?.images
-                              )
-                            }
-                          >
-                            <button className="hover:underline w-fit">
-                              Remove
-                            </button>
-                          </form>
-                        </div>
-                      );
-                    })}
-                  </div>
-                  <div className="p-2 flex flex-col border-b mb-4">
-                    <h1 className="text-center font-semibold text-lg">
-                      Add an image
-                    </h1>
-                    <form
-                      className="flex w-full flex-col justify-center"
-                      onSubmit={(e) =>
-                        handleAddImage(e, product, product.images)
-                      }
+                    <p
+                      className={`${
+                        loggedInUser?._id === foundUser._id
+                          ? "my-auto md:flex hidden ml-5 text-sm w-12 text-left"
+                          : "my-auto flex ml-5 text-sm w-12 text-left"
+                      }`}
                     >
-                      <input
-                        type="file"
-                        className="w-[101px] mx-auto file-input file-input-bordered file-input-xs rounded-sm mb-2"
-                        onChange={appendImage}
-                      />
-                      {image && (
-                        <button className="py-1 bg-neutral px-2 w-32 mb-2 text-white font-semibold rounded-sm mx-auto">
-                          Add image
+                      {product.quantity}
+                    </p>
+                    <p
+                      className={`${
+                        loggedInUser?._id === foundUser._id
+                          ? "my-auto md:flex hidden ml-5 text-sm w-12 text-left"
+                          : "my-auto flex ml-5 text-sm w-12 text-left"
+                      }`}
+                    >
+                      {product.likes.length}
+                    </p>
+                    {loggedInUser?._id === foundUser._id && (
+                      <div
+                        className="flex ml-auto"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <button
+                          className="mr-2 my-auto z-20 hover:opacity-50 text-sm"
+                          onClick={() => {
+                            const modal = document.getElementById(modalId);
+                            if (modal) {
+                              modal.showModal();
+                            }
+                            setEditProduct(product);
+                            setCategorieOptions(product.categories);
+                            setWearOptions(product.wear);
+                          }}
+                        >
+                          <svg
+                            width="18px"
+                            height="18px"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+                            <g
+                              id="SVGRepo_tracerCarrier"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            ></g>
+                            <g id="SVGRepo_iconCarrier">
+                              {" "}
+                              <path
+                                fillRule="evenodd"
+                                clipRule="evenodd"
+                                d="M20.8477 1.87868C19.6761 0.707109 17.7766 0.707105 16.605 1.87868L2.44744 16.0363C2.02864 16.4551 1.74317 16.9885 1.62702 17.5692L1.03995 20.5046C0.760062 21.904 1.9939 23.1379 3.39334 22.858L6.32868 22.2709C6.90945 22.1548 7.44285 21.8693 7.86165 21.4505L22.0192 7.29289C23.1908 6.12132 23.1908 4.22183 22.0192 3.05025L20.8477 1.87868ZM18.0192 3.29289C18.4098 2.90237 19.0429 2.90237 19.4335 3.29289L20.605 4.46447C20.9956 4.85499 20.9956 5.48815 20.605 5.87868L17.9334 8.55027L15.3477 5.96448L18.0192 3.29289ZM13.9334 7.3787L3.86165 17.4505C3.72205 17.5901 3.6269 17.7679 3.58818 17.9615L3.00111 20.8968L5.93645 20.3097C6.13004 20.271 6.30784 20.1759 6.44744 20.0363L16.5192 9.96448L13.9334 7.3787Z"
+                                fill="#0F0F0F"
+                              ></path>{" "}
+                            </g>
+                          </svg>
                         </button>
-                      )}
-                    </form>
+                        <button
+                          onClick={(e) => handleDeleteProduct(product._id)}
+                          className="my-auto z-20 text-sm hover:opacity-50 mx-2"
+                        >
+                          <svg
+                            width="20px"
+                            height="20px"
+                            viewBox="-0.5 0 25 25"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+                            <g
+                              id="SVGRepo_tracerCarrier"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            ></g>
+                            <g id="SVGRepo_iconCarrier">
+                              {" "}
+                              <path
+                                d="M6.5 7.08499V21.415C6.5 21.695 6.72 21.915 7 21.915H17C17.28 21.915 17.5 21.695 17.5 21.415V7.08499"
+                                stroke="#0F0F0F"
+                                strokeMiterlimit="10"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              ></path>{" "}
+                              <path
+                                d="M14 5.08499H10V3.58499C10 3.30499 10.22 3.08499 10.5 3.08499H13.5C13.78 3.08499 14 3.30499 14 3.58499V5.08499Z"
+                                stroke="#0F0F0F"
+                                strokeMiterlimit="10"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              ></path>{" "}
+                              <path
+                                d="M5 5.08499H19"
+                                stroke="#0F0F0F"
+                                strokeMiterlimit="10"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              ></path>{" "}
+                              <path
+                                d="M12 10.465V17.925"
+                                stroke="#0F0F0F"
+                                strokeMiterlimit="10"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              ></path>{" "}
+                              <path
+                                d="M15 9.465V18.925"
+                                stroke="#0F0F0F"
+                                strokeMiterlimit="10"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              ></path>{" "}
+                              <path
+                                d="M9 9.465V18.925"
+                                stroke="#0F0F0F"
+                                strokeMiterlimit="10"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              ></path>{" "}
+                            </g>
+                          </svg>
+                        </button>
+                      </div>
+                    )}
                   </div>
-                  <div>
-                    <h1 className="text-center font-semibold text-lg">
-                      Product Information
-                    </h1>
+                </div>
+
+                <dialog
+                  id={modalId}
+                  className="modal hover:cursor-default"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <div className="modal-box p-0 rounded-md max-w-md w-[98%]">
+                    <form method="dialog">
+                      <button
+                        onClick={() => {
+                          setImage(null);
+                          setEditProduct({});
+                        }}
+                        className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 text-white"
+                      >
+                        ✕
+                      </button>
+                    </form>
+                    <h3 className="font-bold text-lg bg-neutral text-neutral-300 p-3">
+                      {product.title}
+                    </h3>
                     {message && (
-                      <p className="p-2 text-green-600 font-semibold text-xl">
+                      <p
+                        className={`${
+                          message === "Image added"
+                            ? "text-green-500"
+                            : "text-red-500"
+                        } text-center`}
+                      >
                         {message}
                       </p>
                     )}
-                    <form
-                      className="flex flex-col max-w-[400px] mx-auto"
-                      onSubmit={(e) => handleSubmit(e, modalId)}
+                    <div
+                      className={`p-2 flex border-b ${
+                        product?.images.length <= 4
+                          ? "justify-center"
+                          : "overflow-auto"
+                      }`}
                     >
-                      <label className="text-left font-semibold ml-1 mt-4">
-                        Title:
-                      </label>
-                      <input
-                        className="p-2 focus:outline-none border my-4"
-                        type="text"
-                        name="title"
-                        value={editProduct.title}
-                        onChange={handleChange}
-                        placeholder="Title..."
-                      />
-                      <label className="text-left font-semibold ml-1">
-                        Description:
-                      </label>
-                      <textarea
-                        className="p-2 focus:outline-none border my-4"
-                        type="text"
-                        name="description"
-                        value={editProduct.description}
-                        onChange={handleChange}
-                        placeholder="Description..."
-                      />
-                      <label className="text-left font-semibold ml-1">
-                        Price:
-                      </label>
-                      <input
-                        className="p-2 focus:outline-none border my-2"
-                        type="number"
-                        name="price"
-                        value={editProduct.price}
-                        onChange={handleChange}
-                      />
-                      <label className="text-left font-semibold ml-1">
-                        Quantity:
-                      </label>
-                      <input
-                        className="p-2 focus:outline-none border my-2"
-                        type="number"
-                        name="quantity"
-                        value={editProduct.quantity}
-                        onChange={handleChange}
-                      />
-
-                      <label className="text-left font-semibold ml-1">
-                        Wear & Tear:
-                      </label>
-
-                      <Select
-                        options={wearList}
-                        name="categories"
-                        value={wearOptions}
-                        onChange={handleWear}
-                        isSearchable={true}
-                        className="my-4"
-                      />
-
-                      <label className="text-left font-semibold ml-1">
-                        Categories:
-                      </label>
-
-                      <Select
-                        options={categoriesList}
-                        name="wear"
-                        value={categorieOptions}
-                        onChange={handleCategorie}
-                        isSearchable={true}
-                        isMulti
-                        className="my-4"
-                      />
-
-                      <label className="text-left font-semibold ml-1">
-                        Clothing Brand(s):
-                      </label>
-
-                      <input
-                        className="p-2 focus:outline-none border"
-                        type="text"
-                        name="brand"
-                        onChange={handleChange}
-                        value={editProduct.brand}
-                      />
-                      <button
-                        onClick={scrollToTop}
-                        className="text-neutral p-2 border-2 border-neutral hover:bg-neutral-100 mt-6"
+                      {product?.images.map((image) => {
+                        return (
+                          <div
+                            key={uuidv4()}
+                            className="avatar flex flex-col mx-1"
+                          >
+                            <div className="w-28 h-28 shadow-xl rounded-xl border-black border-2">
+                              <img src={image} alt="" />
+                            </div>
+                            <form
+                              className="flex justify-center"
+                              onSubmit={(e) =>
+                                handleRemoveImage(
+                                  e,
+                                  product,
+                                  image,
+                                  product?.images
+                                )
+                              }
+                            >
+                              <button className="hover:underline w-fit">
+                                Remove
+                              </button>
+                            </form>
+                          </div>
+                        );
+                      })}
+                    </div>
+                    <div className="p-2 flex flex-col border-b mb-4">
+                      <h1 className="text-center font-semibold text-lg">
+                        Add an image
+                      </h1>
+                      <form
+                        className="flex w-full flex-col justify-center"
+                        onSubmit={(e) =>
+                          handleAddImage(e, product, product.images)
+                        }
                       >
-                        Edit Product
+                        <input
+                          type="file"
+                          className="w-[101px] mx-auto file-input file-input-bordered file-input-xs rounded-sm mb-2"
+                          onChange={appendImage}
+                        />
+                        {image && (
+                          <button className="py-1 bg-neutral px-2 w-32 mb-2 text-white font-semibold rounded-sm mx-auto">
+                            Add image
+                          </button>
+                        )}
+                      </form>
+                    </div>
+                    <div>
+                      <h1 className="text-center font-semibold text-lg">
+                        Product Information
+                      </h1>
+                      {message && (
+                        <p className="p-2 text-green-600 font-semibold text-xl">
+                          {message}
+                        </p>
+                      )}
+                      <form
+                        className="flex flex-col max-w-[400px] mx-auto"
+                        onSubmit={(e) => handleSubmit(e, modalId)}
+                      >
+                        <label className="text-left font-semibold ml-1 mt-4">
+                          Title:
+                        </label>
+                        <input
+                          className="p-2 focus:outline-none border my-4"
+                          type="text"
+                          name="title"
+                          value={editProduct.title}
+                          onChange={handleChange}
+                          placeholder="Title..."
+                        />
+                        <label className="text-left font-semibold ml-1">
+                          Description:
+                        </label>
+                        <textarea
+                          className="p-2 focus:outline-none border my-4"
+                          type="text"
+                          name="description"
+                          value={editProduct.description}
+                          onChange={handleChange}
+                          placeholder="Description..."
+                        />
+                        <label className="text-left font-semibold ml-1">
+                          Price:
+                        </label>
+                        <input
+                          className="p-2 focus:outline-none border my-2"
+                          type="number"
+                          name="price"
+                          value={editProduct.price}
+                          onChange={handleChange}
+                        />
+                        <label className="text-left font-semibold ml-1">
+                          Quantity:
+                        </label>
+                        <input
+                          className="p-2 focus:outline-none border my-2"
+                          type="number"
+                          name="quantity"
+                          value={editProduct.quantity}
+                          onChange={handleChange}
+                        />
+
+                        <label className="text-left font-semibold ml-1">
+                          Wear & Tear:
+                        </label>
+
+                        <Select
+                          options={wearList}
+                          name="categories"
+                          value={wearOptions}
+                          onChange={handleWear}
+                          isSearchable={true}
+                          className="my-4"
+                        />
+
+                        <label className="text-left font-semibold ml-1">
+                          Categories:
+                        </label>
+
+                        <Select
+                          options={categoriesList}
+                          name="wear"
+                          value={categorieOptions}
+                          onChange={handleCategorie}
+                          isSearchable={true}
+                          isMulti
+                          className="my-4"
+                        />
+
+                        <label className="text-left font-semibold ml-1">className={`${loggedInUser?._id === foundUser._id ? "my-auto md:flex hidden ml-5 text-sm w-12 text-left" : "my-auto flex ml-5 text-sm w-12 text-left"}`}
+                          Clothing Brand(s):
+                        </label>
+
+                        <input
+                          className="p-2 focus:outline-none border"
+                          type="text"
+                          name="brand"
+                          onChange={handleChange}
+                          value={editProduct.brand}
+                        />
+                        <button
+                          onClick={scrollToTop}
+                          className="text-neutral p-2 border-2 border-neutral hover:bg-neutral-100 mt-6"
+                        >
+                          Edit Product
+                        </button>
+                      </form>
+                      <button
+                        onClick={() => {
+                          scrollToTop();
+                          const modal = document.getElementById(modalId);
+                          modal.close();
+                        }}
+                        className="text-neutral p-2 border-2 border-neutral hover:bg-neutral-100 mt-1 mb-6 flex flex-col max-w-[400px] w-full mx-auto"
+                      >
+                        Cancel
                       </button>
-                    </form>
-                    <button
-                      onClick={scrollToTop}
-                      className="text-neutral p-2 border-2 border-neutral hover:bg-neutral-100 mt-1 mb-6 flex flex-col max-w-[400px] w-full mx-auto"
-                    >
-                      Cancel
-                    </button>
-                    {errorMessage && (
-                      <p className="p-2 m-2 bg-white border-red-500 border w-52 mx-auto text-center text-red-500">
-                        {errorMessage}
-                      </p>
-                    )}
+                      
+                      {errorMessage && (
+                        <p className="p-2 m-2 bg-white border-red-500 border w-52 mx-auto text-center text-red-500">
+                          {errorMessage}
+                        </p>
+                      )}
+                    </div>
                   </div>
-                </div>
-              </dialog>
-            </div>
-          );
-        })
+                </dialog>
+              </div>
+            );
+          })}
+        </div>
       )}
       {!showMore && foundUser?.products.length > 5 && (
         <div className="mt-5 lg:w-[900px] flex justify-center md:justify-end">
