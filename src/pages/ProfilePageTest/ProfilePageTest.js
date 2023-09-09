@@ -96,7 +96,7 @@ const ProfilePageTest = (props) => {
             createChat={createChat}
             setNewContact={setNewContact}
           />
-          <div className="bg-neutral-300 py-10">
+          <div>
             <ProfileList
               showInfo={showInfo}
               setShowInfo={setShowInfo}
@@ -115,7 +115,7 @@ const ProfilePageTest = (props) => {
               <LikedProducts navigate={navigate} foundUser={foundUser} />
             )}
             {showInfo === "reviews" && foundUser && (
-              <div className="text-left ml-10 pt-10">
+              <div className="md:text-left md:pl-10 py-10 text-center bg-neutral-200">
                 {foundUser.reviews.length === 0 ? (
                   <p>This user has not been reviewed yet!</p>
                 ) : (

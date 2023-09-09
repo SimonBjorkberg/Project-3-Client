@@ -30,7 +30,7 @@ const ChatDrawer = () => {
               htmlFor="my-drawer-4"
               className="drawer-button hover:cursor-pointer"
             >
-              <p className="py-2 px-11 bg-teal-600 text-white">Contacts</p>
+              <p className="py-2 px-11 bg-teal-600 rounded-tl-3xl text-white">Contacts</p>
             </label>
           </div>
         </div>

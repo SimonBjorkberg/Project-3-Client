@@ -29,7 +29,7 @@ const EditAvatar = ({ foundUser, setFoundUser, setMessage }) => {
   };
 
   return (
-    <div className="absolute right-[69px] top-[120px]">
+    <div className="absolute md:right-[69px] md:top-[120px] right-4 top-[90px]">
       <div>
         <button
           onClick={() => window.my_modal_3.showModal()}
