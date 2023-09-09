@@ -29,9 +29,9 @@ const Products = ({
   };
 
   const handleSubmit = (e, modalId) => {
-    console.log(modalId)
-    const modal = document.getElementById(modalId)
-    modal.close()
+    console.log(modalId);
+    const modal = document.getElementById(modalId);
+    modal.close();
     e.preventDefault();
     if (editProduct.title === "") {
       return setErrorMessage("Please enter a title");
@@ -198,48 +198,56 @@ const Products = ({
               className="flex py-2 border-b lg:w-[900px] border-neutral hover:bg-neutral-200 hover:cursor-pointer"
               onClick={() => navigate(`/product/single/${product._id}`)}
             >
-              <div className="avatar">
-                <div className="w-16 rounded-xl">
-                  <img src={product.images[0]} alt="" />
+              <div className="flex flex-row justify-between w-full">
+                <div className="flex flex-row">
+                  <div className="avatar">
+                    <div className="w-16 rounded-xl">
+                      <img src={product.images[0]} alt="" />
+                    </div>
+                  </div>
+                  <p className="my-auto ml-5 text-sm font-semibold w-24 truncate">
+                    {product.title}
+                  </p>
+                </div>
+                <div className="flex flex-row">
+                  <p className="my-auto md:flex hidden ml-5 text-sm w-12">
+                    ${product.price}
+                  </p>
+                  <p className="my-auto md:flex hidden ml-5 text-sm w-20">
+                    {product.quantity} item/s
+                  </p>
+                  <p className="my-auto md:flex hidden ml-5 text-sm w-20">
+                    {product.likes.length} Like/s
+                  </p>
+                  {loggedInUser?._id === foundUser._id && (
+                    <div
+                      className="flex ml-auto"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <button
+                        className="mr-2 h-fit my-auto py-1 px-2 bg-neutral-400 z-20 hover:bg-blue-700 text-sm"
+                        onClick={() => {
+                          const modal = document.getElementById(modalId);
+                          if (modal) {
+                            modal.showModal();
+                          }
+                          setEditProduct(product);
+                          setCategorieOptions(product.categories);
+                          setWearOptions(product.wear);
+                        }}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        onClick={() => handleDeleteProduct(product._id)}
+                        className="h-fit my-auto py-1 px-2 bg-neutral-400 z-20 text-sm"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  )}
                 </div>
               </div>
-              <p className="my-auto ml-5 text-xl font-semibold w-44 truncate">
-                {product.title}
-              </p>
-              <p className="my-auto md:flex hidden ml-5 text-xl w-20">${product.price}</p>
-              <p className="my-auto md:flex hidden ml-5 text-xl w-36">
-                {product.quantity} item/s
-              </p>
-              <p className="my-auto md:flex hidden ml-5 text-xl w-20">
-                {product.likes.length} Like/s
-              </p>
-              {loggedInUser?._id === foundUser._id && (
-                <div
-                  className="flex ml-auto"
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <button
-                    className="mr-2 h-fit my-auto p-2 bg-neutral-400 z-20 hover:bg-blue-700"
-                    onClick={() => {
-                      const modal = document.getElementById(modalId);
-                      if (modal) {
-                        modal.showModal();
-                      }
-                      setEditProduct(product);
-                      setCategorieOptions(product.categories);
-                      setWearOptions(product.wear);
-                    }}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => handleDeleteProduct(product._id)}
-                    className="h-fit my-auto p-2 bg-neutral-400 z-20"
-                  >
-                    Delete
-                  </button>
-                </div>
-              )}
 
               <dialog
                 id={modalId}
@@ -423,13 +431,19 @@ const Products = ({
                         onChange={handleChange}
                         value={editProduct.brand}
                       />
-                      <button onClick={scrollToTop} className="text-neutral p-2 border-2 border-neutral hover:bg-neutral-100 mt-6">
+                      <button
+                        onClick={scrollToTop}
+                        className="text-neutral p-2 border-2 border-neutral hover:bg-neutral-100 mt-6"
+                      >
                         Edit Product
                       </button>
                     </form>
-                    <button onClick={scrollToTop} className="text-neutral p-2 border-2 border-neutral hover:bg-neutral-100 mt-1 mb-6 flex flex-col max-w-[400px] w-full mx-auto">
-                        Cancel
-                      </button>
+                    <button
+                      onClick={scrollToTop}
+                      className="text-neutral p-2 border-2 border-neutral hover:bg-neutral-100 mt-1 mb-6 flex flex-col max-w-[400px] w-full mx-auto"
+                    >
+                      Cancel
+                    </button>
                     {errorMessage && (
                       <p className="p-2 m-2 bg-white border-red-500 border w-52 mx-auto text-center text-red-500">
                         {errorMessage}

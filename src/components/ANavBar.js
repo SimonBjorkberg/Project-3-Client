@@ -19,9 +19,9 @@ const ANavBar = () => {
 
   useEffect(() => {
     const cart = localStorage.getItem("Cart")
-    setCartArray(JSON.parse(cart));
+    // setCartArray(JSON.parse(cart));
    
-  },[cartArray])
+  }, [cartArray])
 
  
 
