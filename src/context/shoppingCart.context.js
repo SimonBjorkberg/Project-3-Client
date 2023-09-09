@@ -20,10 +20,15 @@ const ShoppinCartProviderWrapper = (props) => {
 
   const handleAddToCart = (product) => {
     setCartProducts((prevCartProducts) => [...prevCartProducts, product]);
-  };
+};
+
+const updateCart = (newCart) => {
+  setCartProducts(newCart);
+};
+ 
 
   return (
-    <ShoppingCartContext.Provider value={{ cartProducts, setCartProducts, handleAddToCart }}>
+    <ShoppingCartContext.Provider value={{ cartProducts, setCartProducts, handleAddToCart, updateCart }}>
       {props.children}
     </ShoppingCartContext.Provider>
   );
