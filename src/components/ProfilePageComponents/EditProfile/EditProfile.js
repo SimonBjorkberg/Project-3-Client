@@ -57,9 +57,8 @@ const EditProfile = ({ user, updateUser }) => {
         }
       });
   };
-
   return (
-    <div className="absolute right-[69px] top-[150px]">
+    <div className="absolute md:right-[69px] md:top-[150px] right-4 top-[115px]">
       <button className="my-auto h-full text-lg" onClick={showModal}>
         Edit Profile
       </button>
