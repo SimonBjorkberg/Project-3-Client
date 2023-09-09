@@ -6,13 +6,14 @@ import ChatDrawer from "../components/chatComponents/ChatDrawer";
 import "../index.css";
 import SearchBar from "./SearchBar";
 import productService from "../services/product.service";
-import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
+import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { ShoppingCartContext } from "../context/shoppingCart.context";
 
 const ANavBar = () => {
   const { loggedInUser, logOutUser, isLoggedIn, userInfo } =
     useContext(AuthContext);
-    const { cartProducts } = useContext(ShoppingCartContext);
+    const { cartProducts, removeItemFromCart } = useContext(ShoppingCartContext);
   const [isFocused, setIsFocused] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [searchData, setSearchData] = useState([]);
@@ -44,6 +45,11 @@ const ANavBar = () => {
     };
     handleSearch();
   }, [searchValue, searchData]);
+
+  const handleRemoveItem = (itemId) => {
+    // Call the removeItemFromCart function from the context to remove the item
+    removeItemFromCart(itemId);
+  };
 
   return (
     <nav className="h-20 bg-neutral flex w-full pl-5 md:pl-0">
@@ -92,10 +98,11 @@ const ANavBar = () => {
                   <img className="mt-2 min-w-[50px] max-w-[50px] min-h-[30px] max-h-[30px]" src={product.images[0]} alt={product.title}></img>
                   <p className="mt-2">{product.quantity}</p>
                   <p className="mt-2">{product.price}</p>
-                 
+                  <button onClick={() => handleRemoveItem(product._id)}><FontAwesomeIcon icon={faTrash} /></button>
                 </div>}
                 )}
                  <p className="my-2">Total Price</p>
+                 
                 <Link to="/shopping-cart"><button  className="bg-red-400 text-white py-2 px-4 rounded-md text-xl hover:bg-red-500">
                     Proceed To Checkout
                   </button></Link>
@@ -200,14 +207,16 @@ const ANavBar = () => {
                   <p>Price</p>
                 </div>
                 {cartProducts?.map(product => {
-                return <div className="flex flex-row justify-around">
+                return <div><div className="flex flex-row justify-around">
                   <p>{product.title}</p>
                   <p>{product.quantity}</p>
                   <p>{product.price}</p>
-                  
-                </div>}
+                  <button onClick={() => handleRemoveItem(product._id)}><FontAwesomeIcon icon={faTrash} /></button>
+                </div>
+                 
+                 </div>}
                 )}
-                
+               
                 <Link to="/shopping-cart"><button  className="bg-red-400 text-white py-2 px-4 rounded-md text-xl hover:bg-red-500">
                     Proceed To Checkout
                   </button></Link>
