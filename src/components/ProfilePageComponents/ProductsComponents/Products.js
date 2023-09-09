@@ -2,8 +2,8 @@ import scrollToTop from "../../../utils/ScrollToTop";
 import { useNavigate } from "react-router-dom";
 import productService from "../../../services/product.service";
 import { useState, useEffect } from "react";
-import { v4 as uuidv4 } from "uuid";
-import Select from "react-select";
+import categoriesList from "../../../data/categories";
+import wearList from "../../../data/wear";
 import DeleteAndEditButtons from "./DeleteAndEditButtons";
 import EditProductDialog from "./EditProductDialog";
 
@@ -87,24 +87,6 @@ const Products = ({
   function handleWear(data) {
     setWearOptions(data);
   }
-  const categoriesList = [
-    { value: "rompers", label: "Rompers" },
-    { value: "sleepsuits", label: "Sleepsuits" },
-    { value: "onesies", label: "Onesies" },
-    { value: "bodysuits", label: "Bodysuits" },
-    { value: "dresses", label: "Dresses" },
-    { value: "t-shirts", label: "T-shirts" },
-    { value: "pantsNleggings", label: "Pants" },
-    { value: "sweatersNcardigans", label: "Sweaters" },
-    { value: "bibs", label: "Bibs" },
-    { value: "outerwear", label: "Outerwear" },
-  ];
-
-  const wearList = [
-    { value: "brand new", label: "Brand New" },
-    { value: "well worn", label: "Well Worn" },
-    { value: "stains", label: "Stains" },
-  ];
 
   useEffect(() => {
     if (message !== "") {
