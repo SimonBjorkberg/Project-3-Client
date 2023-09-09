@@ -87,6 +87,8 @@ const clearCart = () => {
               >
                <h4 className="text-neutral text-xl py-2 px-4 rounded-md mb-1 bg-neutral-300">Shopping Cart</h4>
                 {cartProducts?.map(product => <p className="text-neutral text-xl py-2 px-4 rounded-md mb-1 bg-neutral-300">{product.title}</p>)}
+
+               
                 
                 <button onClick={clearCart} className="bg-red-400 text-white py-2 px-4 rounded-md text-xl hover:bg-red-500">
                     Add to Cart
@@ -159,7 +161,7 @@ const clearCart = () => {
                   </p>
                 </Link>
                 <span className="bg-neutral-300 text-neutral py-2 mb-1 px-4 rounded-md text-xl hover:opacity-80">
-                  <FontAwesomeIcon size="xl" icon={faCartShopping} />
+                <Link to="/shopping-cart"> <FontAwesomeIcon size="xl" icon={faCartShopping} /> </Link>
                 </span>
                 <Link onClick={logOutUser} className="mt-12">
                   <p className="bg-red-400 text-white py-2 px-4 rounded-md text-xl hover:bg-red-500">
@@ -186,7 +188,19 @@ const clearCart = () => {
                 className="menu menu-sm dropdown-content mt-1 z-[1] p-2 shadow bg-white w-60 right-0 rounded-md"
               >
                 <h4 className="text-neutral text-xl py-2 px-4 rounded-md mb-1 bg-neutral-300">Shopping Cart</h4>
-                {cartProducts?.map(product => <p className="text-neutral text-xl py-2 px-4 rounded-md mb-1 bg-neutral-300">{product.title}</p>)}
+                <div className="flex flex-row justify-around">
+                  <p>Product</p>
+                  <p>Quantity</p>
+                  <p>Price</p>
+                </div>
+                {cartProducts?.map(product => {
+                return <div className="flex flex-row justify-around">
+                  <p>{product.title}</p>
+                  <p>{product.quantity}</p>
+                  <p>{product.price}</p>
+                  
+                </div>}
+                )}
                 
                 <button onClick={clearCart} className="bg-red-400 text-white py-2 px-4 rounded-md text-xl hover:bg-red-500">
                     Add to Cart
@@ -243,9 +257,11 @@ const clearCart = () => {
                 >
                   Signup
                 </Link>
+                
                 <span className="text-neutral text-xl py-2 px-4 rounded-md bg-neutral-300">
-                  <FontAwesomeIcon size="xl" icon={faCartShopping} />
+                <Link to="/shopping-cart"> <FontAwesomeIcon size="xl" icon={faCartShopping} /> </Link>
                 </span>
+                
               </div>
             </div>
           </div>

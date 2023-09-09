@@ -22,13 +22,21 @@ const ShoppinCartProviderWrapper = (props) => {
     setCartProducts((prevCartProducts) => [...prevCartProducts, product]);
 };
 
+const removeItemFromCart = (itemId) => {
+  // Filter out the item with the specified itemId
+  const updatedCart = cartProducts.filter((item) => item.id !== itemId);
+  setCartProducts(updatedCart);
+  // Update local storage with the updated cart
+  localStorage.setItem("Cart", JSON.stringify(updatedCart));
+};
+
 const updateCart = (newCart) => {
   setCartProducts(newCart);
 };
  
 
   return (
-    <ShoppingCartContext.Provider value={{ cartProducts, setCartProducts, handleAddToCart, updateCart }}>
+    <ShoppingCartContext.Provider value={{ cartProducts, setCartProducts, handleAddToCart, updateCart, removeItemFromCart }}>
       {props.children}
     </ShoppingCartContext.Provider>
   );

@@ -46,7 +46,7 @@ const EditAvatar = ({ foundUser, setFoundUser, setMessage }) => {
             </button>
           </form>
           <h3 className="font-bold text-lg bg-neutral text-neutral-300 p-3">
-            Edit Profile
+            Edit Avatar
           </h3>
           <div className="flex p-4">
             <div className="avatar">
