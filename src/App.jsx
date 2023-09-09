@@ -13,6 +13,7 @@ import UserList from "./components/chatComponents/UserList";
 import Footer from "./components/Footer/Footer";
 import ANavBar from "./components/ANavBar";
 import ProfilePageTest from "./pages/ProfilePageTest/ProfilePageTest";
+import StripeContainer from "./stripe/StripeContainer";
 
 function App() {
   const location = useLocation();
@@ -45,6 +46,14 @@ function App() {
           element={
             <IsPrivate>
               <ChatPage />
+            </IsPrivate>
+          }
+        />
+        <Route
+          path="/payment"
+          element={
+            <IsPrivate>
+              <StripeContainer />
             </IsPrivate>
           }
         />
