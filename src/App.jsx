@@ -1,7 +1,6 @@
 import "./App.css";
 import { Routes, Route, useLocation } from "react-router-dom";
 import HomePage from "./pages/HomePage/HomePage";
-import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import SignupPage from "./pages/SignupPage/SignupPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import ProductsPage from "./pages/ProductsPage/ProductsPage";

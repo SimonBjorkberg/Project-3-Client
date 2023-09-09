@@ -28,7 +28,10 @@ const Products = ({
     setEditProduct((product) => ({ ...product, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e, modalId) => {
+    console.log(modalId)
+    const modal = document.getElementById(modalId)
+    modal.close()
     e.preventDefault();
     if (editProduct.title === "") {
       return setErrorMessage("Please enter a title");
@@ -149,7 +152,6 @@ const Products = ({
     e.preventDefault();
 
     const imageResponse = await productService.uploadImage(image);
-    console.log(imageResponse.data.fileUrl);
     const updatedImages = [...images, imageResponse.data.fileUrl];
     const newProduct = { ...product, images: updatedImages };
 
@@ -184,7 +186,7 @@ const Products = ({
   };
 
   return (
-    <div className="text-left ml-10 pt-10">
+    <div className="text-left lg:pl-10 py-10 bg-neutral-200">
       {!foundUser?.products?.length ? (
         <p>This user has no listed products!</p>
       ) : (
@@ -193,7 +195,7 @@ const Products = ({
           return (
             <div
               key={product._id}
-              className="flex py-2 border-b w-[900px] border-neutral hover:bg-neutral-200 hover:cursor-pointer"
+              className="flex py-2 border-b lg:w-[900px] border-neutral hover:bg-neutral-200 hover:cursor-pointer"
               onClick={() => navigate(`/product/single/${product._id}`)}
             >
               <div className="avatar">
@@ -204,11 +206,11 @@ const Products = ({
               <p className="my-auto ml-5 text-xl font-semibold w-44 truncate">
                 {product.title}
               </p>
-              <p className="my-auto ml-5 text-xl w-20">${product.price}</p>
-              <p className="my-auto ml-5 text-xl w-36">
+              <p className="my-auto md:flex hidden ml-5 text-xl w-20">${product.price}</p>
+              <p className="my-auto md:flex hidden ml-5 text-xl w-36">
                 {product.quantity} item/s
               </p>
-              <p className="my-auto ml-5 text-xl w-20">
+              <p className="my-auto md:flex hidden ml-5 text-xl w-20">
                 {product.likes.length} Like/s
               </p>
               {loggedInUser?._id === foundUser._id && (
@@ -244,7 +246,7 @@ const Products = ({
                 className="modal hover:cursor-default"
                 onClick={(e) => e.stopPropagation()}
               >
-                <div className="modal-box p-0 rounded-md">
+                <div className="modal-box p-0 rounded-md max-w-md w-[98%]">
                   <form method="dialog">
                     <button
                       onClick={() => {
@@ -337,14 +339,14 @@ const Products = ({
                       </p>
                     )}
                     <form
-                      className="flex flex-col w-[400px] mx-auto"
-                      onSubmit={handleSubmit}
+                      className="flex flex-col max-w-[400px] mx-auto"
+                      onSubmit={(e) => handleSubmit(e, modalId)}
                     >
                       <label className="text-left font-semibold ml-1 mt-4">
                         Title:
                       </label>
                       <input
-                        className="p-2 focus:outline-none border  my-4"
+                        className="p-2 focus:outline-none border my-4"
                         type="text"
                         name="title"
                         value={editProduct.title}
@@ -421,10 +423,13 @@ const Products = ({
                         onChange={handleChange}
                         value={editProduct.brand}
                       />
-                      <button className="text-neutral p-2 border-2 border-neutral hover:bg-neutral-100 my-6">
+                      <button onClick={scrollToTop} className="text-neutral p-2 border-2 border-neutral hover:bg-neutral-100 mt-6">
                         Edit Product
                       </button>
                     </form>
+                    <button onClick={scrollToTop} className="text-neutral p-2 border-2 border-neutral hover:bg-neutral-100 mt-1 mb-6 flex flex-col max-w-[400px] w-full mx-auto">
+                        Cancel
+                      </button>
                     {errorMessage && (
                       <p className="p-2 m-2 bg-white border-red-500 border w-52 mx-auto text-center text-red-500">
                         {errorMessage}
@@ -438,20 +443,20 @@ const Products = ({
         })
       )}
       {!showMore && foundUser?.products.length > 5 && (
-        <div className="w-[900px] flex">
-          <button onClick={() => setShowMore(true)} className="w-fit ml-auto">
+        <div className="mt-5 lg:w-[900px] flex justify-center md:justify-end">
+          <button onClick={() => setShowMore(true)} className="w-fit">
             Show More
           </button>
         </div>
       )}
       {showMore && (
-        <div className="w-[900px] flex">
+        <div className="mt-5 lg:w-[900px] flex justify-center md:justify-end">
           <button
             onClick={() => {
               setShowMore(false);
               scrollToTop();
             }}
-            className="w-fit ml-auto"
+            className="w-fit"
           >
             Show Less
           </button>
