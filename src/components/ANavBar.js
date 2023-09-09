@@ -12,7 +12,7 @@ import { ShoppingCartContext } from "../context/shoppingCart.context";
 const ANavBar = () => {
   const { loggedInUser, logOutUser, isLoggedIn, userInfo } =
     useContext(AuthContext);
-    const { cartProducts, updateCart } = useContext(ShoppingCartContext);
+    const { cartProducts } = useContext(ShoppingCartContext);
   const [isFocused, setIsFocused] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [searchData, setSearchData] = useState([]);
@@ -21,11 +21,6 @@ const ANavBar = () => {
 
 
 
-
-const clearCart = () => {
-  updateCart([]);
-  localStorage.removeItem("Cart");
-}
   
 
   useEffect(() => {
@@ -90,13 +85,24 @@ const clearCart = () => {
                 className="menu menu-sm dropdown-content mt-1 z-[1] p-2 shadow bg-white w-60 right-0 rounded-md"
               >
                <h4 className="text-neutral text-xl py-2 px-4 rounded-md mb-1 bg-neutral-300">Shopping Cart</h4>
-                {cartProducts?.map(product => <p className="text-neutral text-xl py-2 px-4 rounded-md mb-1 bg-neutral-300">{product.title}</p>)}
-
-               
-                
-                <button onClick={clearCart} className="bg-red-400 text-white py-2 px-4 rounded-md text-xl hover:bg-red-500">
-                    Add to Cart
-                  </button>
+               <div className="flex flex-row justify-around mt-2">
+                  <p>Product</p>
+                  <p>Quantity</p>
+                  <p>Price</p>
+                </div>
+                {cartProducts?.map(product => {
+                return <div className="flex flex-row justify-around mt-2">
+                  <p className="mt-2">{product.title}</p>
+                  <img className="mt-2 min-w-[50px] max-w-[50px] min-h-[30px] max-h-[30px]" src={product.images[0]} alt={product.title}></img>
+                  <p className="mt-2">{product.quantity}</p>
+                  <p className="mt-2">{product.price}</p>
+                 
+                </div>}
+                )}
+                 <p className="my-2">Total Price</p>
+                <Link to="/shopping-cart"><button  className="bg-red-400 text-white py-2 px-4 rounded-md text-xl hover:bg-red-500">
+                    Proceed To Checkout
+                  </button></Link>
               </div>
             </div>
           </div>
@@ -206,9 +212,9 @@ const clearCart = () => {
                 </div>}
                 )}
                 
-                <button onClick={clearCart} className="bg-red-400 text-white py-2 px-4 rounded-md text-xl hover:bg-red-500">
-                    Add to Cart
-                  </button>
+                <Link to="/shopping-cart"><button  className="bg-red-400 text-white py-2 px-4 rounded-md text-xl hover:bg-red-500">
+                    Proceed To Checkout
+                  </button></Link>
               </div>
             </div>
           </div>
