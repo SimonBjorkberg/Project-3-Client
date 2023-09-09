@@ -21,9 +21,10 @@ export const CheckoutForm = () => {
           { amount: 100, id: id }
         );
         if (response.data.success) {
-          window.location.href = "http://localhost:3000/";
+          console.log(response.data);
+          // window.location.href = "http://localhost:3000/stripe/thank-you";
         } else if (!response.data.success) {
-          window.location.href = "http://localhost:3000/card-declined";
+          window.location.href = "http://localhost:3000/stripe/card-declined";
         }
       } catch (error) {
         console.log("erreur! ", error);

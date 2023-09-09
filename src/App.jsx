@@ -1,7 +1,6 @@
 import "./App.css";
 import { Routes, Route, useLocation } from "react-router-dom";
 import HomePage from "./pages/HomePage/HomePage";
-// import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import SignupPage from "./pages/SignupPage/SignupPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import ProductsPage from "./pages/ProductsPage/ProductsPage";
@@ -15,6 +14,8 @@ import Footer from "./components/Footer/Footer";
 import ANavBar from "./components/ANavBar";
 import ProfilePageTest from "./pages/ProfilePageTest/ProfilePageTest";
 import StripeContainer from "./stripe/StripeContainer";
+import ThankYou from "./pages/StripePages/ThankYou";
+import CardDeclined from "./pages/StripePages/CardDeclined";
 
 function App() {
   const location = useLocation();
@@ -55,6 +56,22 @@ function App() {
           element={
             <IsPrivate>
               <StripeContainer />
+            </IsPrivate>
+          }
+        />
+        <Route
+          path="/stripe/thank-you"
+          element={
+            <IsPrivate>
+              <ThankYou />
+            </IsPrivate>
+          }
+        />
+        <Route
+          path="/stripe/card-declined"
+          element={
+            <IsPrivate>
+              <CardDeclined />
             </IsPrivate>
           }
         />
