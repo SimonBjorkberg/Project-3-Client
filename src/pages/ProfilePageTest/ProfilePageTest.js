@@ -4,7 +4,7 @@ import { AuthContext } from "../../context/auth.context";
 import { useNavigate, useParams } from "react-router-dom";
 import profileService from "../../services/profile.service";
 import Loading from "../../components/Loading/Loading";
-import Products from "../../components/ProfilePageComponents/Products";
+import Products from "../../components/ProfilePageComponents/ProductsComponents/Products";
 import ProfileList from "../../components/ProfilePageComponents/ProfileList";
 import UserInfo from "../../components/ProfilePageComponents/UserInfo";
 import LikedProducts from "../../components/ProfilePageComponents/LikedProducts";

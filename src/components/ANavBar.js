@@ -18,11 +18,7 @@ const ANavBar = () => {
   const [searchData, setSearchData] = useState([]);
   const [titleSearch, setTitleSearch] = useState([]);
 
-
-
-
   
-
   useEffect(() => {
     productService.getAll().then((response) => {
       setSearchData(response.data);
