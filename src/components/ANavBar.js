@@ -6,6 +6,7 @@ import ChatDrawer from "../components/chatComponents/ChatDrawer";
 import "../index.css";
 import SearchBar from "./SearchBar";
 import productService from "../services/product.service";
+import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
 
 const ANavBar = () => {
   const { loggedInUser, logOutUser, isLoggedIn, userInfo } =
@@ -14,6 +15,20 @@ const ANavBar = () => {
   const [searchValue, setSearchValue] = useState("");
   const [searchData, setSearchData] = useState([]);
   const [titleSearch, setTitleSearch] = useState([]);
+  const [cartArray, setCartArray] = useState();
+
+  useEffect(() => {
+    const cart = localStorage.getItem("Cart")
+    setCartArray(JSON.parse(cart));
+   
+  },[cartArray])
+
+ 
+
+const clearCart = () => {
+  localStorage.removeItem("Cart");
+}
+  
 
   useEffect(() => {
     productService.getAll().then((response) => {
@@ -65,6 +80,26 @@ const ANavBar = () => {
       {loggedInUser && (
         <div className="md:w-[350px] h-full flex items-center justify-center ml-auto">
           <div className="md:flex hidden">
+          <div className="w-10 ml-auto mr-6 md:flex sm:hidden">
+            <div className="dropdown">
+              <label tabIndex={0} className="btn btn-ghost btn-circle">
+              <span className="py-2 px-4 rounded-sm ml-2 hover:opacity-80 mt-3 ">
+                  <FontAwesomeIcon  icon={faCartShopping} size="2xl" style={{color: "#ffffff",}} />
+                </span>
+              </label>
+              <div
+                tabIndex={0}
+                className="menu menu-sm dropdown-content mt-1 z-[1] p-2 shadow bg-white w-60 right-0 rounded-md"
+              >
+               <h4 className="text-neutral text-xl py-2 px-4 rounded-md mb-1 bg-neutral-300">Shopping Cart</h4>
+                {cartArray?.map(product => <p className="text-neutral text-xl py-2 px-4 rounded-md mb-1 bg-neutral-300">{product.title}</p>)}
+                
+                <button onClick={clearCart} className="bg-red-400 text-white py-2 px-4 rounded-md text-xl hover:bg-red-500">
+                    Add to Cart
+                  </button>
+              </div>
+            </div>
+          </div>
             <Link to="/sell" className="my-auto">
               <p className="bg-white py-2 px-4 rounded-sm ml-2 hover:opacity-80 ">
                 Sell
@@ -115,7 +150,7 @@ const ANavBar = () => {
               >
                 <Link to={`/profile/${userInfo?._id}`}>
                   <p className="text-xl text-white py-2 mb-1 px-4 rounded-md bg-neutral hover:opacity-80">
-                    Profile
+                    Profile 
                   </p>
                 </Link>
       
@@ -129,6 +164,9 @@ const ANavBar = () => {
                     Contacts
                   </p>
                 </Link>
+                <span className="bg-neutral-300 text-neutral py-2 mb-1 px-4 rounded-md text-xl hover:opacity-80">
+                  <FontAwesomeIcon size="xl" icon={faCartShopping} />
+                </span>
                 <Link onClick={logOutUser} className="mt-12">
                   <p className="bg-red-400 text-white py-2 px-4 rounded-md text-xl hover:bg-red-500">
                     Logout
@@ -142,6 +180,27 @@ const ANavBar = () => {
 
       {!loggedInUser && (
         <div className="md:w-[350px] h-full flex items-center justify-center ml-auto">
+           <div className="w-10 ml-auto mr-8 md:flex sm:hidden">
+            <div className="dropdown">
+              <label tabIndex={0} className="btn btn-ghost btn-circle">
+              <span className="py-2 px-4 rounded-sm ml-2 hover:opacity-80 ">
+                  <FontAwesomeIcon  icon={faCartShopping} size="2xl" style={{color: "#ffffff",}} />
+                </span>
+              </label>
+              <div
+                tabIndex={0}
+                className="menu menu-sm dropdown-content mt-1 z-[1] p-2 shadow bg-white w-60 right-0 rounded-md"
+              >
+                <h4 className="text-neutral text-xl py-2 px-4 rounded-md mb-1 bg-neutral-300">Shopping Cart</h4>
+                {cartArray?.map(product => <p className="text-neutral text-xl py-2 px-4 rounded-md mb-1 bg-neutral-300">{product.title}</p>)}
+                
+                <button onClick={clearCart} className="bg-red-400 text-white py-2 px-4 rounded-md text-xl hover:bg-red-500">
+                    Add to Cart
+                  </button>
+              </div>
+            </div>
+          </div>
+      
           <div className="md:flex hidden">
             <Link
               to="/login"
@@ -186,10 +245,13 @@ const ANavBar = () => {
                 </Link>
                 <Link
                   to="/signup"
-                  className="text-neutral text-xl py-2 px-4 rounded-md bg-neutral-300"
+                  className="text-neutral text-xl py-2 px-4 rounded-md mb-1 bg-neutral-300"
                 >
                   Signup
                 </Link>
+                <span className="text-neutral text-xl py-2 px-4 rounded-md bg-neutral-300">
+                  <FontAwesomeIcon size="xl" icon={faCartShopping} />
+                </span>
               </div>
             </div>
           </div>

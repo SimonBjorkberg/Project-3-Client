@@ -4,12 +4,14 @@ import LikeButton from "../LikeButton/LikeButton";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/auth.context";
 import { SearchContext } from "../../context/search.context";
+import { ShoppingCartContext } from "../../context/shoppingCart.context";
 import { v4 as uuidv4 } from "uuid"
 
 function ProductCard({ product }) {
   const { filter } = useContext(SearchContext);
   const { loggedInUser, isLoggedIn } = useContext(AuthContext);
   const [indexImage, setIndexImage] = useState(0);
+  const { handleAddToCart } = useContext(ShoppingCartContext);
   
   let includesId = false;
 
@@ -125,7 +127,7 @@ function ProductCard({ product }) {
                     </Link>
                   </p>
                   <div className="flex ">
-                    <button className="btn btn-primary">Add to Cart</button>
+                    <button className="btn btn-primary" onClick={()  => handleAddToCart(product)}>Add to Cart</button>
                   </div>
                   <div className="absolute top-3 right-3">
                     <LikeButton
