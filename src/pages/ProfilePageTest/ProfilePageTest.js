@@ -112,7 +112,7 @@ const ProfilePageTest = (props) => {
               />
             )}
             {showInfo === "liked" && (
-              <LikedProducts navigate={navigate} foundUser={foundUser} />
+              <LikedProducts navigate={navigate} foundUser={foundUser} loggedInUser={loggedInUser} />
             )}
             {showInfo === "reviews" && foundUser && (
               <div className="md:text-left md:pl-10 py-10 text-center bg-neutral-200">

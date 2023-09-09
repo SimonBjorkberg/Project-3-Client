@@ -19,9 +19,9 @@ const Products = ({
   const [products, setProducts] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
-  const [image, setImage] = useState();
+  const [image, setImage] = useState([]);
   const [categorieOptions, setCategorieOptions] = useState([]);
-  const [wearOptions, setWearOptions] = useState();
+  const [wearOptions, setWearOptions] = useState([]);
   const [editProduct, setEditProduct] = useState({});
 
   const handleChange = (e) => {
@@ -226,7 +226,7 @@ const Products = ({
                         <img src={product.images[0]} alt="" />
                       </div>
                     </div>
-                    <p className="my-auto ml-5 text-sm font-semibold w-24 truncate">
+                    <p className="my-auto ml-5 text-sm font-semibold max-w-[80px] md:max-w-[200px] truncate">
                       {product.title}
                     </p>
                   </div>
@@ -235,7 +235,7 @@ const Products = ({
                       className={`${
                         loggedInUser?._id === foundUser._id
                           ? "my-auto md:flex hidden ml-5 text-sm w-12 text-left"
-                          : "my-auto flex ml-5 text-sm w-12 text-left"
+                          : "my-auto flex mr-3 text-sm w-12 text-left"
                       }`}
                     >
                       € {product.price}
@@ -253,7 +253,7 @@ const Products = ({
                       className={`${
                         loggedInUser?._id === foundUser._id
                           ? "my-auto md:flex hidden ml-5 text-sm w-12 text-left"
-                          : "my-auto flex ml-5 text-sm w-12 text-left"
+                          : "my-auto flex ml-5 text-sm w-11 text-left"
                       }`}
                     >
                       {product.likes.length}
