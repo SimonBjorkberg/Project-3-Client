@@ -36,8 +36,8 @@ function SignupPage() {
   };
 
   return (
-    <div className="SignupPage">
-      <h1 className="my-4 text-2xl">Sign Up</h1>
+    <div className="SignupPage min-h-[33rem]">
+      <h1 className="mb-4 text-2xl mt-8">Sign Up</h1>
 
       <form
         className="flex flex-col w-[400px] mx-auto"
