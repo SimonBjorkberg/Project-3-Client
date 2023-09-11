@@ -84,24 +84,31 @@ const ANavBar = () => {
               </label>
               <div
                 tabIndex={0}
-                className="menu menu-sm dropdown-content mt-1 z-[1] p-2 shadow bg-white w-60 right-0 rounded-md"
+                className="menu menu-sm dropdown-content mt-1 z-[1] p-2 shadow bg-white w-[32rem] right-0 rounded-md"
               >
                <h4 className="text-neutral text-xl py-2 px-4 rounded-md mb-1 bg-neutral-300">Shopping Cart</h4>
-               <div className="flex flex-row justify-around mt-2">
-                  <p>Product</p>
-                  <p>Quantity</p>
-                  <p>Price</p>
+               <div className="flex flex-col items-center">
+               <div className="flex flex-row justify-around mt-2 w-full">
+                  <p className="w-2/4">Product</p>
+                  <p className="w-1/4">Quantity</p>
+                  <p className="w-1/4">Price</p>
                 </div>
                 {cartProducts?.map(product => {
-                return <div className="flex flex-row justify-around mt-2">
+                return <div className="flex flex-row justify-around mt-2 items-center w-full">
+                  <div className=" w-1/3 flex flex-col items-center justify-center">
                   <p className="mt-2">{product.title}</p>
                   <img className="mt-2 min-w-[50px] max-w-[50px] min-h-[30px] max-h-[30px]" src={product.images[0]} alt={product.title}></img>
-                  <p className="mt-2">{product.quantity}</p>
-                  <p className="mt-2">{product.price}</p>
-                  <button onClick={() => handleRemoveItem(product._id)}><FontAwesomeIcon icon={faTrash} /></button>
+                  </div>
+                  <p className="mt-2 w-1/4">{product.quantity}</p>
+                  <div className=" w-20">
+                  <p className="mt-2 w-1/4">{product.price}€</p>
+                  
+                  </div>
+                  <button onClick={() => handleRemoveItem(product._id)} className="mt-3"><FontAwesomeIcon icon={faTrash} size="xl" /></button>
                 </div>}
                 )}
-                 <p className="my-2">Total Price</p>
+                </div>
+                 <p className="my-2">Total Price €</p>
                  
                 <Link to="/shopping-cart"><button  className="bg-red-400 text-white py-2 px-4 rounded-md text-xl hover:bg-red-500">
                     Proceed To Checkout
