@@ -19,9 +19,9 @@ const Products = ({
   const [products, setProducts] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
-  const [image, setImage] = useState();
+  const [image, setImage] = useState([]);
   const [categorieOptions, setCategorieOptions] = useState([]);
-  const [wearOptions, setWearOptions] = useState();
+  const [wearOptions, setWearOptions] = useState([]);
   const [editProduct, setEditProduct] = useState({});
 
   const handleChange = (e) => {
@@ -167,12 +167,12 @@ const Products = ({
   };
 
   return (
-    <div className="text-left lg:pl-10 py-10 bg-neutral-200">
+    <div className="text-left py-10 bg-neutral-200">
       {!foundUser?.products?.length ? (
         <p>This user has no listed products!</p>
       ) : (
         <div>
-          <div className="flex lg:w-[900px]">
+          <div className="flex lg:w-[900px] mx-auto">
             <div className="flex flex-row ml-auto">
               <div className="flex flex-row w-40 justify-between">
                 <p
@@ -216,7 +216,7 @@ const Products = ({
             return (
               <div
                 key={product._id}
-                className="flex py-2 border-b lg:w-[900px] border-neutral hover:bg-neutral-300 hover:cursor-pointer"
+                className="flex py-2 border-b lg:w-[900px] border-neutral hover:bg-neutral-300 hover:cursor-pointer mx-auto"
                 onClick={() => navigate(`/product/single/${product._id}`)}
               >
                 <div className="flex flex-row justify-between w-full">
@@ -226,7 +226,7 @@ const Products = ({
                         <img src={product.images[0]} alt="" />
                       </div>
                     </div>
-                    <p className="my-auto ml-5 text-sm font-semibold w-24 truncate">
+                    <p className="my-auto ml-5 text-sm font-semibold max-w-[80px] md:max-w-[200px] truncate">
                       {product.title}
                     </p>
                   </div>
@@ -235,7 +235,7 @@ const Products = ({
                       className={`${
                         loggedInUser?._id === foundUser._id
                           ? "my-auto md:flex hidden ml-5 text-sm w-12 text-left"
-                          : "my-auto flex ml-5 text-sm w-12 text-left"
+                          : "my-auto flex mr-3 text-sm w-12 text-left"
                       }`}
                     >
                       € {product.price}
@@ -253,7 +253,7 @@ const Products = ({
                       className={`${
                         loggedInUser?._id === foundUser._id
                           ? "my-auto md:flex hidden ml-5 text-sm w-12 text-left"
-                          : "my-auto flex ml-5 text-sm w-12 text-left"
+                          : "my-auto flex ml-5 text-sm w-11 text-left"
                       }`}
                     >
                       {product.likes.length}
