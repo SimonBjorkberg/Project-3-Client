@@ -74,56 +74,40 @@ const ANavBar = () => {
       {loggedInUser && (
         <div className="md:w-[350px] h-full flex items-center justify-center ml-auto">
           <div className="md:flex hidden">
-            <div className="w-10 ml-auto mr-6 md:flex sm:hidden">
-              <div className="dropdown">
-                <label tabIndex={0} className="btn btn-ghost btn-circle">
-                  <span className="py-2 px-4 rounded-sm ml-2 hover:opacity-80 mt-3 ">
-                    <FontAwesomeIcon
-                      icon={faCartShopping}
-                      size="2xl"
-                      style={{ color: "#ffffff" }}
-                    />
-                  </span>
-                </label>
-                <div
-                  tabIndex={0}
-                  className="menu menu-sm dropdown-content mt-1 z-[1] p-2 shadow bg-white w-60 right-0 rounded-md"
-                >
-                  <h4 className="text-neutral text-xl py-2 px-4 rounded-md mb-1 bg-neutral-300">
-                    Shopping Cart
-                  </h4>
-                  <div className="flex flex-row justify-around mt-2">
-                    <p>Product</p>
-                    <p>Quantity</p>
-                    <p>Price</p>
-                  </div>
-                  {cartProducts?.map((product) => {
-                    return (
-                      <div className="flex flex-row justify-around mt-2">
-                        <p className="mt-2">{product.title}</p>
-                        <img
-                          className="mt-2 min-w-[50px] max-w-[50px] min-h-[30px] max-h-[30px]"
-                          src={product.images[0]}
-                          alt={product.title}
-                        ></img>
-                        <p className="mt-2">{product.quantity}</p>
-                        <p className="mt-2">{product.price}</p>
-                        <button onClick={() => handleRemoveItem(product._id)}>
-                          <FontAwesomeIcon icon={faTrash} />
-                        </button>
-                      </div>
-                    );
-                  })}
-                  <p className="my-2">Total Price</p>
-
-                  <Link to="/shopping-cart">
-                    <button className="bg-red-400 text-white py-2 px-4 rounded-md text-xl hover:bg-red-500">
-                      Proceed To Checkout
-                    </button>
-                  </Link>
+          <div className="w-10 ml-auto mr-6 md:flex sm:hidden">
+            <div className="dropdown">
+              <label tabIndex={0} className="btn btn-ghost btn-circle">
+              <span className="py-2 px-4 rounded-sm ml-2 hover:opacity-80 mt-3 ">
+                  <FontAwesomeIcon  icon={faCartShopping} size="2xl" style={{color: "#ffffff",}} />
+                </span>
+              </label>
+              <div
+                tabIndex={0}
+                className="menu menu-sm dropdown-content mt-1 z-[1] p-2 shadow bg-white w-60 right-0 rounded-md"
+              >
+               <h4 className="text-neutral text-xl py-2 px-4 rounded-md mb-1 bg-neutral-300">Shopping Cart</h4>
+               <div className="flex flex-row justify-around mt-2">
+                  <p>Product</p>
+                  <p>Quantity</p>
+                  <p>Price</p>
                 </div>
+                {cartProducts?.map(product => {
+                return <div className="flex flex-row justify-around mt-2">
+                  <p className="mt-2">{product.title}</p>
+                  <img className="mt-2 min-w-[50px] max-w-[50px] min-h-[30px] max-h-[30px]" src={product.images[0]} alt={product.title}></img>
+                  <p className="mt-2">{product.quantity}</p>
+                  <p className="mt-2">{product.price}</p>
+                  <button onClick={() => handleRemoveItem(product._id)}><FontAwesomeIcon icon={faTrash} /></button>
+                </div>}
+                )}
+                 <p className="my-2">Total Price</p>
+                 
+                <Link to="/shopping-cart"><button  className="bg-red-400 text-white py-2 px-4 rounded-md text-xl hover:bg-red-500">
+                    Proceed To Checkout
+                  </button></Link>
               </div>
             </div>
+          </div>
             <Link to="/sell" className="my-auto">
               <p className="bg-white py-2 px-4 rounded-sm ml-2 hover:opacity-80 ">
                 Sell
@@ -141,7 +125,7 @@ const ANavBar = () => {
             </Link>
             <Link
               to={`/profile/${userInfo?._id}`}
-              className="ml-8 mt-1 my-auto"
+              className="ml-4 mr-6 mt-1 my-auto"
             >
               <div className="avatar hover:opacity-50">
                 <div className="h-[60px] rounded-xl border border-neutral-400 bg-white">
@@ -220,7 +204,7 @@ const ANavBar = () => {
               </label>
               <div
                 tabIndex={0}
-                className="menu menu-sm dropdown-content mt-1 z-[1] p-2 shadow bg-white w-60 right-0 rounded-md"
+                className="menu menu-sm dropdown-content mt-1 z-[1] p-2 shadow bg-white w-[32rem] right-0 rounded-md"
               >
                 <h4 className="text-neutral text-xl py-2 px-4 rounded-md mb-1 bg-neutral-300">
                   Shopping Cart
@@ -231,10 +215,14 @@ const ANavBar = () => {
                   <p>Price</p>
                 </div>
                 {cartProducts?.map((product) => {
+                    
+
                   return (
+
                     <div>
                       <div className="flex flex-row justify-around">
                         <p>{product.title}</p>
+                        <img src={product.images[0]} alt={product.title} width="50px" height="50px"></img>
                         <p>{product.quantity}</p>
                         <p>{product.price}</p>
                         <button onClick={() => handleRemoveItem(product._id)}>
@@ -263,7 +251,7 @@ const ANavBar = () => {
             </Link>
             <Link
               to="/signup"
-              className="bg-white py-2 px-4 rounded-sm ml-2 hover:opacity-80"
+              className="bg-white py-2 px-4 rounded-sm ml-2 mr-4  hover:opacity-80"
             >
               Signup
             </Link>
