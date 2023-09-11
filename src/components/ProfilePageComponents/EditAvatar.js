@@ -1,8 +1,14 @@
 import { useContext, useState } from "react";
 import profileService from "../../services/profile.service";
 import { AuthContext } from "../../context/auth.context";
+import scrollToTop from "../../utils/ScrollToTop";
 
-const EditAvatar = ({ foundUser, setFoundUser, setMessage }) => {
+const EditAvatar = ({
+  foundUser,
+  setFoundUser,
+  setMessage,
+  setSuccessMessage,
+}) => {
   const { setUserInfo, loggedInUser } = useContext(AuthContext);
   const [image, setImage] = useState();
   const [editUsername, setEditUsername] = useState(foundUser?.username);
@@ -30,7 +36,9 @@ const EditAvatar = ({ foundUser, setFoundUser, setMessage }) => {
       ...userInfo,
       image: userResponse.data.image,
     }));
-    setMessage(userResponse.data.message);
+    setSuccessMessage("Avatar Changed");
+    window.my_modal_3.close();
+    scrollToTop();
   };
 
   const handleUsernameChange = (e) => {
@@ -45,12 +53,13 @@ const EditAvatar = ({ foundUser, setFoundUser, setMessage }) => {
       .then((response) => {
         if (response.data.username) {
           setFoundUser({ ...foundUser, username: response.data.username });
-          window.my_modal_3.close();
+        } else {
+          return setErrorUsername(response.data.message);
         }
-        else {
-          return setErrorUsername(response.data.message)
-        }
+        window.my_modal_3.close();
         setErrorUsername("");
+        setSuccessMessage("Username Changed");
+        scrollToTop();
       })
       .catch((err) => console.log(err));
   };
@@ -79,6 +88,8 @@ const EditAvatar = ({ foundUser, setFoundUser, setMessage }) => {
         })
         .catch((err) => console.log(err));
     }
+    window.my_modal_3.close();
+    setSuccessMessage("Password Changed")
     setErrorPassword("");
   };
 
