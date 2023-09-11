@@ -1,16 +1,15 @@
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../context/auth.context";
-import ChatDrawer from "../components/chatComponents/ChatDrawer";
-import "../index.css";
+import { AuthContext } from "../../context/auth.context";
+import ChatDrawer from '../chatComponents/ChatDrawer'
 import SearchBar from "./SearchBar";
-import productService from "../services/product.service";
+import productService from "../../services/product.service";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import { ShoppingCartContext } from "../context/shoppingCart.context";
+import { ShoppingCartContext } from "../../context/shoppingCart.context";
 
-const ANavBar = () => {
+const Navbar = () => {
   const { loggedInUser, logOutUser, isLoggedIn, userInfo } =
     useContext(AuthContext);
   const { cartProducts, removeItemFromCart } = useContext(ShoppingCartContext);
@@ -307,4 +306,4 @@ const ANavBar = () => {
   );
 };
 
-export default ANavBar;
+export default Navbar;

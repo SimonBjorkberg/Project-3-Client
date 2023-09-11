@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import EditAvatar from "./EditAvatar";
+import EditProfile from "./EditProfile";
 
 const UserInfo = ({
   foundUser,
@@ -56,7 +56,7 @@ const UserInfo = ({
       ) : null}
       {loggedInUser && loggedInUser?._id === foundUser?._id && (
         <>
-          <EditAvatar
+          <EditProfile
             setSuccessMessage={setSuccessMessage}
             setMessage={setMessage}
             setFoundUser={setFoundUser}

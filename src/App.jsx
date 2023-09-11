@@ -8,11 +8,11 @@ import SellPage from "./pages/SellPage/SellPage";
 import ProductDetailsPage from "./pages/ProductDetailsPage/ProductDetailsPage";
 import IsPrivate from "./components/IsPrivate/IsPrivate";
 import IsAnon from "./components/IsAnon/IsAnon";
-import ChatPage from "./pages/ChatPage";
+import ChatPage from './pages/ChatPage/ChatPage'
 import UserList from "./components/chatComponents/UserList";
 import Footer from "./components/Footer/Footer";
-import ANavBar from "./components/ANavBar";
-import ProfilePageTest from "./pages/ProfilePageTest/ProfilePageTest";
+import Navbar from "./components/Navbar/Navbar";
+import ProfilePage from './pages/ProfilePage/ProfilePage'
 import ShoppingCartPage from "./pages/ShoppingCartPage/ShoppingCartPage";
 import StripeContainer from "./stripe/StripeContainer";
 
@@ -21,7 +21,7 @@ function App() {
 
   return (
     <div className="App" data-theme="light">
-      {location.pathname.includes("/chat/") ? null : <ANavBar />}
+      {location.pathname.includes("/chat/") ? null : <Navbar />}
       <Routes>
         <Route path="/" element={<HomePage />} />
 
@@ -32,7 +32,7 @@ function App() {
           element={<ProductDetailsPage />}
         />
 
-        <Route path="/profile/:userId" element={<ProfilePageTest />} />
+        <Route path="/profile/:userId" element={<ProfilePage />} />
 
         <Route
           path="/chat"
