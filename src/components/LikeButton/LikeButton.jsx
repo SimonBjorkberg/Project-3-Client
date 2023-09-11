@@ -1,4 +1,5 @@
 import { useContext, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./LikeButton.css";
 import productService from "../../services/product.service";
 import { AuthContext } from "../../context/auth.context";
@@ -9,15 +10,21 @@ const LikeButton = ({ productId, likedStatus }) => {
   const [liked, setLiked] = useState(likedStatus);
   useEffect(() => { setLiked(likedStatus)}, [likedStatus] )
 
+  const navigate = useNavigate()
+
 
 
   const handleLikeClick = async () => {
     try {
+      if(loggedInUser){ 
       // Send a request to like/unlike the product without passing userId
       const response = await productService.like(productId);
 
       // Update liked state based on response
       setLiked(response.data.likes.includes(loggedInUser._id));
+    } else {
+      navigate("/login")
+    }
     } catch (error) {
       console.error(error);
     }

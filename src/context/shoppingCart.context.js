@@ -19,6 +19,7 @@ const ShoppinCartProviderWrapper = (props) => {
   }, [cartProducts]);
 
   const handleAddToCart = (product) => {
+    
     setCartProducts((prevCartProducts) => [...prevCartProducts, product]);
 };
 

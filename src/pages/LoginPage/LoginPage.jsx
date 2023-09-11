@@ -45,8 +45,8 @@ function LoginPage() {
   };
 
   return (
-    <div className="LoginPage">
-      <h1 className="my-4 text-2xl">Login</h1>
+    <div className="LoginPage min-h-[33rem]">
+      <h1 className="mb-4 text-2xl mt-8">Login</h1>
 
       <form
         className="flex flex-col w-[400px] mx-auto"
