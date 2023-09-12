@@ -4,7 +4,7 @@ const ShoppingCartContext = createContext();
 
 const ShoppinCartProviderWrapper = (props) => {
   const [cartProducts, setCartProducts] = useState([]);
-
+  // const [productQuantities, setProductQuantities] = useState({});
   useEffect(() => {
     // Retrieve cart data from local storage when the component initializes
     const storedCart = JSON.parse(localStorage.getItem("Cart"));
@@ -18,25 +18,46 @@ const ShoppinCartProviderWrapper = (props) => {
     localStorage.setItem("Cart", JSON.stringify(cartProducts));
   }, [cartProducts]);
 
-  const handleAddToCart = (product) => {
-    setCartProducts((prevCartProducts) => [...prevCartProducts, product]);
-};
+  const handleAddToCart = (product, quantity) => {
+    setCartProducts((prevCartProducts) => {
+      const updatedCart = [...prevCartProducts];
+      const productIndex = updatedCart.findIndex(
+        (item) => item._id === product._id
+      );
 
-const removeItemFromCart = (itemId) => {
-  // Filter out the item with the specified itemId
-  const updatedCart = cartProducts.filter((item) => item.id !== itemId);
-  setCartProducts(updatedCart);
-  // Update local storage with the updated cart
-  localStorage.setItem("Cart", JSON.stringify(updatedCart));
-};
+      if (productIndex !== -1) {
+        updatedCart[productIndex].quantity = +quantity;
+      } else {
+        updatedCart.push({ ...product, quantity: quantity });
+      }
 
-const updateCart = (newCart) => {
-  setCartProducts(newCart);
-};
- 
+      return updatedCart;
+    });
+  };
+
+  const removeItemFromCart = (itemId) => {
+    console.log("id from page", itemId);
+    // Filter out the item with the specified itemId
+    const updatedCart = cartProducts.filter((item) => item._id !== itemId);
+    setCartProducts(updatedCart);
+    // Update local storage with the updated cart
+    localStorage.setItem("Cart", JSON.stringify(updatedCart));
+  };
+
+  const updateCart = (newCart) => {
+    setCartProducts(newCart);
+  };
 
   return (
-    <ShoppingCartContext.Provider value={{ cartProducts, setCartProducts, handleAddToCart, updateCart, removeItemFromCart }}>
+    <ShoppingCartContext.Provider
+      value={{
+        cartProducts,
+        setCartProducts,
+        handleAddToCart,
+        updateCart,
+        removeItemFromCart,
+      }}
+    >
       {props.children}
     </ShoppingCartContext.Provider>
   );

@@ -6,7 +6,6 @@ import productService from "../../services/product.service";
 import { AuthContext } from "../../context/auth.context";
 import { ShoppingCartContext } from "../../context/shoppingCart.context";
 
-
 function ProductDetailsPage() {
   const { productId } = useParams();
 
@@ -124,6 +123,7 @@ function ProductDetailsPage() {
           <p className=" mt-4">{product.description}</p>
           <p className="mt-4 font-semibold">Quantity</p>
           <input
+            id="quantity"
             type="number"
             className="input input-bordered w-full max-w-xs mb-4 mt-2"
           />
@@ -140,7 +140,15 @@ function ProductDetailsPage() {
           </p>
         </div>
         <div className="text-center">
-          <button className="btn btn-outline bg-gray-800 text-white w-4/5" onClick={() => handleAddToCart(product)}>
+          <button
+            className="btn btn-outline bg-gray-800 text-white w-4/5"
+            onClick={() =>
+              handleAddToCart(
+                product,
+                parseInt(document.getElementById("quantity").value, 10)
+              )
+            }
+          >
             Add To Cart
           </button>
         </div>
