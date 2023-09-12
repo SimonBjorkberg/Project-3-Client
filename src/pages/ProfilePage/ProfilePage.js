@@ -4,7 +4,7 @@ import { AuthContext } from "../../context/auth.context";
 import { useNavigate, useParams } from "react-router-dom";
 import profileService from "../../services/profile.service";
 import Loading from "../../components/Loading/Loading";
-import Products from "../../components/ProfilePageComponents/Products";
+import Products from "../../components/ProfilePageComponents/ProductsComponents/Products";
 import ProfileList from "../../components/ProfilePageComponents/ProfileList";
 import UserInfo from "../../components/ProfilePageComponents/UserInfo";
 import LikedProducts from "../../components/ProfilePageComponents/LikedProducts";
@@ -112,7 +112,7 @@ const ProfilePageTest = (props) => {
               />
             )}
             {showInfo === "liked" && (
-              <LikedProducts navigate={navigate} foundUser={foundUser} />
+              <LikedProducts navigate={navigate} foundUser={foundUser} loggedInUser={loggedInUser} />
             )}
             {showInfo === "reviews" && foundUser && (
               <div className="md:text-left md:pl-10 py-10 text-center bg-neutral-200">

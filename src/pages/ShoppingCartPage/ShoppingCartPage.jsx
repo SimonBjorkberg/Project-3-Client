@@ -6,6 +6,7 @@ const ShoppingCartPage = () => {
     const { cartProducts } = useContext(ShoppingCartContext);
     return (
         <div>
+            <div className=" min-h-[34rem] ">
             <div className="flex justify-around">
                 <div>Product</div>
                 <div>Quantity</div>
@@ -21,7 +22,7 @@ const ShoppingCartPage = () => {
                 })}
                 
             
-
+                </div>
         </div>
     )
 };
