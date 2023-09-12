@@ -7,6 +7,7 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 const ShoppingCartPage = () => {
   const { cartProducts, removeItemFromCart, updateCart } =
     useContext(ShoppingCartContext);
+
   const handleQuantityChange = (productId, newQuantity) => {
     const updatedCart = cartProducts.map((product) => {
       if (product._id === productId) {

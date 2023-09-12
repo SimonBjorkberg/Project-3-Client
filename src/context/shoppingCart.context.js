@@ -4,7 +4,7 @@ const ShoppingCartContext = createContext();
 
 const ShoppinCartProviderWrapper = (props) => {
   const [cartProducts, setCartProducts] = useState([]);
-  // const [productQuantities, setProductQuantities] = useState({});
+  const [total, setTotal] = useState(0);
   useEffect(() => {
     // Retrieve cart data from local storage when the component initializes
     const storedCart = JSON.parse(localStorage.getItem("Cart"));
@@ -16,6 +16,11 @@ const ShoppinCartProviderWrapper = (props) => {
   useEffect(() => {
     // Update local storage whenever cartProducts changes
     localStorage.setItem("Cart", JSON.stringify(cartProducts));
+    let newTotal = 0;
+    for (const product of cartProducts) {
+      newTotal += product.price * product.quantity;
+    }
+    setTotal(newTotal);
   }, [cartProducts]);
 
   const handleAddToCart = (product, quantity) => {
@@ -55,6 +60,7 @@ const ShoppinCartProviderWrapper = (props) => {
         handleAddToCart,
         updateCart,
         removeItemFromCart,
+        total,
       }}
     >
       {props.children}
