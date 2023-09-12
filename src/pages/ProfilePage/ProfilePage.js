@@ -116,48 +116,45 @@ const ProfilePageTest = (props) => {
             )}
             {showInfo === "reviews" && foundUser && (
               <div className="md:text-left md:pl-10 py-10 text-center bg-neutral-200">
+                <Rating
+                  emptySymbol={<FontAwesomeIcon icon={regularStar} size="2x" />}
+                  fullSymbol={<FontAwesomeIcon icon={solidStar} size="2x" />}
+                  onChange={(rating) => {
+                    const comment =
+                      document.getElementById("commentInput").value;
+                    const newReview = {
+                      comment: comment,
+                      review: rating,
+                    };
+
+                    reviewService
+                      .createReview(foundUser._id, newReview)
+                      .then((response) => {
+                        const updatedReviews = [
+                          ...userReviews,
+                          response.data.newReview,
+                        ];
+                        setUserReviews(updatedReviews);
+
+                        document.getElementById("commentInput").value = "";
+                      })
+
+                      .catch((error) => {
+                        console.error("Error creating review:", error);
+                      });
+                  }}
+                />
+                <textarea
+                  id="commentInput"
+                  placeholder="Entrez votre commentaire ici"
+                  defaultValue={editingReview ? editingReview.comment : ""}
+                />
                 {foundUser.reviews.length === 0 ? (
                   <p>This user has not been reviewed yet!</p>
                 ) : (
                   <div>
                     <p>User Rating:</p>
-                    <textarea
-                      id="commentInput"
-                      placeholder="Entrez votre commentaire ici"
-                      defaultValue={editingReview ? editingReview.comment : ""}
-                    />
-                    <Rating
-                      emptySymbol={
-                        <FontAwesomeIcon icon={regularStar} size="2x" />
-                      }
-                      fullSymbol={
-                        <FontAwesomeIcon icon={solidStar} size="2x" />
-                      }
-                      onChange={(rating) => {
-                        const comment =
-                          document.getElementById("commentInput").value;
-                        const newReview = {
-                          comment: comment,
-                          review: rating,
-                        };
 
-                        reviewService
-                          .createReview(foundUser._id, newReview)
-                          .then((response) => {
-                            const updatedReviews = [
-                              ...userReviews,
-                              response.data.newReview,
-                            ];
-                            setUserReviews(updatedReviews);
-
-                            document.getElementById("commentInput").value = "";
-                          })
-
-                          .catch((error) => {
-                            console.error("Error creating review:", error);
-                          });
-                      }}
-                    />
                     <ListOfReviews
                       userReviews={userReviews}
                       handleEditReview={handleEditReview}

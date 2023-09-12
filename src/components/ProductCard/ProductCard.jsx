@@ -5,14 +5,14 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../../context/auth.context";
 import { SearchContext } from "../../context/search.context";
 import { ShoppingCartContext } from "../../context/shoppingCart.context";
-import { v4 as uuidv4 } from "uuid"
+import { v4 as uuidv4 } from "uuid";
 
 function ProductCard({ product }) {
   const { filter } = useContext(SearchContext);
   const { loggedInUser, isLoggedIn } = useContext(AuthContext);
   const [indexImage, setIndexImage] = useState(0);
   const { handleAddToCart } = useContext(ShoppingCartContext);
-  
+
   let includesId = false;
 
   if (isLoggedIn) {
@@ -28,118 +28,114 @@ function ProductCard({ product }) {
     includesId = false;
   }
 
-
   const goToPreviousSlide = () => {
-    console.log(product._id)
-    setIndexImage((prevIndex) => 
-
+    console.log(product._id);
+    setIndexImage((prevIndex) =>
       prevIndex === 0 ? product.images.length - 1 : prevIndex - 1
-  
     );
   };
 
   const goToNextSlide = () => {
-    console.log(product._id)
+    console.log(product._id);
 
     setIndexImage((prevIndex) =>
       prevIndex === product.images.length - 1 ? 0 : prevIndex + 1
     );
   };
 
-  console.log(product?.length, filter)
-
-
+  console.log(product?.length, filter);
 
   return (
     <>
-      {(product?.length === 0 && filter !== "") && (
-        <h1 className="my-10 font-semibold text-xl">There are no products within your selected category</h1>
+      {product?.length === 0 && filter !== "" && (
+        <h1 className="my-10 font-semibold text-xl">
+          There are no products within your selected category
+        </h1>
       )}
-      {product &&
- (
-            <div
-              key={uuidv4()}
-              className="card w-96 bg-base-100 shadow-xl my-8 min-w-200 min-h-[28rem] max-h-[28]"
-            >
-              <figure className="max-h-[14rem] min-h-[14rem]">
-                <Link to={`/product/single/${product._id}`}>
-                {product.images && (
-          <div className="carousel">
-            <div className="carousel-item relative w-full">
-              <img
-                src={product.images[indexImage]}
-                className="w-full   rounded lg: max-w-[38rem] min-w-[38rem] max-h-[28rem] min-h-[28rem]"
-                alt={`slide${indexImage}`}
-              />
-             
-            </div>
-          </div>
-        )}
-                </Link>
-                 <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/3">
-                <button onClick={goToPreviousSlide} className="btn btn-circle">
-                  ❮
-                </button>
-                <button onClick={goToNextSlide} className="btn btn-circle">
-                  ❯
-                </button>
-              </div>
-              </figure>
-              <div className="card-body">
-                <div className="flex flex-col items-start">
-                  <h3 className="card-title">
-                    {product.price}$
-                    <div className="badge badge-secondary">NEW</div>
-                  </h3>
-                  <p>Brand: {product.brand}</p>
-                  <p>{product.age}</p>
-                </div>
-                <div className="card-actions justify-center">
-                  {product.categories?.map((category, index) => (
-                    <div
-                      key={index}
-                      className={`${
-                        category.value === "onesies" && "bg-teal-500"
-                      } ${category.value === "t-shirts" && "bg-green-500"} ${
-                        category.value === "sleepsuits" && "bg-yellow-500"
-                      } ${category.value === "bodysuits" && "bg-cyan-500"} ${
-                        category.value === "dresses" && "bg-orange-500"
-                      } ${
-                        category.value === "pantsNleggings" && "bg-purple-500"
-                      } ${
-                        category.value === "sweatersNcardigans" && "bg-pink-500"
-                      } ${category.value === "bibs" && "bg-rose-500"} ${
-                        category.value === "outerwear" && "bg-violet-500"
-                      } ${
-                        category.value === "rompers" && "bg-yellow-600"
-                      } badge badge-outline mx-1 my-auto`}
-                    >
-                      {category.value}
-                    </div>
-                  ))}
-                  <p>
-                    Sold by:{" "}
-                    <Link
-                      to={`/profile/${product.author._id}`}
-                      className="text-blue-500 font-semibold"
-                    >
-                      {product.author.username}
-                    </Link>
-                  </p>
-                  <div className="flex ">
-                    <button className="btn btn-primary" onClick={()  => handleAddToCart(product)}>Add to Cart</button>
-                  </div>
-                  <div className="absolute top-3 right-3">
-                    <LikeButton
-                      productId={product._id}
-                      likedStatus={includesId ? true : false}
+      {product && (
+        <div
+          key={uuidv4()}
+          className="card w-96 bg-base-100 shadow-xl my-8 min-w-200 min-h-[28rem] max-h-[28]"
+        >
+          <figure className="max-h-[14rem] min-h-[14rem]">
+            <Link to={`/product/single/${product._id}`}>
+              {product.images && (
+                <div className="carousel">
+                  <div className="carousel-item relative w-full">
+                    <img
+                      src={product.images[indexImage]}
+                      className="w-full   rounded lg: max-w-[38rem] min-w-[38rem] max-h-[28rem] min-h-[28rem]"
+                      alt={`slide${indexImage}`}
                     />
                   </div>
                 </div>
+              )}
+            </Link>
+            <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/3">
+              <button onClick={goToPreviousSlide} className="btn btn-circle">
+                ❮
+              </button>
+              <button onClick={goToNextSlide} className="btn btn-circle">
+                ❯
+              </button>
+            </div>
+          </figure>
+          <div className="card-body">
+            <div className="flex flex-col items-start">
+              <h3 className="card-title">
+                {product.price}$<div className="badge badge-secondary">NEW</div>
+              </h3>
+              <p>Brand: {product.brand}</p>
+              <p>{product.age}</p>
+            </div>
+            <div className="card-actions justify-center">
+              {product.categories?.map((category, index) => (
+                <div
+                  key={index}
+                  className={`${
+                    category.value === "onesies" && "bg-teal-500"
+                  } ${category.value === "t-shirts" && "bg-green-500"} ${
+                    category.value === "sleepsuits" && "bg-yellow-500"
+                  } ${category.value === "bodysuits" && "bg-cyan-500"} ${
+                    category.value === "dresses" && "bg-orange-500"
+                  } ${category.value === "pantsNleggings" && "bg-purple-500"} ${
+                    category.value === "sweatersNcardigans" && "bg-pink-500"
+                  } ${category.value === "bibs" && "bg-rose-500"} ${
+                    category.value === "outerwear" && "bg-violet-500"
+                  } ${
+                    category.value === "rompers" && "bg-yellow-600"
+                  } badge badge-outline mx-1 my-auto`}
+                >
+                  {category.value}
+                </div>
+              ))}
+              <p>
+                Sold by:{" "}
+                <Link
+                  to={`/profile/${product.author._id}`}
+                  className="text-blue-500 font-semibold"
+                >
+                  {product.author.username}
+                </Link>
+              </p>
+              <div className="flex ">
+                <button
+                  className="btn btn-primary"
+                  onClick={() => handleAddToCart(product)}
+                >
+                  Add to Cart
+                </button>
+              </div>
+              <div className="absolute top-3 right-3">
+                <LikeButton
+                  productId={product._id}
+                  likedStatus={includesId ? true : false}
+                />
               </div>
             </div>
-          )
-        }
+          </div>
+        </div>
+      )}
     </>
   );
 }
