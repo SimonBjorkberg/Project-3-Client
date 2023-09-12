@@ -2,18 +2,29 @@ import React from "react";
 import axios from "axios";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { ShoppingCartContext } from "../context/shoppingCart.context";
+import { AuthContext } from "../context/auth.context";
 import { useContext } from "react";
+
+import orderService from "../services/order.service";
 
 export const CheckoutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
-  const { total } = useContext(ShoppingCartContext);
+  const { userInfo } = useContext(AuthContext);
+  const { total, cartProducts } = useContext(ShoppingCartContext);
+  const { orderCart } = cartProducts;
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log(orderCart);
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: "card",
       card: elements.getElement(CardElement),
+    });
+    await orderService.create({
+      products: orderCart,
+      // customer: userInfo._id,
+      totalAmount: total,
     });
     if (!error) {
       console.log("Token created: ", paymentMethod);
