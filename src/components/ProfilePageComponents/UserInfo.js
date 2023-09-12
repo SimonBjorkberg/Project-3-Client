@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
 import EditProfile from "./EditProfile";
+import Rating from "react-rating";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar as solidStar } from "@fortawesome/free-solid-svg-icons";
+import { faStar as regularStar } from "@fortawesome/free-regular-svg-icons";
 
 const UserInfo = ({
   foundUser,
@@ -9,14 +13,34 @@ const UserInfo = ({
   newContact,
   createChat,
   setNewContact,
+  successMessage,
+  setSuccessMessage
 }) => {
-  const [successMessage, setSuccessMessage] = useState("");
+  const [averageRating, setAverageRating] = useState(null)
 
   useEffect(() => {
     setTimeout(() => {
       setSuccessMessage("");
     }, 3000);
   }, [successMessage]);
+
+  const handleAverageRating = () => {
+    const reviewsLength = foundUser.reviews.length;
+    let reviewNum = 0;
+    foundUser.reviews.forEach(review => {
+      if (!review.review) {
+        return
+      }
+      reviewNum += review.review
+    })
+    const result = Math.floor(reviewNum/reviewsLength)
+    return setAverageRating(result);
+  };
+
+  useEffect(() => {
+    handleAverageRating()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [foundUser])
 
   return (
     <div className="md:h-60 h-48 flex bg-neutral-200">
@@ -31,7 +55,13 @@ const UserInfo = ({
         </p>
         <p className="font-semibold text-sm text-left">
           {foundUser.products?.length} Listed Products *{" "}
-          {foundUser.reviews.length} Reviews
+          {foundUser.reviews.length} Reviews <br />
+          <Rating
+            initialRating={averageRating}
+            readonly
+            emptySymbol={<FontAwesomeIcon icon={regularStar} size="1x" />}
+            fullSymbol={<FontAwesomeIcon icon={solidStar} size="1x" />}
+          />
         </p>
       </div>
       {successMessage ? (

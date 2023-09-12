@@ -3,7 +3,7 @@ import profileService from "../../services/profile.service";
 import { AuthContext } from "../../context/auth.context";
 import scrollToTop from "../../utils/ScrollToTop";
 
-const EditAvatar = ({
+const EditProfile = ({
   foundUser,
   setFoundUser,
   setMessage,
@@ -81,7 +81,6 @@ const EditAvatar = ({
           currentPassword,
         })
         .then((response) => {
-          console.log(response);
           if (response.data.errorMessage) {
             setErrorPassword(response.data.errorMessage);
           }
@@ -239,4 +238,4 @@ const EditAvatar = ({
   );
 };
 
-export default EditAvatar;
+export default EditProfile;

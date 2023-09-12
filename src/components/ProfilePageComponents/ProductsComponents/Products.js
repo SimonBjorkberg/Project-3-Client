@@ -31,7 +31,6 @@ const Products = ({
   };
 
   const handleSubmit = (e, modalId) => {
-    console.log(modalId);
     const modal = document.getElementById(modalId);
     modal.close();
     e.preventDefault();
