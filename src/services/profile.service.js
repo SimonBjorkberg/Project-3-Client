@@ -16,7 +16,7 @@ class ProfileService {
     });
   }
   getOne = async (userId) => {
-    return this.api.get(`/profile/single/${userId}`);
+    return this.api.get(`profile/single/${userId}`);
   };
   editInfo = async (userId, requestBody) => {
     return this.api.put(`/profile/edit/${userId}/info`, requestBody);

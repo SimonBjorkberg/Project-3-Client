@@ -15,6 +15,8 @@ import Navbar from "./components/Navbar/Navbar";
 import ProfilePage from './pages/ProfilePage/ProfilePage'
 import ShoppingCartPage from "./pages/ShoppingCartPage/ShoppingCartPage";
 import StripeContainer from "./stripe/StripeContainer";
+import ThankYou from "./pages/StripePages/ThankYou";
+import CardDeclined from "./pages/StripePages/CardDeclined";
 
 function App() {
   const location = useLocation();
@@ -55,6 +57,22 @@ function App() {
           element={
             <IsPrivate>
               <StripeContainer />
+            </IsPrivate>
+          }
+        />
+        <Route
+          path="/stripe/thank-you"
+          element={
+            <IsPrivate>
+              <ThankYou />
+            </IsPrivate>
+          }
+        />
+        <Route
+          path="/stripe/card-declined"
+          element={
+            <IsPrivate>
+              <CardDeclined />
             </IsPrivate>
           }
         />
