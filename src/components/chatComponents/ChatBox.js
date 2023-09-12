@@ -54,7 +54,7 @@ const ChatBox = () => {
             {"< "}Select a contact
           </p>
         )}
-        <div className="overflow-y-scroll h-full bg-white" id="chatbox">
+        <div className="overflow-y-scroll h-full min-h-[75vh] bg-white" id="chatbox">
           {messages && messages.length === 0 && (
             <p className="mt-[35vh]">
               {recipientUser ? "Start the conversation!" : null}

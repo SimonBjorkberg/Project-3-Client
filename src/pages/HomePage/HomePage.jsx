@@ -1,17 +1,16 @@
 import "./HomePage.css";
-import LastProducts from "../../components/LastProducts/LastProducts";
+import RecentProducts from "../../components/RecentProducts/RecentProducts";
 import MainBanner from "../../components/MainBanner/MainBanner";
 import Categories from "../../components/Categories/Categories";
 
 // components: nav bar / search bar/ main banner / module CTA / module last added products / filters / footer
 
 function HomePage() {
-
   return (
     <div>
       <MainBanner />
-      <Categories/>
-      <LastProducts />
+      <Categories />
+      <RecentProducts />
     </div>
   );
 }

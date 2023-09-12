@@ -36,7 +36,6 @@ const ShoppinCartProviderWrapper = (props) => {
   };
 
   const removeItemFromCart = (itemId) => {
-    console.log("id from page", itemId);
     // Filter out the item with the specified itemId
     const updatedCart = cartProducts.filter((item) => item._id !== itemId);
     setCartProducts(updatedCart);

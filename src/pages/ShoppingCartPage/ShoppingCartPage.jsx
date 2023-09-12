@@ -25,7 +25,7 @@ const ShoppingCartPage = () => {
           <p>your shopping cart is empty!</p>
         ) : (
           <>
-            <div className="flex py-2 border-b lg:w-[900px] border-neutral hover:bg-neutral-200 ">
+            <div className="flex justify-between items-center py-2 border-b lg:w-[900px] border-neutral hover:bg-neutral-200 ">
               <div className="avatar">
                 <div className="w-16 rounded-xl"></div>
               </div>
@@ -36,6 +36,7 @@ const ShoppingCartPage = () => {
               <p className="my-auto md:flex hidden ml-5 text-xl w-36">
                 Quantity
               </p>
+              <button className="ml-5"></button>
             </div>
             {cartProducts.map((product) => {
               if (!product || !product._id) {
@@ -44,7 +45,7 @@ const ShoppingCartPage = () => {
               return (
                 <div
                   key={product._id}
-                  className="flex py-2 border-b lg:w-[900px] border-neutral hover:bg-neutral-200 "
+                  className="flex justify-between items-center py-2 border-b lg:w-[900px] border-neutral hover:bg-neutral-200 "
                 >
                   <div className="avatar">
                     <div className="w-16 rounded-xl">
@@ -62,7 +63,7 @@ const ShoppingCartPage = () => {
 
                   <input
                     type="number"
-                    className="my-auto md:flex hidden ml-5 text-xl w-36"
+                    className="my-auto md:flex hidden ml-5 text-xl max-w-[50px] min-w-10 bg-neutral-200"
                     value={product.quantity}
                     min={1}
                     onChange={(e) => {
@@ -74,6 +75,7 @@ const ShoppingCartPage = () => {
                   />
 
                   <button
+                    className="ml-5"
                     onClick={() => {
                       removeItemFromCart(product._id);
                     }}
@@ -85,6 +87,8 @@ const ShoppingCartPage = () => {
             })}
           </>
         )}
+      </div>
+      <div className="bg-neutral-200 py-10">
         <button className="bg-red-400 text-white py-2 px-4 rounded-sm ml-2 hover:bg-red-500">
           <Link to="/payment">Proceed to checkout</Link>
         </button>
