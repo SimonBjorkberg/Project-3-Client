@@ -80,6 +80,7 @@ const ProfilePageTest = (props) => {
             />
             {showInfo === "products" && (
               <Products
+              setSuccessMessage={setSuccessMessage}
                 recentProducts={recentProducts}
                 foundUser={foundUser}
                 loggedInUser={loggedInUser}

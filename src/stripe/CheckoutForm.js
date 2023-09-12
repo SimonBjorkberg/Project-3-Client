@@ -13,16 +13,16 @@ export const CheckoutForm = () => {
   const { userInfo } = useContext(AuthContext);
   const { total, cartProducts } = useContext(ShoppingCartContext);
   const { orderCart } = cartProducts;
+  console.log(cartProducts, total)
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(orderCart);
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: "card",
       card: elements.getElement(CardElement),
     });
     await orderService.create({
-      products: orderCart,
+      products: cartProducts,
       // customer: userInfo._id,
       totalAmount: total,
     });

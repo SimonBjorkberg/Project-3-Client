@@ -13,6 +13,7 @@ const Products = ({
   recentProducts,
   showMore,
   setShowMore,
+  setSuccessMessage,
 }) => {
   const navigate = useNavigate();
 
