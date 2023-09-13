@@ -1,11 +1,14 @@
-const LikedProducts = ({ foundUser, navigate, loggedInUser }) => {
+import { useNavigate } from "react-router-dom";
+
+const LikedProducts = ({ foundUser, loggedInUser }) => {
+  const navigate = useNavigate();
   return (
-    <div className="text-left lg:pl-10 py-10 bg-neutral-200">
+    <div className="text-left py-10 bg-neutral-200">
       {!foundUser.productsLiked ? (
         <p>This user has no liked products!</p>
       ) : (
         <div>
-          <div className="flex lg:w-[900px]">
+          <div className="flex lg:w-[900px] mx-auto">
             <div className="flex flex-row ml-auto">
               <div className="flex flex-row w-40 justify-between">
                 <p className="my-auto flex text-sm text-left">Price</p>
@@ -19,7 +22,7 @@ const LikedProducts = ({ foundUser, navigate, loggedInUser }) => {
             return (
               <div
                 key={product._id}
-                className="flex py-2 border-b lg:w-[900px] border-neutral hover:bg-neutral-300 hover:cursor-pointer"
+                className="flex py-2 border-b lg:w-[900px] mx-auto border-neutral hover:bg-neutral-300 hover:cursor-pointer"
                 onClick={() => navigate(`/product/single/${product._id}`)}
               >
                 <div className="flex flex-row justify-between w-full">
@@ -37,7 +40,7 @@ const LikedProducts = ({ foundUser, navigate, loggedInUser }) => {
                     <p
                       className={`${
                         loggedInUser?._id === foundUser._id
-                          ? "my-auto md:flex hidden ml-5 text-sm w-12 text-left"
+                          ? "my-auto flex ml-5 text-sm w-12 text-left"
                           : "my-auto flex mr-3 text-sm w-12 text-left"
                       }`}
                     >
@@ -46,7 +49,7 @@ const LikedProducts = ({ foundUser, navigate, loggedInUser }) => {
                     <p
                       className={`${
                         loggedInUser?._id === foundUser._id
-                          ? "my-auto md:flex hidden ml-5 text-sm w-12 text-left"
+                          ? "my-auto flex ml-5 text-sm w-12 text-left"
                           : "my-auto flex ml-5 text-sm w-12 text-left"
                       }`}
                     >
@@ -55,7 +58,7 @@ const LikedProducts = ({ foundUser, navigate, loggedInUser }) => {
                     <p
                       className={`${
                         loggedInUser?._id === foundUser._id
-                          ? "my-auto md:flex hidden ml-5 text-sm w-12 text-left"
+                          ? "my-auto flex ml-5 text-sm w-12 text-left"
                           : "my-auto flex ml-5 text-sm w-11 text-left"
                       }`}
                     >

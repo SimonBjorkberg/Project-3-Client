@@ -1,7 +1,7 @@
 const ProfileList = ({ setShowInfo, foundUser, showInfo }) => {
   return (
     <div className="w-full bg-neutral-300">
-      <ul className="flex md:flex-row flex-col md:justify-between lg:w-[900px] md:w-[95%] md:mx-auto lg:ml-10 py-10">
+      <ul className="flex md:flex-row flex-col md:justify-between lg:w-[900px] md:w-[95%] mx-auto py-10">
         <li
           onClick={() => setShowInfo("products")}
           className={`${

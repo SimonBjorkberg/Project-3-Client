@@ -1,25 +1,23 @@
 import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../context/auth.context";
-import ChatDrawer from "../components/chatComponents/ChatDrawer";
-import "../index.css";
+import { AuthContext } from "../../context/auth.context";
+import ChatDrawer from '../chatComponents/ChatDrawer'
 import SearchBar from "./SearchBar";
-import productService from "../services/product.service";
-import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import { ShoppingCartContext } from "../context/shoppingCart.context";
+import productService from "../../services/product.service";
+import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { ShoppingCartContext } from "../../context/shoppingCart.context";
 
-const ANavBar = () => {
+const Navbar = () => {
   const { loggedInUser, logOutUser, isLoggedIn, userInfo } =
     useContext(AuthContext);
-    const { cartProducts, removeItemFromCart } = useContext(ShoppingCartContext);
+  const { cartProducts, removeItemFromCart } = useContext(ShoppingCartContext);
   const [isFocused, setIsFocused] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [searchData, setSearchData] = useState([]);
   const [titleSearch, setTitleSearch] = useState([]);
 
-  
   useEffect(() => {
     productService.getAll().then((response) => {
       setSearchData(response.data);
@@ -126,7 +124,7 @@ const ANavBar = () => {
             </Link>
             <Link
               to={`/profile/${userInfo?._id}`}
-              className="ml-8 mt-1 my-auto"
+              className="ml-4 mr-6 mt-1 my-auto"
             >
               <div className="avatar hover:opacity-50">
                 <div className="h-[60px] rounded-xl border border-neutral-400 bg-white">
@@ -159,10 +157,10 @@ const ANavBar = () => {
               >
                 <Link to={`/profile/${userInfo?._id}`}>
                   <p className="text-xl text-white py-2 mb-1 px-4 rounded-md bg-neutral hover:opacity-80">
-                    Profile 
+                    Profile
                   </p>
                 </Link>
-      
+
                 <Link to="/sell">
                   <p className="bg-neutral-300 text-neutral py-2 mb-1 px-4 rounded-md text-xl hover:opacity-80">
                     Sell
@@ -174,7 +172,10 @@ const ANavBar = () => {
                   </p>
                 </Link>
                 <span className="bg-neutral-300 text-neutral py-2 mb-1 px-4 rounded-md text-xl hover:opacity-80">
-                <Link to="/shopping-cart"> <FontAwesomeIcon size="xl" icon={faCartShopping} /> </Link>
+                  <Link to="/shopping-cart">
+                    {" "}
+                    <FontAwesomeIcon size="xl" icon={faCartShopping} />{" "}
+                  </Link>
                 </span>
                 <Link onClick={logOutUser} className="mt-12">
                   <p className="bg-red-400 text-white py-2 px-4 rounded-md text-xl hover:bg-red-500">
@@ -189,41 +190,57 @@ const ANavBar = () => {
 
       {!loggedInUser && (
         <div className="md:w-[350px] h-full flex items-center justify-center ml-auto">
-           <div className="w-10 ml-auto mr-8 md:flex sm:hidden">
+          <div className="w-10 ml-auto mr-8 md:flex sm:hidden">
             <div className="dropdown">
               <label tabIndex={0} className="btn btn-ghost btn-circle">
-              <span className="py-2 px-4 rounded-sm ml-2 hover:opacity-80 ">
-                  <FontAwesomeIcon  icon={faCartShopping} size="2xl" style={{color: "#ffffff",}} />
+                <span className="py-2 px-4 rounded-sm ml-2 hover:opacity-80 ">
+                  <FontAwesomeIcon
+                    icon={faCartShopping}
+                    size="2xl"
+                    style={{ color: "#ffffff" }}
+                  />
                 </span>
               </label>
               <div
                 tabIndex={0}
-                className="menu menu-sm dropdown-content mt-1 z-[1] p-2 shadow bg-white w-60 right-0 rounded-md"
+                className="menu menu-sm dropdown-content mt-1 z-[1] p-2 shadow bg-white w-[32rem] right-0 rounded-md"
               >
-                <h4 className="text-neutral text-xl py-2 px-4 rounded-md mb-1 bg-neutral-300">Shopping Cart</h4>
+                <h4 className="text-neutral text-xl py-2 px-4 rounded-md mb-1 bg-neutral-300">
+                  Shopping Cart
+                </h4>
                 <div className="flex flex-row justify-around">
                   <p>Product</p>
                   <p>Quantity</p>
                   <p>Price</p>
                 </div>
-                {cartProducts?.map(product => {
-                return <div><div className="flex flex-row justify-around">
-                  <p>{product.title}</p>
-                  <p>{product.quantity}</p>
-                  <p>{product.price}</p>
-                  <button onClick={() => handleRemoveItem(product._id)}><FontAwesomeIcon icon={faTrash} /></button>
-                </div>
-                 
-                 </div>}
-                )}
-               
-                <Link to="/shopping-cart"><button  className="bg-red-400 text-white py-2 px-4 rounded-md text-xl hover:bg-red-500">
+                {cartProducts?.map((product) => {
+                    
+
+                  return (
+
+                    <div>
+                      <div className="flex flex-row justify-around">
+                        <p>{product.title}</p>
+                        <img src={product.images[0]} alt={product.title} width="50px" height="50px"></img>
+                        <p>{product.quantity}</p>
+                        <p>{product.price}</p>
+                        <button onClick={() => handleRemoveItem(product._id)}>
+                          <FontAwesomeIcon icon={faTrash} />
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })}
+
+                <Link to="/shopping-cart">
+                  <button className="bg-red-400 text-white py-2 px-4 rounded-md text-xl hover:bg-red-500">
                     Proceed To Checkout
-                  </button></Link>
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
-      
+
           <div className="md:flex hidden">
             <Link
               to="/login"
@@ -233,7 +250,7 @@ const ANavBar = () => {
             </Link>
             <Link
               to="/signup"
-              className="bg-white py-2 px-4 rounded-sm ml-2 hover:opacity-80"
+              className="bg-white py-2 px-4 rounded-sm ml-2 mr-4  hover:opacity-80"
             >
               Signup
             </Link>
@@ -272,11 +289,13 @@ const ANavBar = () => {
                 >
                   Signup
                 </Link>
-                
+
                 <span className="text-neutral text-xl py-2 px-4 rounded-md bg-neutral-300">
-                <Link to="/shopping-cart"> <FontAwesomeIcon size="xl" icon={faCartShopping} /> </Link>
+                  <Link to="/shopping-cart">
+                    {" "}
+                    <FontAwesomeIcon size="xl" icon={faCartShopping} />{" "}
+                  </Link>
                 </span>
-                
               </div>
             </div>
           </div>
@@ -287,4 +306,4 @@ const ANavBar = () => {
   );
 };
 
-export default ANavBar;
+export default Navbar;

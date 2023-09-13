@@ -1,8 +1,14 @@
 import { useContext, useState } from "react";
 import profileService from "../../services/profile.service";
 import { AuthContext } from "../../context/auth.context";
+import scrollToTop from "../../utils/ScrollToTop";
 
-const EditAvatar = ({ foundUser, setFoundUser, setMessage }) => {
+const EditProfile = ({
+  foundUser,
+  setFoundUser,
+  setMessage,
+  setSuccessMessage,
+}) => {
   const { setUserInfo, loggedInUser } = useContext(AuthContext);
   const [image, setImage] = useState();
   const [editUsername, setEditUsername] = useState(foundUser?.username);
@@ -30,7 +36,9 @@ const EditAvatar = ({ foundUser, setFoundUser, setMessage }) => {
       ...userInfo,
       image: userResponse.data.image,
     }));
-    setMessage(userResponse.data.message);
+    setSuccessMessage("Avatar Changed");
+    window.my_modal_3.close();
+    scrollToTop();
   };
 
   const handleUsernameChange = (e) => {
@@ -43,9 +51,15 @@ const EditAvatar = ({ foundUser, setFoundUser, setMessage }) => {
     profileService
       .editInfo(foundUser._id, { username: editUsername, password: null })
       .then((response) => {
-        setFoundUser({ ...foundUser, username: response.data.username });
+        if (response.data.username) {
+          setFoundUser({ ...foundUser, username: response.data.username });
+        } else {
+          return setErrorUsername(response.data.message);
+        }
         window.my_modal_3.close();
         setErrorUsername("");
+        setSuccessMessage("Username Changed");
+        scrollToTop();
       })
       .catch((err) => console.log(err));
   };
@@ -60,11 +74,7 @@ const EditAvatar = ({ foundUser, setFoundUser, setMessage }) => {
       return setErrorPassword("You must repeat your new password");
     } else if (repeatNewPassword !== newPassword) {
       return setErrorPassword("New password does not match");
-    }
-    else if (newPassword === currentPassword) {
-      return setErrorPassword("You can not change to the same password")
-    }
-    else {
+    } else {
       profileService
         .editInfo(foundUser._id, {
           password: newPassword,
@@ -72,11 +82,14 @@ const EditAvatar = ({ foundUser, setFoundUser, setMessage }) => {
         })
         .then((response) => {
           if (response.data.errorMessage) {
-            setErrorPassword(response.data.errorMessage)
+            setErrorPassword(response.data.errorMessage);
           }
         })
         .catch((err) => console.log(err));
     }
+    window.my_modal_3.close();
+    setSuccessMessage("Password Changed")
+    setErrorPassword("");
   };
 
   return (
@@ -116,11 +129,14 @@ const EditAvatar = ({ foundUser, setFoundUser, setMessage }) => {
       <dialog id="my_modal_3" className="modal">
         <div className="modal-box rounded-md max-w-[500px] p-0">
           <form method="dialog">
-            <button onClick={() => {
-              window.my_modal_3.close();
-              setErrorPassword("")
-              setErrorUsername("")
-            }} className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 text-white">
+            <button
+              onClick={() => {
+                window.my_modal_3.close();
+                setErrorPassword("");
+                setErrorUsername("");
+              }}
+              className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 text-white"
+            >
               ✕
             </button>
           </form>
@@ -168,7 +184,9 @@ const EditAvatar = ({ foundUser, setFoundUser, setMessage }) => {
               value={editUsername}
               onChange={(e) => setEditUsername(e.target.value)}
             />
-            {errorUsername && <p className="text-red-500 text-sm">{errorUsername}</p>}
+            {errorUsername && (
+              <p className="text-red-500 text-sm">{errorUsername}</p>
+            )}
             <button className="text-neutral p-2 border-2 border-neutral hover:bg-neutral-100 mt-2">
               Change Username
             </button>
@@ -177,7 +195,7 @@ const EditAvatar = ({ foundUser, setFoundUser, setMessage }) => {
             onSubmit={handlePasswordChange}
             className="flex flex-col max-w-[400px] mx-auto md:pb-10"
           >
-          <label className="text-left font-semibold ml-1 mt-2">
+            <label className="text-left font-semibold ml-1 mt-2">
               Current Password:
             </label>
             <input
@@ -207,7 +225,9 @@ const EditAvatar = ({ foundUser, setFoundUser, setMessage }) => {
               placeholder="Repeat New Password..."
               onChange={(e) => setRepeatNewPassword(e.target.value)}
             />
-            {errorPassword && <p className="text-red-500 text-sm">{errorPassword}</p>}
+            {errorPassword && (
+              <p className="text-red-500 text-sm">{errorPassword}</p>
+            )}
             <button className="text-neutral p-2 border-2 border-neutral hover:bg-neutral-100 mt-2">
               Change Password
             </button>
@@ -218,4 +238,4 @@ const EditAvatar = ({ foundUser, setFoundUser, setMessage }) => {
   );
 };
 
-export default EditAvatar;
+export default EditProfile;

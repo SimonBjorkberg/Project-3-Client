@@ -13,6 +13,7 @@ const Products = ({
   recentProducts,
   showMore,
   setShowMore,
+  setSuccessMessage,
 }) => {
   const navigate = useNavigate();
 
@@ -31,7 +32,6 @@ const Products = ({
   };
 
   const handleSubmit = (e, modalId) => {
-    console.log(modalId);
     const modal = document.getElementById(modalId);
     modal.close();
     e.preventDefault();
@@ -167,12 +167,12 @@ const Products = ({
   };
 
   return (
-    <div className="text-left lg:pl-10 py-10 bg-neutral-200">
+    <div className="text-left py-10 bg-neutral-200">
       {!foundUser?.products?.length ? (
         <p>This user has no listed products!</p>
       ) : (
         <div>
-          <div className="flex lg:w-[900px]">
+          <div className="flex lg:w-[900px] mx-auto">
             <div className="flex flex-row ml-auto">
               <div className="flex flex-row w-40 justify-between">
                 <p
@@ -216,7 +216,7 @@ const Products = ({
             return (
               <div
                 key={product._id}
-                className="flex py-2 border-b lg:w-[900px] border-neutral hover:bg-neutral-300 hover:cursor-pointer"
+                className="flex py-2 border-b lg:w-[900px] border-neutral hover:bg-neutral-300 hover:cursor-pointer mx-auto"
                 onClick={() => navigate(`/product/single/${product._id}`)}
               >
                 <div className="flex flex-row justify-between w-full">
