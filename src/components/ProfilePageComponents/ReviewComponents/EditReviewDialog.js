@@ -26,7 +26,7 @@ const EditReviewDialog = ({ review, modalId, setUserReviews, setSuccessMessage, 
     });
     const modal = document.getElementById(modalId)
     modal.close()
-    setSuccessMessage("Review edit Successful")
+    setSuccessMessage("Review updated successfully")
   };
 
   return (

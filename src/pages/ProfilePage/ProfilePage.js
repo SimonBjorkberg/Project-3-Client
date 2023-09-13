@@ -22,15 +22,18 @@ const ProfilePageTest = (props) => {
   const [showInfo, setShowInfo] = useState("products");
   const [recentProducts, setRecentProducts] = useState(null);
   const [showMore, setShowMore] = useState(false);
-  const [userReviews, setUserReviews] = useState([]);
   const [successMessage, setSuccessMessage] = useState("");
-
-  const navigate = useNavigate();
+  const [userReviews, setUserReviews] = useState([]);
 
   useEffect(() => {
-    if (potentialChats.some((chat) => chat._id === userId))
-      return setNewContact(true);
-  }, [userId, potentialChats]);
+      const isPotentialContact = potentialChats.some((user) => user._id === foundUser?._id)
+      if (isPotentialContact) {
+        setNewContact(true)
+      }
+      else {
+        setNewContact(false)
+      }
+  }, [userId, potentialChats, foundUser]);
 
   useEffect(() => {
     profileService.getOne(userId).then((response) => {
@@ -56,12 +59,13 @@ const ProfilePageTest = (props) => {
   }, [foundUser, showMore]);
 
   return (
-    <div>
+    <div className="pt-20">
       {loading ? (
         <Loading />
       ) : (
         <div>
           <UserInfo
+            userReviews={userReviews}
             successMessage={successMessage}
             setSuccessMessage={setSuccessMessage}
             foundUser={foundUser}
@@ -80,6 +84,7 @@ const ProfilePageTest = (props) => {
             />
             {showInfo === "products" && (
               <Products
+                setSuccessMessage={setSuccessMessage}
                 recentProducts={recentProducts}
                 foundUser={foundUser}
                 loggedInUser={loggedInUser}
@@ -89,14 +94,12 @@ const ProfilePageTest = (props) => {
             )}
             {showInfo === "liked" && (
               <LikedProducts
-                navigate={navigate}
                 foundUser={foundUser}
                 loggedInUser={loggedInUser}
               />
             )}
             {showInfo === "reviews" && (
               <Reviews
-                successMessage={successMessage}
                 setSuccessMessage={setSuccessMessage}
                 foundUser={foundUser}
                 userReviews={userReviews}

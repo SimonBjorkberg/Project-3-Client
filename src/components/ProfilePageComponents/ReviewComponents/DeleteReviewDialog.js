@@ -1,5 +1,6 @@
 import reviewService from "../../../services/review.service";
 const DeleteReviewDialog = ({
+  setSuccessMessage,
   deleteModalId,
   review,
   setUserReviews,
@@ -14,6 +15,7 @@ const DeleteReviewDialog = ({
       }
     });
     setUserReviews(filteredReviews);
+    setSuccessMessage("Review has been removed")
   };
 
   return (

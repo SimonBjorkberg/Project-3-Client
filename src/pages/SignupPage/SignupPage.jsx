@@ -36,11 +36,11 @@ function SignupPage() {
   };
 
   return (
-    <div className="SignupPage min-h-[33rem]">
+    <div className="SignupPage pt-20">
       <h1 className="mb-4 text-2xl mt-8">Sign Up</h1>
 
       <form
-        className="flex flex-col w-[400px] mx-auto"
+        className="flex flex-col max-w-[400px] w-[90%] md:w-[400px] mx-auto"
         onSubmit={handleSignupSubmit}
       >
         <label>Email</label>
