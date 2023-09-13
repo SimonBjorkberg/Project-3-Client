@@ -30,6 +30,7 @@ const ShoppinCartProviderWrapper = (props) => {
         (item) => item._id === product._id
       );
 
+
       if (productIndex !== -1) {
         updatedCart[productIndex].quantity = +quantity;
       } else {

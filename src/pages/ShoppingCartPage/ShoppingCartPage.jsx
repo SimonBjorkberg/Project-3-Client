@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const ShoppingCartPage = () => {
-  const { cartProducts, removeItemFromCart, updateCart } =
+  const { cartProducts, removeItemFromCart, updateCart, total } =
     useContext(ShoppingCartContext);
 
   const handleQuantityChange = (productId, newQuantity) => {
@@ -21,12 +21,12 @@ const ShoppingCartPage = () => {
 
   return (
     <>
-      <div className="text-left lg:pl-10 py-10 bg-neutral-200 pt-20">
+      <div className="text-left lg:pl-10 py-10 bg-neutral-200 min-h-[33rem]">
         {cartProducts.length === 0 ? (
           <p>your shopping cart is empty!</p>
         ) : (
           <>
-            <div className="flex justify-between items-center py-2 border-b lg:w-[900px] border-neutral hover:bg-neutral-200 ">
+            <div className="flex justify-between items-center py-2 border-b mt-8  lg: border-neutral hover:bg-neutral-200 ">
               <div className="avatar">
                 <div className="w-16 rounded-xl"></div>
               </div>
@@ -83,15 +83,18 @@ const ShoppingCartPage = () => {
                   >
                     <FontAwesomeIcon icon={faTrash} />
                   </button>
+                  
                 </div>
               );
             })}
           </>
         )}
       </div>
+      
       <div className="bg-neutral-200 py-10">
-        <button className="bg-red-400 text-white py-2 px-4 rounded-sm ml-2 hover:bg-red-500">
-          <Link to="/payment">Proceed to checkout</Link>
+      <p>Total {total}€</p>
+        <button className="bg-red-400 text-white py-2 px-4 rounded-sm ml-2 hover:bg-red-500~rounded">
+          <Link to="/payment">Checkout</Link>
         </button>
       </div>
     </>

@@ -44,7 +44,7 @@ const Reviews = ({
   }, [showMore, userReviews]);
 
   return (
-    <div className="text-left py-10 bg-neutral-200">
+    <div className="text-left py-10 bg-neutral-200 min-h-[18rem]">
       {userReviews?.length === 0 ? (
         <div className="flex py-2 lg:w-[900px] mx-auto font-semibold">
           <p className="w-fit mx-auto">
