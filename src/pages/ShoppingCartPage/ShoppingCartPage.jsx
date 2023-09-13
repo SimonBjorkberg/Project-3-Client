@@ -21,7 +21,7 @@ const ShoppingCartPage = () => {
 
   return (
     <>
-      <div className="text-left lg:pl-10 py-10 bg-neutral-200">
+      <div className="text-left lg:pl-10 py-10 bg-neutral-200 pt-20">
         {cartProducts.length === 0 ? (
           <p>your shopping cart is empty!</p>
         ) : (

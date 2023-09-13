@@ -78,6 +78,7 @@ const Products = ({
       setCategorieOptions([]);
       setWearOptions({});
       scrollToTop();
+      setSuccessMessage("Product updated successfully")
     }
   };
 
@@ -164,6 +165,7 @@ const Products = ({
     });
     productService.deleteOne(productId);
     setProducts(filteredProducts);
+    setSuccessMessage("Product has been removed")
   };
 
   return (

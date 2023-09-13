@@ -7,7 +7,7 @@ import Categories from "../../components/Categories/Categories";
 
 function HomePage() {
   return (
-    <div>
+    <div className="pt-20">
       <MainBanner />
       <Categories />
       <RecentProducts />

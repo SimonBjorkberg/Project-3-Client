@@ -23,11 +23,13 @@ const ReviewForm = ({
       reviewInfo
     );
     setUserReviews([...userReviews, response.data.newReview]);
+    setComment("")
+    setStarAmount(0)
   };
 
   return (
     <>
-      {!hasReviewed && loggedInUser._id !== foundUser._id && (
+      {loggedInUser && !hasReviewed && loggedInUser?._id !== foundUser?._id && (
         <div className="flex flex-col py-2 border-b lg:w-[900px] mx-auto">
           <Rating
             emptySymbol={<FontAwesomeIcon icon={regularStar} size="1x" />}

@@ -2,7 +2,7 @@ import "./NotFoundPage.css";
 
 function NotFoundPage() {
   return (
-    <div>
+    <div className="pt-20">
       <h1>Page Not Found</h1>
       <p>This page doesn't seem to exist</p>
     </div>

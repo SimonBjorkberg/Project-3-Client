@@ -44,8 +44,6 @@ const UserInfo = ({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [foundUser, userReviews])
 
-  console.log(newContact)
-
   return (
     <div className="md:h-60 h-48 flex bg-neutral-200">
       <div className="avatar">
@@ -68,9 +66,19 @@ const UserInfo = ({
           />
         </p>
       </div>
+      {loggedInUser && loggedInUser?._id === foundUser?._id && (
+        <>
+          <EditProfile
+            setSuccessMessage={setSuccessMessage}
+            setMessage={setMessage}
+            setFoundUser={setFoundUser}
+            foundUser={foundUser}
+          />
+        </>
+      )}
       {successMessage ? (
-        <div className="absolute w-full mt-2">
-          <div className="flex flex-row w-fit p-2 rounded-xl mx-auto bg-green-500">
+        <div className="absolute w-full mt-0 md:mt-2 z-30">
+          <div className="flex flex-row md:w-fit w-full p-2 rounded-none md:rounded-xl mx-auto bg-green-500">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="stroke-current mr-3 h-6 w-6"
@@ -88,16 +96,6 @@ const UserInfo = ({
           </div>
         </div>
       ) : null}
-      {loggedInUser && loggedInUser?._id === foundUser?._id && (
-        <>
-          <EditProfile
-            setSuccessMessage={setSuccessMessage}
-            setMessage={setMessage}
-            setFoundUser={setFoundUser}
-            foundUser={foundUser}
-          />
-        </>
-      )}
       {newContact && (
         <p
           className="hover:cursor-pointer hover:bg-teal-500 absolute right-0 top-[80px] w-fit bg-teal-600 text-neutral shadow-md rounded-bl-xl py-3 md:py-1 px-3"
