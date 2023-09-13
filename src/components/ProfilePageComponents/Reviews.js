@@ -24,7 +24,7 @@ const Reviews = ({
 
   useEffect(() => {
     const reviewed = userReviews.some((review) => {
-      return review.author._id === loggedInUser._id;
+      return review.author._id === loggedInUser?._id;
     });
     if (reviewed) {
       return setHasReviewed(true);
