@@ -7,7 +7,7 @@ function ThankYou() {
   const { total, cartProducts } = useContext(ShoppingCartContext);
   return (
     <>
-      <p>Thanks! {userInfo?.username}</p>
+      <p className="pt-20">Thanks! {userInfo?.username}</p>
       <h1>Your order is on its way</h1>
       <p>Total amount of your order: {total}$</p>
       <h2>Your order is on its way</h2>
