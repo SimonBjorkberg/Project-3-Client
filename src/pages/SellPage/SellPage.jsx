@@ -118,7 +118,7 @@ function SellPage() {
   ];
 
   return (
-    <div>
+    <div className="pt-20">
       <h1 className="my-4 text-2xl">Sell an Item</h1>
       {message && (
         <p className="p-2 text-green-600 font-semibold text-xl">{message}</p>

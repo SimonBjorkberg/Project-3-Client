@@ -45,11 +45,11 @@ function LoginPage() {
   };
 
   return (
-    <div className="LoginPage min-h-[33rem]">
+    <div className="LoginPage pt-20">
       <h1 className="mb-4 text-2xl mt-8">Login</h1>
 
       <form
-        className="flex flex-col w-[400px] mx-auto"
+        className="flex flex-col md:w-[400px] max-w-[400px] w-[90%] mx-auto"
         onSubmit={handleLoginSubmit}
       >
         <label>Email</label>

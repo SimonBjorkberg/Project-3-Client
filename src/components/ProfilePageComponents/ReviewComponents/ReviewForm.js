@@ -23,6 +23,8 @@ const ReviewForm = ({
       reviewInfo
     );
     setUserReviews([...userReviews, response.data.newReview]);
+    setComment("")
+    setStarAmount(0)
   };
 
   return (

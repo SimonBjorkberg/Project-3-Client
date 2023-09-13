@@ -6,9 +6,9 @@ import { SearchContext } from "../../context/search.context";
 import productService from "../../services/product.service";
 
 function ProductsPage() {
-  const { filter, setFilter } = useContext(SearchContext)
+  const { filter, setFilter } = useContext(SearchContext);
   const [products, setProducts] = useState([]);
-  const [filteredProducts, setFilteredProducts] = useState(null)
+  const [filteredProducts, setFilteredProducts] = useState(null);
 
   useEffect(() => {
     productService.getAll().then((response) => setProducts(response.data));
@@ -16,17 +16,17 @@ function ProductsPage() {
 
   const handleClick = () => {
     if (filter !== "") {
-      setFilter("")
+      setFilter("");
     }
-  }
+  };
 
   useEffect(() => {
     if (filter !== "") {
       const filteredCopy = products.filter((product) => {
-        return product.categories.some(category => category.value === filter);
+        return product.categories.some((category) => category.value === filter);
       });
       if (filteredCopy.length === 0) {
-        setFilteredProducts({})
+        setFilteredProducts({});
       }
       setFilteredProducts(filteredCopy);
     } else {
@@ -35,17 +35,22 @@ function ProductsPage() {
   }, [filter, products]);
 
   return (
-    <div className="min-h-[33rem]">
-      <Categories setFilter={setFilter} ></Categories>
-      <button className={`${filter !== "" ? "px-2.5 py-1.5 rounded-md font-light bg-white hover:opacity-40 text-neutral border-2 border-neutral w-32" : "hidden"}`} onClick={() => handleClick()} >Clear Filter</button>
-      <div className="flex gap-2 flex-wrap justify-around">
-      
+    <div className="pt-20">
+      <Categories setFilter={setFilter} />
+      <button
+        className={`${
+          filter !== ""
+            ? "px-2.5 py-1.5 mb-4 rounded-md font-light bg-white hover:opacity-40 text-neutral border-2 border-neutral w-32"
+            : "hidden"
+        }`}
+        onClick={() => handleClick()}
+      >
+        Clear Filter
+      </button>
+      <div className="flex justify-center flex-wrap">
         {filteredProducts?.map((product) => {
-                 return  <ProductCard
-
-          product={product}
-        ></ProductCard>})}
-    
+          return <ProductCard key={product._id} product={product} />
+        })}
       </div>
     </div>
   );

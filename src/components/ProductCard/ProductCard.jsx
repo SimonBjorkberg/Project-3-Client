@@ -29,21 +29,16 @@ function ProductCard({ product }) {
   }
 
   const goToPreviousSlide = () => {
-    console.log(product._id);
     setIndexImage((prevIndex) =>
       prevIndex === 0 ? product.images.length - 1 : prevIndex - 1
     );
   };
 
   const goToNextSlide = () => {
-    console.log(product._id);
-
     setIndexImage((prevIndex) =>
       prevIndex === product.images.length - 1 ? 0 : prevIndex + 1
     );
   };
-
-  console.log(product?.length, filter);
 
   return (
     <>
@@ -54,8 +49,7 @@ function ProductCard({ product }) {
       )}
       {product && (
         <div
-          key={uuidv4()}
-          className="card w-96 bg-base-100 shadow-xl my-8 min-w-200 min-h-[28rem] max-h-[28]"
+          className="card w-96 bg-base-100 shadow-md mb-4 min-h-[28rem] max-h-[28] mx-2 rounded-md"
         >
           <figure className="max-h-[14rem] min-h-[14rem]">
             <Link to={`/product/single/${product._id}`}>
@@ -71,6 +65,7 @@ function ProductCard({ product }) {
                 </div>
               )}
             </Link>
+
             <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/3">
               <button onClick={goToPreviousSlide} className="btn btn-circle">
                 ❮
@@ -83,7 +78,7 @@ function ProductCard({ product }) {
           <div className="card-body">
             <div className="flex flex-col items-start">
               <h3 className="card-title">
-                {product.price}$<div className="badge badge-secondary">NEW</div>
+                {product.price}$<span className="badge badge-secondary">New</span>
               </h3>
               <p>Brand: {product.brand}</p>
               <p>{product.age}</p>

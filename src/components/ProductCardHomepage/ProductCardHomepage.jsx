@@ -7,15 +7,11 @@ import { AuthContext } from "../../context/auth.context";
 
 function ProductCardHomepage() {
   const [products, setProducts] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
 
   const { loggedInUser, isLoggedIn } = useContext(AuthContext);
 
   useEffect(() => {
     productService.getAll().then((response) => {
-      if (response.data.message) {
-        return setErrorMessage(response.data.message);
-      }
       if (response.data.length > 7) {
         const sevenRecent = response.data.slice(
           Math.max(response.data.length - 7, 1)

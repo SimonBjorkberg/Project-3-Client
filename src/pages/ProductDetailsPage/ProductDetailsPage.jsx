@@ -60,7 +60,7 @@ function ProductDetailsPage() {
   console.log(includesId);
 
   return (
-    <div className="flex sm:flex-col  lg:flex-row">
+    <div className="flex sm:flex-col lg:flex-row pt-20">
       <div className=" lg:w-2/4 m-8 shrink-0 sm: w-fit">
         {product.images && (
           <div className="carousel">

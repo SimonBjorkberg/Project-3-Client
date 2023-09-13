@@ -12,7 +12,6 @@ import DeleteReviewDialog from "./ReviewComponents/DeleteReviewDialog";
 
 const Reviews = ({
   foundUser,
-  successMessage,
   setSuccessMessage,
   setUserReviews,
   userReviews,
@@ -35,23 +34,22 @@ const Reviews = ({
 
   useEffect(() => {
     if (userReviews.length > 5 && !showMore) {
-      const reviewsCopy = [...userReviews]
+      const reviewsCopy = [...userReviews];
       const firstFive = reviewsCopy.slice(Math.max(userReviews.length - 5, 1));
-      setFiveReviews(firstFive.reverse())
-    }
-    else {
-      const reviewsCopy = [...userReviews]
-      setFiveReviews(reviewsCopy.reverse())
+      setFiveReviews(firstFive.reverse());
+    } else {
+      const reviewsCopy = [...userReviews];
+      setFiveReviews(reviewsCopy.reverse());
     }
   }, [showMore, userReviews]);
 
   return (
     <div className="text-left py-10 bg-neutral-200">
       {userReviews?.length === 0 ? (
-        <div className="flex py-2 lg:w-[900px] mx-auto font-semibold"> 
-        <p className="w-fit mx-auto">
-          {foundUser.username} has not been reviewed yet!
-        </p>
+        <div className="flex py-2 lg:w-[900px] mx-auto font-semibold">
+          <p className="w-fit mx-auto">
+            {foundUser.username} has not been reviewed yet!
+          </p>
         </div>
       ) : (
         <div>
@@ -104,6 +102,7 @@ const Reviews = ({
                   foundUser={foundUser}
                 />
                 <DeleteReviewDialog
+                  setSuccessMessage={setSuccessMessage}
                   review={review}
                   deleteModalId={deleteModalId}
                   foundUser={foundUser}

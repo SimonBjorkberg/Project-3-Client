@@ -93,7 +93,7 @@ const EditProfile = ({
   };
 
   return (
-    <div className="absolute md:right-[69px] md:top-[120px] right-4 top-[90px]">
+    <div className="absolute md:right-[69px] md:top-[120px] right-4 top-[90px] z-20">
       <div>
         <button
           onClick={() => window.my_modal_3.showModal()}

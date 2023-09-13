@@ -15,7 +15,7 @@ const UserList = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto py-10 min-h-[70vh]">
+    <div className="max-w-md mx-auto py-10 min-h-[100vh] pt-20">
       {isUserChatsLoading ? (
         <p>Loading your contacts...</p>
       ) : (

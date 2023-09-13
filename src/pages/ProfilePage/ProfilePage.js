@@ -59,7 +59,7 @@ const ProfilePageTest = (props) => {
   }, [foundUser, showMore]);
 
   return (
-    <div>
+    <div className="pt-20">
       {loading ? (
         <Loading />
       ) : (
@@ -100,7 +100,6 @@ const ProfilePageTest = (props) => {
             )}
             {showInfo === "reviews" && (
               <Reviews
-                successMessage={successMessage}
                 setSuccessMessage={setSuccessMessage}
                 foundUser={foundUser}
                 userReviews={userReviews}
