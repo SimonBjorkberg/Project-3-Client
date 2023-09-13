@@ -92,10 +92,12 @@ const Navbar = () => {
                 </div>
                 {cartProducts?.map(product => {
                 return <div className="flex flex-row justify-around mt-2">
-                  <p className="mt-2">{product.title}</p>
+                  <div className="flex flex-col items-center">
+                  <p className="mt-2 w-12">{product.title}</p>
                   <img className="mt-2 min-w-[50px] max-w-[50px] min-h-[30px] max-h-[30px]" src={product.images[0]} alt={product.title}></img>
+                  </div>
                   <p className="mt-2">{product.quantity}</p>
-                  <p className="mt-2">{product.price}</p>
+                  <p className="mt-2">{product.price}€</p>
                   <button onClick={() => handleRemoveItem(product._id)}><FontAwesomeIcon icon={faTrash} /></button>
                 </div>}
                 )}

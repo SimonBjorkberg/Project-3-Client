@@ -64,10 +64,10 @@ function ProductDetailsPage() {
       <div className=" lg:w-2/4 m-8 shrink-0 sm: w-fit">
         {product.images && (
           <div className="carousel">
-            <div className="carousel-item relative w-full">
+            <div className="carousel-item relative w-full  max-w-[38rem]  max-h-[28rem]">
               <img
                 src={product.images[index]}
-                className="w-full   rounded lg: max-w-[38rem] min-w-[38rem] max-h-[28rem] min-h-[28rem]"
+                className=" rounded w-fit "
                 alt={`slide${index}`}
               />
               <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
@@ -126,6 +126,9 @@ function ProductDetailsPage() {
             id="quantity"
             type="number"
             className="input input-bordered w-full max-w-xs mb-4 mt-2"
+            min={1}
+            defaultValue={1}
+            
           />
           <p>
             Seller:{" "}
