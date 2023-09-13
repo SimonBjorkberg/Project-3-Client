@@ -44,8 +44,6 @@ const UserInfo = ({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [foundUser, userReviews])
 
-  console.log(newContact)
-
   return (
     <div className="md:h-60 h-48 flex bg-neutral-200">
       <div className="avatar">

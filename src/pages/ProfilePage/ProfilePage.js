@@ -35,8 +35,6 @@ const ProfilePageTest = (props) => {
       }
   }, [userId, potentialChats, foundUser]);
 
-  console.log(newContact)
-
   useEffect(() => {
     profileService.getOne(userId).then((response) => {
       setFoundUser(response.data.user);
