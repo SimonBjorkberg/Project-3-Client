@@ -50,7 +50,7 @@ export const CheckoutForm = () => {
 
   return (
     <>
-      <h1>Test Payment</h1>
+      <h1 className="pt-20">Test Payment</h1>
       <form onSubmit={handleSubmit}>
         <CardElement
           options={{
