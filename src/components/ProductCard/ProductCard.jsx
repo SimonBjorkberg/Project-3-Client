@@ -78,7 +78,7 @@ function ProductCard({ product }) {
           <div className="card-body">
             <div className="flex flex-col items-start">
               <h3 className="card-title">
-                {product.price}$<span className="badge badge-secondary">New</span>
+                {product.price}€<span className="badge badge-secondary">New</span>
               </h3>
               <p>Brand: {product.brand}</p>
               <p>{product.age}</p>

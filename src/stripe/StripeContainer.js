@@ -8,9 +8,11 @@ const stripeTestPromise = loadStripe(PUBLIC_KEY);
 
 const Stripe = () => {
   return (
-    <Elements stripe={stripeTestPromise}>
+    <div className="min-h-[40rem] pt-20">
+    <Elements stripe={stripeTestPromise} >
       <CheckoutForm />
     </Elements>
+    </div>
   );
 };
 
