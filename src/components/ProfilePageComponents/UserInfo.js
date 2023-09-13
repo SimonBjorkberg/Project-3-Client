@@ -14,7 +14,8 @@ const UserInfo = ({
   createChat,
   setNewContact,
   successMessage,
-  setSuccessMessage
+  setSuccessMessage,
+  userReviews,
 }) => {
   const [averageRating, setAverageRating] = useState(null)
 
@@ -22,12 +23,13 @@ const UserInfo = ({
     setTimeout(() => {
       setSuccessMessage("");
     }, 3000);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [successMessage]);
 
   const handleAverageRating = () => {
-    const reviewsLength = foundUser.reviews.length;
+    const reviewsLength = userReviews.length;
     let reviewNum = 0;
-    foundUser.reviews.forEach(review => {
+    userReviews.forEach(review => {
       if (!review.review) {
         return
       }
@@ -40,7 +42,9 @@ const UserInfo = ({
   useEffect(() => {
     handleAverageRating()
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [foundUser])
+  }, [foundUser, userReviews])
+
+  console.log(newContact)
 
   return (
     <div className="md:h-60 h-48 flex bg-neutral-200">
@@ -55,7 +59,7 @@ const UserInfo = ({
         </p>
         <p className="font-semibold text-sm text-left">
           {foundUser.products?.length} Listed Products *{" "}
-          {foundUser.reviews.length} Reviews <br />
+          {userReviews.length} Reviews <br />
           <Rating
             initialRating={averageRating}
             readonly
@@ -94,7 +98,7 @@ const UserInfo = ({
           />
         </>
       )}
-      {loggedInUser?._id !== foundUser._id && newContact && (
+      {newContact && (
         <p
           className="hover:cursor-pointer hover:bg-teal-500 absolute right-0 top-[80px] w-fit bg-teal-600 text-neutral shadow-md rounded-bl-xl py-3 md:py-1 px-3"
           onClick={() => {

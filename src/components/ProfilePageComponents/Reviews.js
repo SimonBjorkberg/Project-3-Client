@@ -12,45 +12,48 @@ import DeleteReviewDialog from "./ReviewComponents/DeleteReviewDialog";
 
 const Reviews = ({
   foundUser,
-  userReviews,
-  setUserReviews,
   successMessage,
   setSuccessMessage,
+  setUserReviews,
+  userReviews,
 }) => {
   const { loggedInUser } = useContext(AuthContext);
   const [showMore, setShowMore] = useState(false);
-  const [recentReviews, setRecentReviews] = useState([]);
   const [hasReviewed, setHasReviewed] = useState(false);
+  const [fiveReviews, setFiveReviews] = useState([]);
 
   useEffect(() => {
-    if (userReviews?.length > 5 && !showMore) {
-      const fiveRecent = userReviews.slice(Math.max(userReviews.length - 5, 1));
-      const reverseFiveRecent = fiveRecent.reverse();
-      return setRecentReviews(reverseFiveRecent);
-    } else {
-      const userReviewsCopy = [...userReviews];
-      return setRecentReviews(userReviewsCopy.reverse());
-    }
-  }, [userReviews, showMore, successMessage]);
-
-  useEffect(() => {
-    const reviewed = foundUser.reviews.some(
-      (review) => review.reviewTarget === loggedInUser?._id
-    );
+    const reviewed = userReviews.some((review) => {
+      return review.author._id === loggedInUser._id;
+    });
     if (reviewed) {
-      setHasReviewed(true);
+      return setHasReviewed(true);
+    } else if (!reviewed) {
+      return setHasReviewed(false);
     }
-  }, [foundUser, loggedInUser]);
+  }, [foundUser, loggedInUser, userReviews]);
+
+  useEffect(() => {
+    if (userReviews.length > 5 && !showMore) {
+      const reviewsCopy = [...userReviews]
+      const firstFive = reviewsCopy.slice(Math.max(userReviews.length - 5, 1));
+      setFiveReviews(firstFive.reverse())
+    }
+    else {
+      const reviewsCopy = [...userReviews]
+      setFiveReviews(reviewsCopy.reverse())
+    }
+  }, [showMore, userReviews]);
 
   return (
     <div className="text-left py-10 bg-neutral-200">
-      {foundUser?.reviews.length === 0 ? (
+      {userReviews?.length === 0 ? (
         <p className="flex py-2 lg:w-[900px] mx-auto font-semibold">
           {foundUser.username} has not been reviewed yet!
         </p>
       ) : (
         <div>
-          {recentReviews.map((review) => {
+          {fiveReviews.map((review) => {
             const modalId = `modal-${review._id}`;
             const deleteModalId = `modalDelete-${review._id}`;
             return (
@@ -137,9 +140,13 @@ const Reviews = ({
           </button>
         </div>
       )}
-      {!hasReviewed && loggedInUser && (
-        <ReviewForm foundUser={foundUser} setUserReviews={setUserReviews} />
-      )}
+      <ReviewForm
+        foundUser={foundUser}
+        setUserReviews={setUserReviews}
+        hasReviewed={hasReviewed}
+        loggedInUser={loggedInUser}
+        userReviews={userReviews}
+      />
     </div>
   );
 };

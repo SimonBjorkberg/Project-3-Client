@@ -1,4 +1,7 @@
-const LikedProducts = ({ foundUser, navigate, loggedInUser }) => {
+import { useNavigate } from "react-router-dom";
+
+const LikedProducts = ({ foundUser, loggedInUser }) => {
+  const navigate = useNavigate();
   return (
     <div className="text-left py-10 bg-neutral-200">
       {!foundUser.productsLiked ? (
