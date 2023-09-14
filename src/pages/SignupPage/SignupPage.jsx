@@ -61,7 +61,7 @@ function SignupPage() {
           onChange={handlePassword}
         />
 
-        <label>Name</label>
+        <label>Username</label>
         <input
           className="p-2 rounded-md border border-neutral-400"
           type="text"

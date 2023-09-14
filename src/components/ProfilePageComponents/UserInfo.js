@@ -45,7 +45,7 @@ const UserInfo = ({
   }, [foundUser, userReviews])
 
   return (
-    <div className="md:h-60 min-h- flex bg-neutral-200">
+    <div className="md:h-60 h-48 flex bg-neutral-200">
       <div className="avatar">
         <div className="md:w-40 md:h-40 w-32 h-32 shadow-xl mt-auto my-auto md:mb-10 ml-6 md:ml-10 rounded-full border-black border-2">
           <img src={foundUser.image} alt="" />

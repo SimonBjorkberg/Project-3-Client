@@ -171,10 +171,10 @@ const Products = ({
   return (
     <div className="text-left py-10 bg-neutral-200">
       {!foundUser?.products?.length ? (
-        <p>This user has no listed products!</p>
+        <p className="text-center">{foundUser.username} has not listed any products</p>
       ) : (
         <div>
-          <div className="flex lg:w-[900px] mx-auto">
+          {<div className="flex lg:w-[900px] mx-auto">
             <div className="flex flex-row ml-auto">
               <div className="flex flex-row w-40 justify-between">
                 <p
@@ -211,7 +211,7 @@ const Products = ({
                 }`}
               ></div>
             </div>
-          </div>
+          </div>}
           {products?.map((product) => {
             const modalId = `modal-${product._id}`;
             const deleteModalId = `modalDelete-${product._id}`;
@@ -300,14 +300,14 @@ const Products = ({
         </div>
       )}
       {!showMore && foundUser?.products.length > 5 && (
-        <div className="mt-5 lg:w-[900px] flex justify-center md:justify-end">
+        <div className="mt-5 lg:w-[900px] flex justify-center mx-auto">
           <button onClick={() => setShowMore(true)} className="w-fit">
             Show More
           </button>
         </div>
       )}
       {showMore && (
-        <div className="mt-5 lg:w-[900px] flex justify-center md:justify-end">
+        <div className="mt-5 lg:w-[900px] flex justify-center mx-auto">
           <button
             onClick={() => {
               setShowMore(false);

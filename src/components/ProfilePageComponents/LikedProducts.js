@@ -4,11 +4,11 @@ const LikedProducts = ({ foundUser, loggedInUser }) => {
   const navigate = useNavigate();
   return (
     <div className="text-left py-10 bg-neutral-200">
-      {!foundUser.productsLiked ? (
-        <p>This user has no liked products!</p>
+      {foundUser.productsLiked.length === 0 ? (
+        <p className="text-center">{foundUser.username} has not liked any products</p>
       ) : (
         <div>
-          <div className="flex lg:w-[900px] mx-auto">
+          {foundUser?.productsLiked.length > 0 && <div className="flex lg:w-[900px] mx-auto">
             <div className="flex flex-row ml-auto">
               <div className="flex flex-row w-40 justify-between">
                 <p className="my-auto flex text-sm text-left">Price</p>
@@ -17,7 +17,7 @@ const LikedProducts = ({ foundUser, loggedInUser }) => {
               </div>
               <div className="w-[24px]"></div>
             </div>
-          </div>
+          </div>}
           {foundUser.productsLiked?.map((product) => {
             return (
               <div
