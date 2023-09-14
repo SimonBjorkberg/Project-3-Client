@@ -116,13 +116,13 @@ function ProductDetailsPage() {
           )}
         </div>
 
-        <p className="mb-6 font-semibold">$ {product.price}</p>
+        <p className="mb-6 font-semibold">€ {product.price}</p>
         {product.brand && <p><span className=" font-bold">Brand  </span> {product.brand}</p>}
         <p ><span className=" font-bold">Wear  </span>{product.wear?.value}</p>
         <div className="mb-8">
           <p className=" mt-4">{product.description}</p>
           <p className="mt-4 font-semibold">Quantity</p>
-          <input type="text" placeholder={`Avaiable ${product.quantity}`} class="input input-bordered w-full max-w-xs" disabled />
+          <input type="text" placeholder={`Available ${product.quantity}`} class="input input-bordered w-full max-w-xs" disabled />
           <input
             id="quantity"
             type="number"

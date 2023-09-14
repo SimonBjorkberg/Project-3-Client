@@ -113,14 +113,13 @@ function ProductCard({ product }) {
                   {product.author.username}
                 </Link>
               </p>
-              <div className="flex ">
-                <button
-                  className="btn btn-primary"
-                  onClick={() => handleAddToCart(product)}
-                >
-                  Add to Cart
-                </button>
-              </div>
+              <div className="flex w-full h-full">
+                  <button className="h-12 btn-neutral mt-auto rounded-none rounded-b-md w-full">
+                  <Link to={`/product/single/${product._id}`}>
+                  More Information
+                  </Link>
+                  </button>
+                </div>
               <div className="absolute top-3 right-3">
                 <LikeButton
                   productId={product._id}
