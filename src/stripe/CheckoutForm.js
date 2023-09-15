@@ -25,9 +25,10 @@ export const CheckoutForm = () => {
     if (!error) {
       console.log("Token created: ", paymentMethod);
       try {
+        const url = `${process.env.REACT_APP_API_URL}/stripe/charge`
         const { id } = paymentMethod;
         const response = await axios.post(
-          "http://localhost:5005/stripe/charge",
+         url || "http://localhost:5005/stripe/charge",
           { amount: Math.round(total * 100), id: id }
         );
         if (response.data.success) {
