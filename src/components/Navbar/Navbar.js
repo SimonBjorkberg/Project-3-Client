@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/auth.context";
-import ChatDrawer from '../chatComponents/ChatDrawer'
+import ChatDrawer from "../chatComponents/ChatDrawer";
 import SearchBar from "./SearchBar";
 import productService from "../../services/product.service";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
@@ -12,7 +12,8 @@ import { ShoppingCartContext } from "../../context/shoppingCart.context";
 const Navbar = () => {
   const { loggedInUser, logOutUser, isLoggedIn, userInfo } =
     useContext(AuthContext);
-  const { cartProducts, removeItemFromCart, total } = useContext(ShoppingCartContext);
+  const { cartProducts, removeItemFromCart, total } =
+    useContext(ShoppingCartContext);
   const [isFocused, setIsFocused] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [searchData, setSearchData] = useState([]);
@@ -73,48 +74,69 @@ const Navbar = () => {
       {loggedInUser && (
         <div className="md:w-[350px] h-full flex items-center justify-center ml-auto">
           <div className="md:flex hidden">
-          <div className=" ml-auto mr-6  md:flex sm:hidden">
-            <div className="dropdown">
-              <label tabIndex={0} className="btn btn-ghost btn-circle">
-              <span className="py-2 px-4 rounded-sm ml-2 hover:opacity-80 mt-3 ">
-                  <FontAwesomeIcon  icon={faCartShopping} size="2xl" style={{color: "#ffffff",}} />
-                </span>
-              </label>
-              <div
-                tabIndex={0}
-                className="menu menu-sm dropdown-content mt-1 z-[1] p-2 shadow bg-white w-60 right-0 rounded-md min-w-[33rem]"
-              >
-               <h4 className="text-neutral text-xl py-2 px-4 rounded-md mb-1 bg-neutral-300">Shopping Cart</h4>
-               {cartProducts.length === 0 ? <p>No products yet</p> : (    <div className="flex flex-row justify-around mt-2">
-                  <p className=" w-16">Product</p>
-                  <p>Quantity</p>
-                  <p>Price</p>
-        	          <span className=" w-10"></span>
+            <div className=" ml-auto mr-6  md:flex sm:hidden">
+              <div className="dropdown">
+                <label tabIndex={0} className="btn btn-ghost btn-circle">
+                  <span className="py-2 px-4 rounded-sm ml-2 hover:opacity-80 mt-3 ">
+                    <FontAwesomeIcon
+                      icon={faCartShopping}
+                      size="2xl"
+                      style={{ color: "#ffffff" }}
+                    />
+                  </span>
+                </label>
+                <div
+                  tabIndex={0}
+                  className="menu menu-sm dropdown-content mt-1 z-[1] p-2 shadow bg-white w-60 right-0 rounded-md min-w-[33rem]"
+                >
+                  <h4 className="text-neutral text-xl py-2 px-4 rounded-md mb-1 bg-neutral-300">
+                    Shopping Cart
+                  </h4>
+                  {cartProducts.length === 0 ? (
+                    <p>No products yet</p>
+                  ) : (
+                    <div className="flex flex-row justify-around mt-2">
+                      <p className=" w-16">Product</p>
+                      <p>Quantity</p>
+                      <p>Price</p>
+                      <span className=" w-10"></span>
+                    </div>
+                  )}
+                  {cartProducts?.map((product) => {
+                    return (
+                      <div className="flex flex-row justify-around mt-2 items-center">
+                        <div className="flex flex-col items-center w-16">
+                          <p className="mt-2 w-12">{product.title}</p>
+                          <img
+                            className="mt-2 min-w-[50px] max-w-[50px] min-h-[30px] max-h-[30px]"
+                            src={product.images[0]}
+                            alt={product.title}
+                          ></img>
+                        </div>
+                        <p className="mt-2">{product.quantity}</p>
+                        <p className="mt-2">{product.price}€</p>
+                        <button onClick={() => handleRemoveItem(product._id)}>
+                          <FontAwesomeIcon icon={faTrash} />
+                        </button>
+                      </div>
+                    );
+                  })}
+                  {cartProducts.length === 0 ? (
+                    <span></span>
+                  ) : (
+                    <>
+                      <p className="my-2">Total Price {total}€</p>
+
+                      <Link to="/shopping-cart">
+                        <button className="bg-red-400 text-white py-2 px-4 rounded-md text-xl hover:bg-red-500">
+                          Proceed To Checkout
+                        </button>
+                      </Link>
+                    </>
+                  )}
                 </div>
-                )}
-                {cartProducts?.map(product => {
-                return <div className="flex flex-row justify-around mt-2 items-center">
-                  <div className="flex flex-col items-center w-16">
-                  <p className="mt-2 w-12">{product.title}</p>
-                  <img className="mt-2 min-w-[50px] max-w-[50px] min-h-[30px] max-h-[30px]" src={product.images[0]} alt={product.title}></img>
-                  </div>
-                  <p className="mt-2">{product.quantity}</p>
-                  <p className="mt-2">{product.price}€</p>
-                  <button onClick={() => handleRemoveItem(product._id)}><FontAwesomeIcon icon={faTrash} /></button>
-                </div>}
-                )}
-                  {cartProducts.length === 0 ? <span></span>  : (
-              <>
-               <p className="my-2">Total Price {total}€</p>
-                 
-                <Link to="/shopping-cart"><button  className="bg-red-400 text-white py-2 px-4 rounded-md text-xl hover:bg-red-500">
-                    Proceed To Checkout
-                  </button></Link>
-                  </>
-)}
               </div>
             </div>
-          </div>
             <Link to="/sell" className="my-auto">
               <p className="bg-white py-2 px-4 rounded-sm ml-2 hover:opacity-80 ">
                 Sell
@@ -198,47 +220,67 @@ const Navbar = () => {
 
       {!loggedInUser && (
         <div className="md:w-[350px] h-full flex items-center justify-center ml-auto">
-         <div className=" ml-auto mr-6  md:flex sm:hidden">
+          <div className=" ml-auto mr-6  md:flex sm:hidden">
             <div className="dropdown">
               <label tabIndex={0} className="btn btn-ghost btn-circle">
-              <span className="py-2 px-4 rounded-sm ml-2 hover:opacity-80 mt-1 ">
-                  <FontAwesomeIcon  icon={faCartShopping} size="2xl" style={{color: "#ffffff",}} />
+                <span className="py-2 px-4 rounded-sm ml-2 hover:opacity-80 mt-1 ">
+                  <FontAwesomeIcon
+                    icon={faCartShopping}
+                    size="2xl"
+                    style={{ color: "#ffffff" }}
+                  />
                 </span>
               </label>
-                <div
+              <div
                 tabIndex={0}
                 className="menu menu-sm dropdown-content mt-1 z-[1] p-2 shadow bg-white w-60 right-0 rounded-md min-w-[33rem]"
               >
-               <h4 className="text-neutral text-xl py-2 px-4 rounded-md mb-1 bg-neutral-300">Shopping Cart</h4>
-               {cartProducts.length === 0 ? <p>No products yet</p> : (    <div className="flex flex-row justify-around mt-2">
-                  <p className=" w-16">Product</p>
-                  <p>Quantity</p>
-                  <p>Price</p>
-        	          <span className=" w-10"></span>
-                </div>
-                )}
-                {cartProducts?.map(product => {
-                return <div className="flex flex-row justify-around mt-2 items-center">
-                  <div className="flex flex-col items-center w-16">
-                  <p className="mt-2 w-12">{product.title}</p>
-                  <img className="mt-2 min-w-[50px] max-w-[50px] min-h-[30px] max-h-[30px]" src={product.images[0]} alt={product.title}></img>
+                <h4 className="text-neutral text-xl py-2 px-4 rounded-md mb-1 bg-neutral-300">
+                  Shopping Cart
+                </h4>
+                {cartProducts.length === 0 ? (
+                  <p>No products yet</p>
+                ) : (
+                  <div className="flex flex-row justify-around mt-2">
+                    <p className=" w-16">Product</p>
+                    <p>Quantity</p>
+                    <p>Price</p>
+                    <span className=" w-10"></span>
                   </div>
-                  <p className="mt-2">{product.quantity}</p>
-                  <p className="mt-2">{product.price}€</p>
-                  <button onClick={() => handleRemoveItem(product._id)}><FontAwesomeIcon icon={faTrash} /></button>
-                </div>}
                 )}
-             {cartProducts.length === 0 ? <span></span>  : (
-              <>
-               <p className="my-2">Total Price {total}€</p>
-                 
-                <Link to="/shopping-cart"><button  className="bg-red-400 text-white py-2 px-4 rounded-md text-xl hover:bg-red-500">
-                    Proceed To Checkout
-                  </button></Link>
+                {cartProducts?.map((product) => {
+                  return (
+                    <div className="flex flex-row justify-around mt-2 items-center">
+                      <div className="flex flex-col items-center w-16">
+                        <p className="mt-2 w-12">{product.title}</p>
+                        <img
+                          className="mt-2 min-w-[50px] max-w-[50px] min-h-[30px] max-h-[30px]"
+                          src={product.images[0]}
+                          alt={product.title}
+                        ></img>
+                      </div>
+                      <p className="mt-2">{product.quantity}</p>
+                      <p className="mt-2">{product.price}€</p>
+                      <button onClick={() => handleRemoveItem(product._id)}>
+                        <FontAwesomeIcon icon={faTrash} />
+                      </button>
+                    </div>
+                  );
+                })}
+                {cartProducts.length === 0 ? (
+                  <span></span>
+                ) : (
+                  <>
+                    <p className="my-2">Total Price {total}€</p>
+
+                    <Link to="/shopping-cart">
+                      <button className="bg-red-400 text-white py-2 px-4 rounded-md text-xl hover:bg-red-500">
+                        Proceed To Checkout
+                      </button>
+                    </Link>
                   </>
-)}
+                )}
               </div>
-              
             </div>
           </div>
 
