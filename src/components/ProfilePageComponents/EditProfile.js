@@ -6,7 +6,6 @@ import scrollToTop from "../../utils/ScrollToTop";
 const EditProfile = ({
   foundUser,
   setFoundUser,
-  setMessage,
   setSuccessMessage,
 }) => {
   const { setUserInfo, loggedInUser } = useContext(AuthContext);

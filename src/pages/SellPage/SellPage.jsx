@@ -21,8 +21,6 @@ function SellPage() {
     brand: "",
   });
 
-  console.log(product)
-
   const appendImage = async (e) => {
     const formData = new FormData();
     formData.append("imageUrl", e.target.files[0]);
@@ -118,7 +116,7 @@ function SellPage() {
   ];
 
   return (
-    <div className="pt-20">
+    <div className="pt-20 min-h-screen">
       <h1 className="my-4 text-2xl">Sell an Item</h1>
       {message && (
         <p className="p-2 text-green-600 font-semibold text-xl">{message}</p>
@@ -138,7 +136,7 @@ function SellPage() {
           ))}
         </div>
       )}
-      <form className="flex flex-col w-[400px] mx-auto" onSubmit={handleSubmit}>
+      <form className="flex flex-col max-w-[400px] mx-auto" onSubmit={handleSubmit}>
         <label className="text-left font-semibold ml-1 mt-4">Title:</label>
         <input
           className="p-2 focus:outline-none border  my-4"

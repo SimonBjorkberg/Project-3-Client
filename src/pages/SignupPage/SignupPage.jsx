@@ -36,7 +36,7 @@ function SignupPage() {
   };
 
   return (
-    <div className="SignupPage pt-20">
+    <div className="LoginPage min-h-screen flex flex-col justify-center">
       <h1 className="mb-4 text-2xl mt-8">Sign Up</h1>
 
       <form
@@ -78,7 +78,7 @@ function SignupPage() {
       {errorMessage && <p className="error-message">{errorMessage}</p>}
 
       <p className="my-4">Already have account?</p>
-      <Link className="btn btn-primary  mb-8" to={"/login"}>
+      <Link className="btn btn-primary mb-8 max-w-[140px] mx-auto" to={"/login"}>
         Login
       </Link>
     </div>

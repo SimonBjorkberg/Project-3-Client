@@ -10,7 +10,6 @@ import EditProductDialog from "./EditProductDialog";
 const Products = ({
   foundUser,
   loggedInUser,
-  recentProducts,
   showMore,
   setShowMore,
   setSuccessMessage,
@@ -24,6 +23,7 @@ const Products = ({
   const [categorieOptions, setCategorieOptions] = useState([]);
   const [wearOptions, setWearOptions] = useState([]);
   const [editProduct, setEditProduct] = useState({});
+  const [recentProducts, setRecentProducts] = useState(null);
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -96,6 +96,18 @@ const Products = ({
       }, 3500);
     }
   }, [message]);
+
+  useEffect(() => {
+    if (foundUser?.products.length > 5 && !showMore) {
+      const productsCopy = [...products]
+      const fiveRecent = productsCopy.slice(
+        Math.max(productsCopy.length - 5, 1)
+      );
+      setRecentProducts(fiveRecent.reverse());
+    } else {
+      setRecentProducts(foundUser?.products.reverse());
+    }
+  }, [foundUser, showMore, products]);
 
   useEffect(() => {
     setProducts(recentProducts);

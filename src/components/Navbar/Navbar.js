@@ -50,7 +50,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="h-20 bg-neutral flex w-full pl-5 md:pl-0 fixed z-50">
+    <nav className="h-20 bg-neutral flex w-full md:pl-0 fixed z-50">
       <div className="h-full w-1/5 md:w-40 flex md:justify-center justify-between items-center">
         <Link to="/">
           <p className="text-2xl text-white">Home</p>

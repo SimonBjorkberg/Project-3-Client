@@ -17,14 +17,12 @@ function ProductDetailsPage() {
   const { loggedInUser, isLoggedIn } = useContext(AuthContext);
 
   const goToPreviousSlide = () => {
-    console.log(index);
     setIndex((prevIndex) =>
       prevIndex === 0 ? product.images.length - 1 : prevIndex - 1
     );
   };
 
   const goToNextSlide = () => {
-    console.log(index);
     setIndex((prevIndex) =>
       prevIndex === product.images.length - 1 ? 0 : prevIndex + 1
     );
@@ -41,14 +39,8 @@ function ProductDetailsPage() {
   if (isLoggedIn) {
     const idToCheck = loggedInUser._id;
 
-    console.log(loggedInUser._id);
-    console.log(productId);
-    console.log(product.likes);
-
     for (let i = 0; i < product.likes?.length; i++) {
       if (product.likes[i] === idToCheck) {
-        console.log(product.likes[i]);
-        console.log(idToCheck);
         includesId = true;
         break; // Exit the loop early once a match is found
       }
@@ -57,10 +49,8 @@ function ProductDetailsPage() {
     includesId = false;
   }
 
-  console.log(includesId);
-
   return (
-    <div className="flex sm:flex-col lg:flex-row pt-20">
+    <div className="flex sm:flex-col lg:flex-row pt-20 min-h-screen">
       <div className=" lg:w-2/4 m-8 shrink-0 sm: w-fit">
         {product.images && (
           <div className="carousel">
@@ -82,13 +72,11 @@ function ProductDetailsPage() {
           </div>
         )}
       </div>
-
       <div className="my-8  text-black lg:text-left ">
         <div className=" flex gap-24 sm: justify-center lg:justify-start ">
           <h5 className="text-3xl font-semibold">{product.title}</h5>
           <LikeButton productId={productId} likedStatus={includesId} />
         </div>
-
         <div className="flex flex-row lg:flex">
           {product.categories && product.categories.length > 0 && (
             <div className="flex flex-row flex-wrap gap-x-2 gap-y-2 my-8 justify-center">

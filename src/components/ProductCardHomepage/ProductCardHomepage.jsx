@@ -34,7 +34,6 @@ function ProductCardHomepage() {
 
             for (let i = 0; i < product.likes.length; i++) {
               if (product.likes[i] === idToCheck) {
-                console.log(product.likes);
                 includesId = true;
                 break; // Exit the loop early once a match is found
               }

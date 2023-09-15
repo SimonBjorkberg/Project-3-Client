@@ -5,7 +5,6 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../../context/auth.context";
 import { SearchContext } from "../../context/search.context";
 import { ShoppingCartContext } from "../../context/shoppingCart.context";
-import { v4 as uuidv4 } from "uuid";
 
 function ProductCard({ product }) {
   const { filter } = useContext(SearchContext);
