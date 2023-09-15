@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { ChatContext } from "../../context/chat.context";
 import { AuthContext } from "../../context/auth.context";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import profileService from "../../services/profile.service";
 import Loading from "../../components/Loading/Loading";
 import Products from "../../components/ProfilePageComponents/ProductsComponents/Products";
@@ -10,6 +10,7 @@ import UserInfo from "../../components/ProfilePageComponents/UserInfo";
 import LikedProducts from "../../components/ProfilePageComponents/LikedProducts";
 import scrollToTop from "../../utils/ScrollToTop";
 import Reviews from "../../components/ProfilePageComponents/Reviews";
+import OrdersList from "../../components/ProfilePageComponents/OrdersList";
 
 const ProfilePageTest = (props) => {
   const { potentialChats, createChat } = useContext(ChatContext);
@@ -17,10 +18,8 @@ const ProfilePageTest = (props) => {
   const [foundUser, setFoundUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const { userId } = useParams();
-  const [message, setMessage] = useState(false);
   const [newContact, setNewContact] = useState(false);
   const [showInfo, setShowInfo] = useState("products");
-  const [recentProducts, setRecentProducts] = useState(null);
   const [showMore, setShowMore] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [userReviews, setUserReviews] = useState([]);
@@ -47,19 +46,8 @@ const ProfilePageTest = (props) => {
     scrollToTop();
   }, []);
 
-  useEffect(() => {
-    if (foundUser?.products.length > 5 && !showMore) {
-      const fiveRecent = foundUser.products.slice(
-        Math.max(foundUser.products.length - 5, 1)
-      );
-      setRecentProducts(fiveRecent.reverse());
-    } else {
-      setRecentProducts(foundUser?.products.reverse());
-    }
-  }, [foundUser, showMore]);
-
   return (
-    <div className="pt-20">
+    <div className="pt-20 min-h-screen bg-neutral-200">
       {loading ? (
         <Loading />
       ) : (
@@ -69,7 +57,6 @@ const ProfilePageTest = (props) => {
             successMessage={successMessage}
             setSuccessMessage={setSuccessMessage}
             foundUser={foundUser}
-            setMessage={setMessage}
             setFoundUser={setFoundUser}
             loggedInUser={loggedInUser}
             newContact={newContact}
@@ -81,11 +68,11 @@ const ProfilePageTest = (props) => {
               showInfo={showInfo}
               setShowInfo={setShowInfo}
               foundUser={foundUser}
+              loggedInUser={loggedInUser}
             />
             {showInfo === "products" && (
               <Products
                 setSuccessMessage={setSuccessMessage}
-                recentProducts={recentProducts}
                 foundUser={foundUser}
                 loggedInUser={loggedInUser}
                 showMore={showMore}
@@ -104,6 +91,11 @@ const ProfilePageTest = (props) => {
                 foundUser={foundUser}
                 userReviews={userReviews}
                 setUserReviews={setUserReviews}
+              />
+            )}
+            {showInfo === "orders" && (
+              <OrdersList
+                foundUser={foundUser}
               />
             )}
           </div>

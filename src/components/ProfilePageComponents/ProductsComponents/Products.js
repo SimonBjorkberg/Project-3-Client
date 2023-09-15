@@ -10,7 +10,6 @@ import EditProductDialog from "./EditProductDialog";
 const Products = ({
   foundUser,
   loggedInUser,
-  recentProducts,
   showMore,
   setShowMore,
   setSuccessMessage,
@@ -24,6 +23,7 @@ const Products = ({
   const [categorieOptions, setCategorieOptions] = useState([]);
   const [wearOptions, setWearOptions] = useState([]);
   const [editProduct, setEditProduct] = useState({});
+  const [recentProducts, setRecentProducts] = useState(null);
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -96,6 +96,18 @@ const Products = ({
       }, 3500);
     }
   }, [message]);
+
+  useEffect(() => {
+    if (foundUser?.products.length > 5 && !showMore) {
+      const productsCopy = [...products]
+      const fiveRecent = productsCopy.slice(
+        Math.max(productsCopy.length - 5, 1)
+      );
+      setRecentProducts(fiveRecent.reverse());
+    } else {
+      setRecentProducts(foundUser?.products.reverse());
+    }
+  }, [foundUser, showMore, products]);
 
   useEffect(() => {
     setProducts(recentProducts);
@@ -171,10 +183,10 @@ const Products = ({
   return (
     <div className="text-left py-10 bg-neutral-200">
       {!foundUser?.products?.length ? (
-        <p>This user has no listed products!</p>
+        <p className="text-center">{foundUser.username} has not listed any products</p>
       ) : (
         <div>
-          <div className="flex lg:w-[900px] mx-auto">
+          {<div className="flex lg:w-[900px] mx-auto">
             <div className="flex flex-row ml-auto">
               <div className="flex flex-row w-40 justify-between">
                 <p
@@ -211,7 +223,7 @@ const Products = ({
                 }`}
               ></div>
             </div>
-          </div>
+          </div>}
           {products?.map((product) => {
             const modalId = `modal-${product._id}`;
             const deleteModalId = `modalDelete-${product._id}`;
@@ -300,14 +312,14 @@ const Products = ({
         </div>
       )}
       {!showMore && foundUser?.products.length > 5 && (
-        <div className="mt-5 lg:w-[900px] flex justify-center md:justify-end">
+        <div className="mt-5 lg:w-[900px] flex justify-center mx-auto">
           <button onClick={() => setShowMore(true)} className="w-fit">
             Show More
           </button>
         </div>
       )}
       {showMore && (
-        <div className="mt-5 lg:w-[900px] flex justify-center md:justify-end">
+        <div className="mt-5 lg:w-[900px] flex justify-center mx-auto">
           <button
             onClick={() => {
               setShowMore(false);

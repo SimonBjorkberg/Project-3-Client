@@ -36,7 +36,6 @@ const ShoppinCartProviderWrapper = (props) => {
         updatedCart.push({ ...product, quantity: quantity });
       }
 
-
       return updatedCart;
     });
   };

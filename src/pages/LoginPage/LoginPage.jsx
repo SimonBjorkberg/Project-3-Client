@@ -45,43 +45,43 @@ function LoginPage() {
   };
 
   return (
-    <div className="LoginPage pt-20">
-      <h1 className="mb-4 text-2xl mt-8">Login</h1>
+    <div className="LoginPage min-h-screen flex flex-col justify-center">
+        <h1 className="mb-4 text-2xl">Login</h1>
 
-      <form
-        className="flex flex-col md:w-[400px] max-w-[400px] w-[90%] mx-auto"
-        onSubmit={handleLoginSubmit}
-      >
-        <label>Email</label>
-        <input
-          className="p-2 rounded-md border border-neutral-400"
-          type="email"
-          name="email"
-          value={email}
-          onChange={handleEmail}
-        />
+        <form
+          className="flex flex-col md:w-[400px] max-w-[400px] w-[90%] mx-auto"
+          onSubmit={handleLoginSubmit}
+        >
+          <label>Email</label>
+          <input
+            className="p-2 rounded-md border border-neutral-400"
+            type="email"
+            name="email"
+            value={email}
+            onChange={handleEmail}
+          />
 
-        <label>Password</label>
-        <input
-          className="p-2 rounded-md border border-neutral-400"
-          type="password"
-          name="password"
-          value={password}
-          onChange={handlePassword}
-        />
+          <label>Password</label>
+          <input
+            className="p-2 rounded-md border border-neutral-400"
+            type="password"
+            name="password"
+            value={password}
+            onChange={handlePassword}
+          />
 
-        <button className="btn btn-primary mt-6" type="submit">
-          Login
-        </button>
-      </form>
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
+          <button className="btn btn-primary mt-6" type="submit">
+            Login
+          </button>
+        </form>
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
 
-      <p className="my-4">Don't have an account yet?</p>
-      <Link className="btn btn-primary mb-8" to={"/signup"}>
-        {" "}
-        Sign Up
-      </Link>
-    </div>
+        <p className="my-4">Don't have an account yet?</p>
+        <Link className="btn btn-primary mb-8 max-w-[140px] mx-auto" to={"/signup"}>
+          {" "}
+          Sign Up
+        </Link>
+      </div>
   );
 }
 

@@ -34,7 +34,6 @@ function ProductCardHomepage() {
 
             for (let i = 0; i < product.likes.length; i++) {
               if (product.likes[i] === idToCheck) {
-                console.log(product.likes);
                 includesId = true;
                 break; // Exit the loop early once a match is found
               }
@@ -56,7 +55,7 @@ function ProductCardHomepage() {
               <div className="card-body p-0">
                 <div className="flex flex-col items-start pt-3 px-3">
                   <h3 className="card-title">
-                    {product.price}$
+                    {product.price}€
                     <div className="badge badge-secondary">NEW</div>
                   </h3>
                   <p>

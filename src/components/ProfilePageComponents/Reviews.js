@@ -9,6 +9,7 @@ import ReviewForm from "./ReviewComponents/ReviewForm";
 import DeleteAndEditButtons from "./ReviewComponents/DeleteAndEditButtons";
 import EditReviewDialog from "./ReviewComponents/EditReviewDialog";
 import DeleteReviewDialog from "./ReviewComponents/DeleteReviewDialog";
+import { Link } from "react-router-dom";
 
 const Reviews = ({
   foundUser,
@@ -59,17 +60,19 @@ const Reviews = ({
             return (
               <div
                 key={review._id}
-                className="flex py-2 border-b lg:w-[900px] mx-auto border-neutral"
+                className="flex py-2 border-b w-[90%] lg:w-[900px] mx-auto border-neutral"
               >
                 <div className="flex flex-row w-full">
-                  <div className="avatar h-16">
-                    <div className="w-16 rounded-xl">
-                      <img
-                        src={review.author.image || loggedInUser.image}
-                        alt=""
-                      />
+                  <Link to={`/profile/${review.author._id}`}>
+                    <div className="avatar h-16">
+                      <div className="w-16 rounded-xl">
+                        <img
+                          src={review.author.image || loggedInUser.image}
+                          alt=""
+                        />
+                      </div>
                     </div>
-                  </div>
+                  </Link>
                   <div className="ml-5">
                     <Rating
                       initialRating={review.review}
