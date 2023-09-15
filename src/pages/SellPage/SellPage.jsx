@@ -21,8 +21,6 @@ function SellPage() {
     brand: "",
   });
 
-  console.log(product)
-
   const appendImage = async (e) => {
     const formData = new FormData();
     formData.append("imageUrl", e.target.files[0]);
