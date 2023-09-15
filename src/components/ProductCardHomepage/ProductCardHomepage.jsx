@@ -55,7 +55,7 @@ function ProductCardHomepage() {
               <div className="card-body p-0">
                 <div className="flex flex-col items-start pt-3 px-3">
                   <h3 className="card-title">
-                    {product.price}$
+                    {product.price}€
                     <div className="badge badge-secondary">NEW</div>
                   </h3>
                   <p>

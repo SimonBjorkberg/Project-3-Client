@@ -4,14 +4,11 @@ import LikeButton from "../LikeButton/LikeButton";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/auth.context";
 import { SearchContext } from "../../context/search.context";
-import { ShoppingCartContext } from "../../context/shoppingCart.context";
 
 function ProductCard({ product }) {
   const { filter } = useContext(SearchContext);
   const { loggedInUser, isLoggedIn } = useContext(AuthContext);
   const [indexImage, setIndexImage] = useState(0);
-  const { handleAddToCart } = useContext(ShoppingCartContext);
-
   let includesId = false;
 
   if (isLoggedIn) {
@@ -47,9 +44,7 @@ function ProductCard({ product }) {
         </h1>
       )}
       {product && (
-        <div
-          className="card w-96 bg-base-100 shadow-md mb-4 min-h-[28rem] max-h-[28] mx-2 rounded-md"
-        >
+        <div className="card w-96 bg-base-100 shadow-md mb-4 min-h-[28rem] max-h-[28] mx-2 rounded-md">
           <figure className="max-h-[14rem] min-h-[14rem]">
             <Link to={`/product/single/${product._id}`}>
               {product.images && (
@@ -74,16 +69,17 @@ function ProductCard({ product }) {
               </button>
             </div>
           </figure>
-          <div className="card-body">
+          <div className="card-body p-0">
             <div className="flex flex-col items-start">
               <h3 className="card-title">
-                {product.price}€<span className="badge badge-secondary">New</span>
+                {product.price}€
+                <span className="badge badge-secondary">New</span>
               </h3>
               <p>Brand: {product.brand}</p>
               <p>{product.age}</p>
             </div>
             <div className="card-actions justify-center">
-              {product.categories?.map((category, index) => (
+              {product.categories.map((category, index) => (
                 <div
                   key={index}
                   className={`${
@@ -100,7 +96,7 @@ function ProductCard({ product }) {
                     category.value === "rompers" && "bg-yellow-600"
                   } badge badge-outline mx-1 my-auto`}
                 >
-                  {category.value}
+                  {category.label}
                 </div>
               ))}
               <p>
@@ -112,12 +108,11 @@ function ProductCard({ product }) {
                   {product.author.username}
                 </Link>
               </p>
-              <div className="flex ">
-                <button
-                  className="btn btn-primary"
-                  onClick={() => handleAddToCart(product)}
-                >
-                  Add to Cart
+              <div className="flex w-full h-full">
+                <button className="h-12 btn-neutral mt-auto rounded-none rounded-b-md w-full">
+                  <Link to={`/product/single/${product._id}`}>
+                    More Information
+                  </Link>
                 </button>
               </div>
               <div className="absolute top-3 right-3">
