@@ -5,19 +5,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const ShoppingCartPage = () => {
-  const { cartProducts, removeItemFromCart, updateCart, total } =
+  const { cartProducts, removeItemFromCart, total } =
     useContext(ShoppingCartContext);
-
-  const handleQuantityChange = (productId, newQuantity) => {
-    const updatedCart = cartProducts.map((product) => {
-      if (product._id === productId) {
-        return { ...product, quantity: newQuantity };
-      }
-      return product;
-    });
-
-    updateCart(updatedCart);
-  };
 
   return (
     <>
@@ -65,18 +54,7 @@ const ShoppingCartPage = () => {
                       ${product.price}
                     </p>
 
-                    <input
-                      type="number"
-                      className="my-auto md:flex hidden mr-[20px] text-xl max-w-[50px] min-w-10  w-36 bg-neutral-200"
-                      value={product.quantity}
-                      min={1}
-                      onChange={(e) => {
-                        const newQuantity = parseInt(e.target.value, 10);
-                        if (!isNaN(newQuantity)) {
-                          handleQuantityChange(product._id, newQuantity);
-                        }
-                      }}
-                    />
+                  <input type="text" placeholder={product.quantity} className="my-auto md:flex hidden ml-5 text-xl max-w-[50px] min-w-10 bg-neutral-200" disabled />
 
                     <button
                       className="ml-5"
