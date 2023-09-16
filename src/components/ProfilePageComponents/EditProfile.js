@@ -3,11 +3,7 @@ import profileService from "../../services/profile.service";
 import { AuthContext } from "../../context/auth.context";
 import scrollToTop from "../../utils/ScrollToTop";
 
-const EditProfile = ({
-  foundUser,
-  setFoundUser,
-  setSuccessMessage,
-}) => {
+const EditProfile = ({ foundUser, setFoundUser, setSuccessMessage }) => {
   const { setUserInfo, loggedInUser } = useContext(AuthContext);
   const [image, setImage] = useState();
   const [editUsername, setEditUsername] = useState(foundUser?.username);
@@ -81,14 +77,15 @@ const EditProfile = ({
         })
         .then((response) => {
           if (response.data.errorMessage) {
-            setErrorPassword(response.data.errorMessage);
+            return setErrorPassword(response.data.errorMessage);
+          } else {
+            window.my_modal_3.close();
+            setSuccessMessage("Password Changed");
+            setErrorPassword("");
           }
         })
         .catch((err) => console.log(err));
     }
-    window.my_modal_3.close();
-    setSuccessMessage("Password Changed")
-    setErrorPassword("");
   };
 
   return (

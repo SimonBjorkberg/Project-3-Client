@@ -41,11 +41,11 @@ const SearchBar = ({
                   setSearchValue("");
                 }}
                 key={product._id}
-                className="bg-neutral-50 rounded-none text-left border-b flex justify-between hover:cursor-pointer p-2"
+                className="bg-neutral-50 rounded-none text-left border-b flex justify-between hover:cursor-pointer hover:bg-neutral-200 p-2"
               >
                 <p className="text-lg p-2 font-semibold">{product.title}</p>
                 <div className="hidden md:flex mr-2">
-                {product.categories.map((category, index) => (
+                  {product.categories.map((category, index) => (
                     <div
                       key={index}
                       className={`${
