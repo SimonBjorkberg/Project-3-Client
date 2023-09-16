@@ -20,11 +20,7 @@ function Categories() {
         <Link to="/products">
           <button
             onClick={() => handleClick("rompers")}
-            className={`${
-              filter === "rompers"
-                ? "bg-white border-neutral border text-neutral"
-                : "text-white border border-white hover:bg-neutral-focus"
-            } px-2.5 py-1.5 rounded-md font-light bg-neutral w-fit`}
+            className="text-white border border-white hover:bg-neutral-focus px-2.5 py-1.5 rounded-md font-light bg-neutral w-fit"
           >
             Rompers
           </button>
@@ -32,11 +28,7 @@ function Categories() {
         <Link to="/products">
           <button
             onClick={() => handleClick("sleepsuits")}
-            className={`${
-              filter === "sleepsuits"
-                ? "bg-white border-neutral border text-neutral"
-                : "text-white border border-white hover:bg-neutral-focus"
-            } px-2.5 py-1.5 rounded-md font-light bg-neutral w-fit`}
+            className="text-white border border-white hover:bg-neutral-focus px-2.5 py-1.5 rounded-md font-light bg-neutral w-fit"
           >
             Sleepsuits
           </button>
@@ -44,11 +36,7 @@ function Categories() {
         <Link to="/products">
           <button
             onClick={() => handleClick("onesies")}
-            className={`${
-              filter === "onesies"
-                ? "bg-white border-neutral border text-neutral"
-                : "text-white border border-white hover:bg-neutral-focus"
-            } px-2.5 py-1.5 rounded-md font-light bg-neutral w-fit`}
+            className="text-white border border-white hover:bg-neutral-focus px-2.5 py-1.5 rounded-md font-light bg-neutral w-fit"
           >
             Onesies
           </button>
@@ -56,11 +44,7 @@ function Categories() {
         <Link to="/products">
           <button
             onClick={() => handleClick("bodysuits")}
-            className={`${
-              filter === "bodysuits"
-                ? "bg-white border-neutral border text-neutral"
-                : "text-white border border-white hover:bg-neutral-focus"
-            } px-2.5 py-1.5 rounded-md font-light bg-neutral w-fit`}
+            className="text-white border border-white hover:bg-neutral-focus px-2.5 py-1.5 rounded-md font-light bg-neutral w-fit"
           >
             Bodysuits
           </button>
@@ -68,11 +52,7 @@ function Categories() {
         <Link to="/products">
           <button
             onClick={() => handleClick("dresses")}
-            className={`${
-              filter === "dresses"
-                ? "bg-white border-neutral border text-neutral"
-                : "text-white border border-white hover:bg-neutral-focus"
-            } px-2.5 py-1.5 rounded-md font-light bg-neutral w-fit`}
+            className="text-white border border-white hover:bg-neutral-focus px-2.5 py-1.5 rounded-md font-light bg-neutral w-fit"
           >
             Dresses
           </button>
@@ -80,11 +60,7 @@ function Categories() {
         <Link to="/products">
           <button
             onClick={() => handleClick("t-shirts")}
-            className={`${
-              filter === "t-shirts"
-                ? "bg-white border-neutral border text-neutral"
-                : "text-white border border-white hover:bg-neutral-focus"
-            } px-2.5 py-1.5 rounded-md font-light bg-neutral w-fit`}
+            className="text-white border border-white hover:bg-neutral-focus px-2.5 py-1.5 rounded-md font-light bg-neutral w-fit"
           >
             T-Shirts
           </button>
@@ -92,11 +68,7 @@ function Categories() {
         <Link to="/products">
           <button
             onClick={() => handleClick("pantsNleggings")}
-            className={`${
-              filter === "pantsNleggings"
-                ? "bg-white border-neutral border text-neutral"
-                : "text-white border border-white hover:bg-neutral-focus"
-            } px-2.5 py-1.5 rounded-md font-light bg-neutral w-fit`}
+            className="text-white border border-white hover:bg-neutral-focus px-2.5 py-1.5 rounded-md font-light bg-neutral w-fit"
           >
             Pants & Leggings
           </button>
@@ -104,11 +76,7 @@ function Categories() {
         <Link to="/products">
           <button
             onClick={() => handleClick("sweatersNcardigans")}
-            className={`${
-              filter === "sweatersNcardigans"
-                ? "bg-white border-neutral border text-neutral"
-                : "text-white border border-white hover:bg-neutral-focus"
-            } px-2.5 py-1.5 rounded-md font-light bg-neutral w-fit`}
+            className="text-white border border-white hover:bg-neutral-focus px-2.5 py-1.5 rounded-md font-light bg-neutral w-fit"
           >
             Sweaters & Cardigans
           </button>
@@ -116,11 +84,7 @@ function Categories() {
         <Link to="/products">
           <button
             onClick={() => handleClick("bibs")}
-            className={`${
-              filter === "bibs"
-                ? "bg-white border-neutral border text-neutral"
-                : "text-white border border-white hover:bg-neutral-focus"
-            } px-2.5 py-1.5 rounded-md font-light bg-neutral w-fit`}
+            className="text-white border border-white hover:bg-neutral-focus px-2.5 py-1.5 rounded-md font-light bg-neutral w-fit"
           >
             Bibs
           </button>
@@ -128,11 +92,7 @@ function Categories() {
         <Link to="/products">
           <button
             onClick={() => handleClick("outerwear")}
-            className={`${
-              filter === "outerwear"
-                ? "bg-white border-neutral border text-neutral"
-                : "text-white border border-white hover:bg-neutral-focus"
-            } px-2.5 py-1.5 rounded-md font-light bg-neutral w-fit`}
+            className="text-white border border-white hover:bg-neutral-focus px-2.5 py-1.5 rounded-md font-light bg-neutral w-fit"
           >
             Outerwear
           </button>
