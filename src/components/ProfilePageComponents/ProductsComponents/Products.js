@@ -19,7 +19,7 @@ const Products = ({
   const [products, setProducts] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
-  const [image, setImage] = useState([]);
+  const [image, setImage] = useState("");
   const [categorieOptions, setCategorieOptions] = useState([]);
   const [wearOptions, setWearOptions] = useState([]);
   const [editProduct, setEditProduct] = useState({});
@@ -287,7 +287,6 @@ const Products = ({
                 </div>
                 <EditProductDialog
                   modalId={modalId}
-                  setImage={setImage}
                   setEditProduct={setEditProduct}
                   product={product}
                   message={message}
@@ -296,6 +295,7 @@ const Products = ({
                   editProduct={editProduct}
                   appendImage={appendImage}
                   image={image}
+                  setImage={setImage}
                   handleChange={handleChange}
                   wearList={wearList}
                   wearOptions={wearOptions}
