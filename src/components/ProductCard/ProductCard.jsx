@@ -78,7 +78,7 @@ function ProductCard({ product }) {
               <p>Brand: {product.brand}</p>
               <p>{product.age}</p>
             </div>
-            <div className="card-actions justify-center">
+            <div className="card-actions justify-center h-[132px]">
               {product.categories.map((category, index) => (
                 <div
                   key={index}

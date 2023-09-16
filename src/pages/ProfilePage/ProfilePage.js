@@ -96,6 +96,7 @@ const ProfilePageTest = (props) => {
             {showInfo === "orders" && (
               <OrdersList
                 foundUser={foundUser}
+                userId={userId}
               />
             )}
           </div>

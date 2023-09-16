@@ -98,11 +98,6 @@ const EditProductDialog = ({
           <h1 className="text-center font-semibold text-lg">
             Product Information
           </h1>
-          {message && (
-            <p className="p-2 text-green-600 font-semibold text-xl">
-              {message}
-            </p>
-          )}
           <form
             className="flex flex-col max-w-[400px] mx-auto"
             onSubmit={(e) => handleSubmit(e, modalId)}
