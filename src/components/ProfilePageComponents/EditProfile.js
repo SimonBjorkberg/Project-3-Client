@@ -26,6 +26,9 @@ const EditProfile = ({ foundUser, setFoundUser, setSuccessMessage }) => {
       loggedInUser._id,
       response.data.fileUrl
     );
+    if (!image) {
+      return
+    }
     setFoundUser((user) => ({ ...user, image: userResponse.data.image }));
     setUserInfo((userInfo) => ({
       ...userInfo,
@@ -195,6 +198,7 @@ const EditProfile = ({ foundUser, setFoundUser, setSuccessMessage }) => {
               Current Password:
             </label>
             <input
+              autoComplete="off"
               className="p-2 focus:outline-none border"
               type="password"
               name="newPassword"
