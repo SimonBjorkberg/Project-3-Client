@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import LOGO from '../../navbarLogo.png'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/auth.context";
@@ -52,9 +53,9 @@ const Navbar = () => {
 
   return (
     <nav className="h-20 bg-neutral flex w-full md:pl-0 fixed z-50">
-      <div className="h-full w-1/5 md:w-40 flex md:justify-center justify-between items-center">
+      <div className="md:w-28 flex md:justify-center w-28 h-20 justify-between items-center">
         <Link to="/">
-          <p className="text-2xl text-white">Home</p>
+          <img src={LOGO} className="h-20 w-28" alt="logo" />
         </Link>
       </div>
       <SearchBar
